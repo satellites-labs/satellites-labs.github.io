@@ -3,4 +3,11 @@
 Exception in thread &amp;#34;slow-fetch-15&amp;#34; java.lang.OutOfMemoryError: unable to create new native thread 428 at java.lang.Thread.start0(Native Method) 429 at java.lang.Thread.start(Thread.java:719) 430 at java.util.concurrent.ThreadPoolExecutor.addWorker(ThreadPoolExecutor.java:957) 431 at java.util.concurrent.ThreadPoolExecutor.processWorkerExit(ThreadPoolExecutor.java:1025) 432 at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167) 433 at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) 进入 Pod 内，尝试执行任何操作，又会出现 unable to start container process 错误。
 一开始怀疑是内存不足，调大了内存，同时也缩小了 Java 的 xss， 都不起作用。
 真实原因： K8S 容器限制了 PID 数，无法创建新的线程，在 Pod 内 cat /sys/fs/cgroup/pids/pids.max 发现是 1024。
-关于 K8S pid limit， 可参考此资料：https://kubernetes.</description></item></channel></rss>
+关于 K8S pid limit， 可参考此资料：https://kubernetes.</description></item><item><title>K8S 容器内 Java 进程内存分析</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>故事背景：
+一个 K8S Pod，里面只有一个 Java 进程，K8S request 和 limit memory 都是 2G，Java 进程核心参数包括：-XX:+UseZGC -Xmx1024m -Xms768m -XX:SoftMaxHeapSize=512m。
+服务启动一段时间后，查看 Grafana 监控数据，Pod 内存使用量约 1.5G，JVM 内存使用量约 500M，通过 jvm dump 分析没有任何大对象，运行三五天后出现 ContainerOOM。
+首先区分下 ContainerOOM 和 JvmOOM，ContainerOOM 是 Pod 内存不够，Java 向操作系统申请内存时内存不足导致。
+问题来了：
+Pod 2G 内存，JVM 设置了 Xmx 1G，已经预留了 1G 内存，为什么还会 ContainerOOM，这预留的 1G 内存被谁吃了。 正常情况下（无 ContainerOOM），Grafana 看到的监控数据，Pod 内存使用量 1.5G， JVM 内存使用量 500M，差别为什么这么大。 Grafana 看到的监控数据，内存使用量、提交量各是什么意思，这些值是怎么算出来的，和 Pod 进程中如何对应，为什么提交量一直居高不小。 Grafana 监控图。
+统计指标 Pod 内存使用量统计的指标是 container_memory_working_set_bytes：
+container_memory_usage_bytes = container_memory_rss + container_memory_cache + kernel memory container_memory_working_set_bytes = container_memory_usage_bytes - total_inactive_file（未激活的匿名缓存页） container_memory_working_set_bytes 是容器真实使用的内存量，也是资源限制 limit 时的 OOM 判断依据。</description></item></channel></rss>
