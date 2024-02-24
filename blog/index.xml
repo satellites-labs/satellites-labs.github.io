@@ -1,31 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Thu, 07 Sep 2023 16:21:44 +0200</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>重复 Transfer-Encoding Header 引起的服务 500 问题</title><link>https://www.xlabs.club/blog/duplicate-transfer-encoding-chunked/</link><pubDate>Sun, 26 Nov 2023 10:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/duplicate-transfer-encoding-chunked/</guid><description>我有一个 Spring Boot 应用服务，提供了一些简单的查询接口，本身运行很正常，通过 curl 或其他 http 客户端 localhost 请求都没有问题。
-某天通过 Traefik 代理了此服务，经过代理后再访问，某个接口一直都是 500 internal server error，其他接口都没有问题。通过 tcpdump 抓包发现，应用服务并没有返回任何 500 错误，而且响应时间和 Body 体大小都很正常。
-根据网上经验排查了 Traefik SSL 证书问题、路径问题、消息体太大问题、请求 Header 不合规问题，都一一否定。最后无意间看了一眼 Response Header，发现 Spring Boot 应用返回了两个 Transfer-Encoding: chunked Header。
-再根据此 Header 搜索，发现果然有人遇到过类似问题，请参考这几个链接。
-https://github.com/traefik/traefik/issues/7741 https://github.com/spring-projects/spring-framework/issues/21523 https://github.com/spring-projects/spring-boot/issues/37646 https://stackoverflow.com/questions/77042701/nginx-upstream-sent-duplicate-header-line-transfer-encoding-chunked-previo 从上面链接描述中可知，不仅 Traefik 会出现此问题，nginx 包含以 nginx 为基础的 ingress 也会出现同样问题，不过 nginx 返回错误信息类似 Nginx: upstream sent duplicate header line: &amp;quot;Transfer-Encoding: chunked&amp;quot;, previous value: &amp;quot;Transfer-Encoding: chunked” ，返回错误码一般是 502 Bad Gateway。</description></item><item><title>K8S 容器 PID 限制引起的 OOM</title><link>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</link><pubDate>Thu, 07 Sep 2023 16:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</guid><description>问题描述：
+某天通过 Traefik 代理了此服务，经过代理后再访问，某个接口一直都是 500 internal server error，其他接口都没有问题。通过 tcpdump 抓包发现，应用服务并没有返回任何 500 错误，而且响应时间和 Body 体大小都很正常。</description></item><item><title>K8S 容器 PID 限制引起的 OOM</title><link>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</link><pubDate>Thu, 07 Sep 2023 16:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</guid><description>问题描述：
 一个 Java 应用跑在 K8S 容器内，Pod 内只有 Java 这一个进程。应用跑了一段时间后，CPU、内存占用都不高，但是却出现以下 OutOfMemoryError 错误。
-Exception in thread &amp;#34;slow-fetch-15&amp;#34; java.lang.OutOfMemoryError: unable to create new native thread 428 at java.lang.Thread.start0(Native Method) 429 at java.lang.Thread.start(Thread.java:719) 430 at java.util.concurrent.ThreadPoolExecutor.addWorker(ThreadPoolExecutor.java:957) 431 at java.util.concurrent.ThreadPoolExecutor.processWorkerExit(ThreadPoolExecutor.java:1025) 432 at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167) 433 at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) 进入 Pod 内，尝试执行任何操作，又会出现 unable to start container process 错误。
-一开始怀疑是内存不足，调大了内存，同时也缩小了 Java 的 xss， 都不起作用。
-真实原因： K8S 容器限制了 PID 数，无法创建新的线程，在 Pod 内 cat /sys/fs/cgroup/pids/pids.max 发现是 1024。
-关于 K8S pid limit， 可参考此资料：https://kubernetes.</description></item><item><title>K8S 容器内 Java 进程内存分析</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>故事背景：
+Exception in thread &amp;#34;slow-fetch-15&amp;#34; java.lang.OutOfMemoryError: unable to create new native thread 428 at java.</description></item><item><title>K8S 容器内 Java 进程内存分析</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>故事背景：
 一个 K8S Pod，里面只有一个 Java 进程，K8S request 和 limit memory 都是 2G，Java 进程核心参数包括：-XX:+UseZGC -Xmx1024m -Xms768m -XX:SoftMaxHeapSize=512m。
-服务启动一段时间后，查看 Grafana 监控数据，Pod 内存使用量约 1.5G，JVM 内存使用量约 500M，通过 jvm dump 分析没有任何大对象，运行三五天后出现 ContainerOOM。
-首先区分下 ContainerOOM 和 JvmOOM，ContainerOOM 是 Pod 内存不够，Java 向操作系统申请内存时内存不足导致。
-问题来了：
-Pod 2G 内存，JVM 设置了 Xmx 1G，已经预留了 1G 内存，为什么还会 ContainerOOM，这预留的 1G 内存被谁吃了。 正常情况下（无 ContainerOOM），Grafana 看到的监控数据，Pod 内存使用量 1.5G， JVM 内存使用量 500M，差别为什么这么大。 Grafana 看到的监控数据，内存使用量、提交量各是什么意思，这些值是怎么算出来的，和 Pod 进程中如何对应，为什么提交量一直居高不小。 Grafana 监控图。
-统计指标 Pod 内存使用量统计的指标是 container_memory_working_set_bytes：
-container_memory_usage_bytes = container_memory_rss + container_memory_cache + kernel memory container_memory_working_set_bytes = container_memory_usage_bytes - total_inactive_file（未激活的匿名缓存页） container_memory_working_set_bytes 是容器真实使用的内存量，也是资源限制 limit 时的 OOM 判断依据。</description></item><item><title>使用 Visual Studio Code 搭建多用户远程 IDE</title><link>https://www.xlabs.club/blog/code-server/</link><pubDate>Wed, 07 Sep 2022 16:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/code-server/</guid><description>为 VS Code Web 版 code-server 增加外部认证，并支持多用户，不同用户的 code-server 实例完全隔离。
+服务启动一段时间后，查看 Grafana 监控数据，Pod 内存使用量约 1.</description></item><item><title>使用 Visual Studio Code 搭建多用户远程 IDE</title><link>https://www.xlabs.club/blog/code-server/</link><pubDate>Wed, 07 Sep 2022 16:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/code-server/</guid><description>为 VS Code Web 版 code-server 增加外部认证，并支持多用户，不同用户的 code-server 实例完全隔离。
 主要为了解决问题：
 code-server 本身只支持配置文件形式的用户名密码认证（截止目前，以后也许会改进）。所以引入了外部认证系统，Google、GitHub、 okta、CAS、Keycloak 等理论上都是支持的。
-code-server 默认没有数据隔离，所以又加了一层 auth proxy，为每个用户创建一个（或多个）code-server 实例，通过 proxy 代理到各自的实例，以实现用户间的数据隔离。
-使用开源 Auth Proxy，无需自己编码即可实现认证授权流程，比如 code flow with pkce 对大部分人来说读懂这个协议都很困难。
-此文档源码请参考：architecture-diagram
-使用组件 keycloak
-Redhat 开源 IAM 系统，目前也是 CNCF 项目，提供用户、组织服务，提供标准 OIDC。
-oauth2-proxy
-认证代理，配合 keycloak 提供完整 OAuth2 Code Flow 认证流程。也可以试试 pomerium，看样子也不错。
-架构图如下。
-核心逻辑 架构图简单解读，所有过程官方文档都有详细说明，都是配置，以官方配置为准。
-keycloak 创建 client，使用 OIDC 协议，作为 oauth2-proxy 的 provider。
-ingress(nginx) 使用 auth_request 指令拦截所有请求，从 oauth2-proxy 进行代理认证，配置可参考 oauth2-proxy auth_request 指导。
-nginx.ingress.kubernetes.io/auth-signin: https://$host/oauth2/start?rd=$escaped_request_uri nginx.</description></item></channel></rss>
+code-server 默认没有数据隔离，所以又加了一层 auth proxy，为每个用户创建一个（或多个）code-server 实例，通过 proxy 代理到各自的实例，以实现用户间的数据隔离。</description></item></channel></rss>
