@@ -37,4 +37,12 @@ oauth2-proxy
 核心逻辑 架构图简单解读，所有过程官方文档都有详细说明，都是配置，以官方配置为准。
 keycloak 创建 client，使用 OIDC 协议，作为 oauth2-proxy 的 provider。
 ingress(nginx) 使用 auth_request 指令拦截所有请求，从 oauth2-proxy 进行代理认证，配置可参考 oauth2-proxy auth_request 指导。
-nginx.ingress.kubernetes.io/auth-signin: https://$host/oauth2/start?rd=$escaped_request_uri nginx.</description></item></channel></rss>
+nginx.ingress.kubernetes.io/auth-signin: https://$host/oauth2/start?rd=$escaped_request_uri nginx.</description></item><item><title>备考 CKA 过程，CKA 真题分享</title><link>https://www.xlabs.club/blog/kubernetes-cka/</link><pubDate>Sat, 26 Feb 2022 23:42:48 +0800</pubDate><guid>https://www.xlabs.club/blog/kubernetes-cka/</guid><description>备考 CKA （Certified Kubernetes Administrator）过程，心得，遇见问题，CKA 真题。
+一句话总结：按照教程多练习，把控好时间就能通过，期望通过刷题通过考试的年代已经过去了，而且多练习对平时工作真的有用。
+备考环境 备考使用的系统和软件版本如下。
+Ubuntu：20.04 Focal Fossa Kubernetes：1.20.7 kubeadm：1.20.7 安装和使用问题记录 kubeadm 安装问题 安装 kubeadm，国内安装使用阿里镜像源。
+$ cat /etc/apt/sources.list.d/kubernetes.list deb https://mirrors.aliyun.com/kubernetes/apt kubernetes-xenial main 踩坑：因为使用的是 ubuntu 20.04，代号 focal，专门去各个代理镜像源找kubernetes-focal都没有找到，后来发现 google 官方根本没发布对应的版本，只有kubernetes-xenial， k8s 官方文档里 ubuntu 也是用的这一个版本。可以用，就用他吧。
+kubeadm init 时指定使用阿里镜像源（解决国内连不上 k8s.gcr.io 的问题）、指定版本号（安装考试对应的版本，不一定是最新版本）。
+通过指定--image-repository，不需要手动下载镜像重新打 tag，kubeadm 自动使用指定的 repository。
+kubeadm init --image-repository=registry.aliyuncs.com/google_containers \ --pod-network-cidr=10.244.0.0/16 \ --kubernetes-version=v1.20.7解决 scheduler Unhealthy，controller-manager Unhealthy 第一次安装完成后通过 kubectl get cs命令，发现 scheduler Unhealthy，controller-manager Unhealthy。
+$ kubectl get cs NAME STATUS MESSAGE scheduler Unhealthy Get &amp;#34;http://127.</description></item></channel></rss>
