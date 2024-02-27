@@ -7,4 +7,9 @@ icacls C:\要修复的文件路径 /Grant Administrators:F命令行设置环境
 为账户 B 准备一个单独的配置文件，比如： ~/.gitconfig-b，内容根据需要定义。
 [user] name = userb-name email = userb-email@test.com修改 ~/.gitconfig 文件，增加以下配置，引用上面创建的配置文件，注意其中的路径用绝对路径，并且路径以 / 结尾。
 [includeIf &amp;#34;gitdir:/project/path-b/&amp;#34;] path = /Users/xxxx/.gitconfig-b保存后，在 /project/path-b/ 下新的仓库都会以 .gitconfig-b 中的用户名和邮箱提交了。
-注意如果使用 ssh key 方式，在生成 key 的时候 ssh-keygen 名字指定文件名，多个 key 不要覆盖了。</description></item></channel></rss>
+注意如果使用 ssh key 方式，在生成 key 的时候 ssh-keygen 名字指定文件名，多个 key 不要覆盖了。</description></item><item><title>Shell 编程实用句式速查</title><link>https://www.xlabs.club/blog/shell-coding/</link><pubDate>Mon, 27 Feb 2023 20:48:53 +0800</pubDate><guid>https://www.xlabs.club/blog/shell-coding/</guid><description>选择执行环境。
+#!/usr/bin/env bash #!/usr/bin/bash检查是否以 root 用户执行。
+# check if run as root user if [[ `id -u` -ne 0 ]]; then echo &amp;#34;You need root privileges to run this script.&amp;#34; fi获取正在执行脚本的绝对路径，注意直接用 $0 或 pwd 获取的可能都不要你想要的。
+current_dir=$(cd `dirname $0`;pwd)为当前目录包含子目录下所有 .sh 文件增加可执行权限。
+chmod +x `find . -name &amp;#39;*.sh&amp;#39;`将提示信息显示到终端（控制台），同时也写入到文件里。
+log_file=/var/log/test.log echo &amp;#34;This line will echo to console and also write to log file.&amp;#34; | tee -a ${log_file}类似于 Java properties 中 key=value 形式的字符串，取 key 和 value 的值。</description></item></channel></rss>
