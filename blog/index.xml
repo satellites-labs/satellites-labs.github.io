@@ -1,4 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 12 Apr 2024 13:45:15 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>K8S 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 13 Apr 2024 16:54:18 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 搭建本地 K8S 开发环境最佳方案</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司集群，所以就有了本地搭建 K8S 的需求。
+以下介绍一下我用过的几种不同方案，有些纯属个人观点仅供参考。
+Docker Desktop 并启用 Kubernetes 功能。
+优点：最简单，开箱即用。
+缺点：只支持单节点 K8S，且 K8S 不易定制。
+Docker run K3D, K3D run K3S。
+优点：简单，任何支持 docker 的工具（Rancher Desktop、Podman） 启动一个容器即可。
+缺点：只支持 K3S。
+multipass 启动虚拟机安装 K8S 或 K3S。
+优点：multipass 可启动空白 ubuntu 虚拟机，或者启动已经安装好 minikube 的虚拟机。
+缺点：只支持 ubuntu，虚拟机与宿主机同架构。
+lima 启动虚拟机安装 K8S 或 K3S。
+优点：支持虚拟多种 Linux，支持异构虚拟机，支持 contained 可代替 docker。
+缺点：架构稍复杂，启动略慢，不如 multipass 稳定，不支持运行在 Windows。
+以上方案，在网络畅通的情况下，均能在 10 分钟内启动一个单节点 K8S，所以整体方案都不复杂。
+如何选择：
+如果你需要在公司使用，并且不想买商业 License 的话，可直接排除 Docker Desktop。
+如果你需要对 K8S 集群有些把控，有较多定制，可排除 K3D。
+如果你的开发机器是 Windows，可排除 lima，目前还不支持运行在 Windows 上。</description></item><item><title>K8S 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上。
 已知的情况是：
 K8S Service 使用 round-robin 负载均衡策略。 客户端和服务端都启用了 Keep-Alive 长连接。 经过抓包分析，负载较高的 Pod 保持着较多 KeepAlive 长连接。将 kube-proxy 的 ipvs 转发模式设置为 Least-Connection，即倾向转发给连接数少的 Pod，可能会有所缓解，但也不一定，因为 ipvs 的负载均衡状态是分散在各个节点的，并没有收敛到一个地方，也就无法在全局层面感知哪个 Pod 上的连接数少，并不能真正做到 Least-Connection。
 服务端主动要求断开长连接 客户端连接我们可能无法控制，那么如何从服务端主动断开长连接。
@@ -45,8 +63,4 @@ icacls C:\要修复的文件路径 /Grant Administrators:F命令行设置环境
 为账户 B 准备一个单独的配置文件，比如： ~/.gitconfig-b，内容根据需要定义。
 [user] name = userb-name email = userb-email@test.com修改 ~/.gitconfig 文件，增加以下配置，引用上面创建的配置文件，注意其中的路径用绝对路径，并且路径以 / 结尾。
 [includeIf &amp;#34;gitdir:/project/path-b/&amp;#34;] path = /Users/xxxx/.gitconfig-b保存后，在 /project/path-b/ 下新的仓库都会以 .gitconfig-b 中的用户名和邮箱提交了。
-注意如果使用 ssh key 方式，在生成 key 的时候 ssh-keygen 名字指定文件名，多个 key 不要覆盖了。</description></item><item><title>重复 Transfer-Encoding Response Header 引起的 Traefik 代理服务 500 问题</title><link>https://www.xlabs.club/blog/duplicate-transfer-encoding-chunked/</link><pubDate>Sun, 26 Nov 2023 10:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/duplicate-transfer-encoding-chunked/</guid><description>我有一个 Spring Boot 应用服务，提供了一些简单的查询接口，本身运行很正常，通过 curl 或其他 http 客户端 localhost 请求都没有问题。
-某天通过 Traefik 代理了此服务，经过代理后再访问，某个接口一直都是 500 internal server error，其他接口都没有问题。通过 tcpdump 抓包发现，应用服务并没有返回任何 500 错误，而且响应时间和 Body 体大小都很正常。
-根据网上经验排查了 Traefik SSL 证书问题、路径问题、消息体太大问题、请求 Header 不合规问题，都一一否定。最后无意间看了一眼 Response Header，发现 Spring Boot 应用返回了两个 Transfer-Encoding: chunked Header。
-再根据此 Header 搜索，发现果然有人遇到过类似问题，请参考这几个链接。
-https://github.com/traefik/traefik/issues/7741 https://github.com/spring-projects/spring-framework/issues/21523 https://github.com/spring-projects/spring-boot/issues/37646 https://stackoverflow.com/questions/77042701/nginx-upstream-sent-duplicate-header-line-transfer-encoding-chunked-previo 从上面链接描述中可知，不仅 Traefik 会出现此问题，nginx 包含以 nginx 为基础的 ingress 也会出现同样问题，不过 nginx 返回错误信息类似 Nginx: upstream sent duplicate header line: &amp;quot;Transfer-Encoding: chunked&amp;quot;, previous value: &amp;quot;Transfer-Encoding: chunked” ，返回错误码一般是 502 Bad Gateway。</description></item></channel></rss>
+注意如果使用 ssh key 方式，在生成 key 的时候 ssh-keygen 名字指定文件名，多个 key 不要覆盖了。</description></item></channel></rss>

@@ -1,4 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>K8s on XLabs</title><link>https://www.xlabs.club/categories/k8s/</link><description>Recent content in K8s on XLabs</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 12 Apr 2024 13:45:15 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/categories/k8s/index.xml" rel="self" type="application/rss+xml"/><item><title>K8S 容器 PID 限制引起的 Java OutOfMemoryError</title><link>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</link><pubDate>Thu, 07 Sep 2023 16:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</guid><description>问题描述：
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>K8s on XLabs</title><link>https://www.xlabs.club/categories/k8s/</link><description>Recent content in K8s on XLabs</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 13 Apr 2024 16:54:18 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/categories/k8s/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 搭建本地 K8S 开发环境最佳方案</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司集群，所以就有了本地搭建 K8S 的需求。
+以下介绍一下我用过的几种不同方案，有些纯属个人观点仅供参考。
+Docker Desktop 并启用 Kubernetes 功能。
+优点：最简单，开箱即用。
+缺点：只支持单节点 K8S，且 K8S 不易定制。
+Docker run K3D, K3D run K3S。
+优点：简单，任何支持 docker 的工具（Rancher Desktop、Podman） 启动一个容器即可。
+缺点：只支持 K3S。
+multipass 启动虚拟机安装 K8S 或 K3S。
+优点：multipass 可启动空白 ubuntu 虚拟机，或者启动已经安装好 minikube 的虚拟机。
+缺点：只支持 ubuntu，虚拟机与宿主机同架构。
+lima 启动虚拟机安装 K8S 或 K3S。
+优点：支持虚拟多种 Linux，支持异构虚拟机，支持 contained 可代替 docker。
+缺点：架构稍复杂，启动略慢，不如 multipass 稳定，不支持运行在 Windows。
+以上方案，在网络畅通的情况下，均能在 10 分钟内启动一个单节点 K8S，所以整体方案都不复杂。
+如何选择：
+如果你需要在公司使用，并且不想买商业 License 的话，可直接排除 Docker Desktop。
+如果你需要对 K8S 集群有些把控，有较多定制，可排除 K3D。
+如果你的开发机器是 Windows，可排除 lima，目前还不支持运行在 Windows 上。</description></item><item><title>K8S 容器 PID 限制引起的 Java OutOfMemoryError</title><link>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</link><pubDate>Thu, 07 Sep 2023 16:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</guid><description>问题描述：
 一个 Java 应用跑在 K8S 容器内，Pod 内只有 Java 这一个进程。应用跑了一段时间后，CPU、内存占用都不高，但是却出现以下 OutOfMemoryError 错误。
 Exception in thread &amp;#34;slow-fetch-15&amp;#34; java.lang.OutOfMemoryError: unable to create new native thread 428 at java.lang.Thread.start0(Native Method) 429 at java.lang.Thread.start(Thread.java:719) 430 at java.util.concurrent.ThreadPoolExecutor.addWorker(ThreadPoolExecutor.java:957) 431 at java.util.concurrent.ThreadPoolExecutor.processWorkerExit(ThreadPoolExecutor.java:1025) 432 at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167) 433 at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) 进入 Pod 内，尝试执行任何操作，又会出现 unable to start container process 错误。
 一开始怀疑是内存不足，调大了内存，同时也缩小了 Java 的 xss，都不起作用。

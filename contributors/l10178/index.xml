@@ -1,4 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 12 Apr 2024 13:45:15 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>K8S 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 13 Apr 2024 16:54:18 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 搭建本地 K8S 开发环境最佳方案</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司集群，所以就有了本地搭建 K8S 的需求。
+以下介绍一下我用过的几种不同方案，有些纯属个人观点仅供参考。
+Docker Desktop 并启用 Kubernetes 功能。
+优点：最简单，开箱即用。
+缺点：只支持单节点 K8S，且 K8S 不易定制。
+Docker run K3D, K3D run K3S。
+优点：简单，任何支持 docker 的工具（Rancher Desktop、Podman） 启动一个容器即可。
+缺点：只支持 K3S。
+multipass 启动虚拟机安装 K8S 或 K3S。
+优点：multipass 可启动空白 ubuntu 虚拟机，或者启动已经安装好 minikube 的虚拟机。
+缺点：只支持 ubuntu，虚拟机与宿主机同架构。
+lima 启动虚拟机安装 K8S 或 K3S。
+优点：支持虚拟多种 Linux，支持异构虚拟机，支持 contained 可代替 docker。
+缺点：架构稍复杂，启动略慢，不如 multipass 稳定，不支持运行在 Windows。
+以上方案，在网络畅通的情况下，均能在 10 分钟内启动一个单节点 K8S，所以整体方案都不复杂。
+如何选择：
+如果你需要在公司使用，并且不想买商业 License 的话，可直接排除 Docker Desktop。
+如果你需要对 K8S 集群有些把控，有较多定制，可排除 K3D。
+如果你的开发机器是 Windows，可排除 lima，目前还不支持运行在 Windows 上。</description></item><item><title>K8S 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上。
 已知的情况是：
 K8S Service 使用 round-robin 负载均衡策略。 客户端和服务端都启用了 Keep-Alive 长连接。 经过抓包分析，负载较高的 Pod 保持着较多 KeepAlive 长连接。将 kube-proxy 的 ipvs 转发模式设置为 Least-Connection，即倾向转发给连接数少的 Pod，可能会有所缓解，但也不一定，因为 ipvs 的负载均衡状态是分散在各个节点的，并没有收敛到一个地方，也就无法在全局层面感知哪个 Pod 上的连接数少，并不能真正做到 Least-Connection。
 服务端主动要求断开长连接 客户端连接我们可能无法控制，那么如何从服务端主动断开长连接。
@@ -49,10 +67,4 @@ oauth2-proxy
 核心逻辑 架构图简单解读，所有过程官方文档都有详细说明，都是配置，以官方配置为准。
 keycloak 创建 client，使用 OIDC 协议，作为 oauth2-proxy 的 provider。
 ingress(nginx) 使用 auth_request 指令拦截所有请求，从 oauth2-proxy 进行代理认证，配置可参考 oauth2-proxy auth_request 指导。
-nginx.ingress.kubernetes.io/auth-signin: https://$host/oauth2/start?rd=$escaped_request_uri nginx.</description></item><item><title>Spring Boot 自定义监控指标</title><link>https://www.xlabs.club/blog/spring-boot-micrometer/</link><pubDate>Mon, 07 Aug 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-micrometer/</guid><description>Spring Boot 使用 Micrometer 集成 Prometheus 监控，5 分钟接入自定义监控指标，主要内容：
-Micrometer 介绍。 业务如何自定义指标，如何接入 Prometheus，实现方式和规范。 Micrometer 介绍 Micrometer 为 Java 平台上的性能数据收集提供了一个通用的 API，应用程序只需要使用 Micrometer 的通用 API 来收集性能指标，Micrometer 会负责完成与不同监控系统的适配工作。
-Micrometer 提供了多种度量指标类型（Timers、Guauges、Counters 等），同时支持接入不同的监控系统，例如 Influxdb、Graphite、Prometheus、OTLP 等。
-从 Spring Boot 2.x 开始使用 Micrometer 作为默认的监控门面接口， Think SLF4J, but for observability 。
-Micrometer 核心概念 Micrometer 中两个最核心的概念：计量器注册表 (MeterRegistry)，计量器 (Meter)。
-MeterRegistry
-内存注册表 (SimpleMeterRegistry): 在内存中保存每一个 Meter（指标）的最新值，并且不会将数据导出到任何地方。 组合注册表 (CompositeMeterRegistry): 可以添加多个注册表，用于将各个注册表组合起来，可以同时将指标发布到多个监控系统。Micrometer 提供了一个全局的 MeterRegistry，io.micrometer.core.instrument.Metrics 中持有一个静态 final 的 CompositeMeterRegistry 实例 globalRegistry。 普罗米修斯注册表 (PrometheusMeterRegistry): 当使用普罗米修斯监控时，引入 micrometer-registry-prometheus 依赖时会提供此种收集器，用于将指标数据转换为普罗米修斯识别的格式和导出数据等功能。 Meter（指标）</description></item></channel></rss>
+nginx.ingress.kubernetes.io/auth-signin: https://$host/oauth2/start?rd=$escaped_request_uri nginx.</description></item></channel></rss>
