@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Tue, 16 Apr 2024 22:49:56 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 搭建本地 K8S 开发环境方案选型</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司集群，所以就有了本地搭建 K8S 的需求。
-以下介绍一下我用过的几种不同方案，有些纯属个人观点仅供参考。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Tue, 16 Apr 2024 22:59:18 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 搭建本地 K8S 开发环境方案选型</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司集群，所以就有了本地搭建 K8S 的需求。
+另外如果你有以下需求，此文档中提到的方案也许有所帮助：
+开发机器模拟 Arm、AMD64 等不同架构。 完全隔离的不同环境，比如为测试 docker、podman、buildkit、containd 等不同软件设置的独立环境。 CI/CD 流程中即用即消的轻量级虚拟机替代方案。 有限的资源模拟大批量的 K8S 节点。 以下介绍一下我用过的几种不同方案，有些纯属个人观点仅供参考。
 Docker Desktop 并启用 Kubernetes 功能。
 优点：最简单，开箱即用。
 缺点：只支持单节点 K8S，且 K8S 部分功能不支持，不易定制。
@@ -12,11 +13,7 @@ multipass 启动虚拟机安装 K8S 或 K3S。
 lima 启动虚拟机安装 K8S 或 K3S。
 优点：支持虚拟多种 Linux，支持异构虚拟机，支持 contained 可代替 docker。
 缺点：架构稍复杂，启动略慢，不如 multipass 稳定，不支持运行在 Windows。
-以上方案，在网络畅通的情况下，均能在 10 分钟内启动一个单节点 K8S，所以整体方案都不复杂。
-如何选择：
-如果你需要在公司使用，并且不想买商业 License 的话，可直接排除 Docker Desktop。
-如果你需要对 K8S 集群有些把控，有较多定制，可排除 K3D。
-如果你的开发机器是 Windows，可排除 lima，目前还不支持运行在 Windows 上。</description></item><item><title>K8S 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上。
+以上方案，在网络畅通的情况下，均能在 10 分钟内启动一个单节点 K8S，所以整体方案都不复杂。</description></item><item><title>K8S 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上。
 已知的情况是：
 K8S Service 使用 round-robin 负载均衡策略。 客户端和服务端都启用了 Keep-Alive 长连接。 经过抓包分析，负载较高的 Pod 保持着较多 KeepAlive 长连接。将 kube-proxy 的 ipvs 转发模式设置为 Least-Connection，即倾向转发给连接数少的 Pod，可能会有所缓解，但也不一定，因为 ipvs 的负载均衡状态是分散在各个节点的，并没有收敛到一个地方，也就无法在全局层面感知哪个 Pod 上的连接数少，并不能真正做到 Least-Connection。
 服务端主动要求断开长连接 客户端连接我们可能无法控制，那么如何从服务端主动断开长连接。
