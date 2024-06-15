@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>卫星实验室 on XLabs</title><link>https://www.xlabs.club/</link><description>Recent content in 卫星实验室 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 15 Jun 2024 16:12:34 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/cloud/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/cloud/introduction/</guid><description>云原生技术探索。</description></item><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>卫星实验室，一个专注于研究 CRM（Customer Relationship Management，客户关系管理） 的开源组织。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>卫星实验室 on XLabs</title><link>https://www.xlabs.club/</link><description>Recent content in 卫星实验室 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 15 Jun 2024 17:23:28 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/cloud/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/cloud/introduction/</guid><description>云原生技术探索。</description></item><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>卫星实验室，一个专注于研究 CRM（Customer Relationship Management，客户关系管理） 的开源组织。
 此项目为卫星实验室主页 xlabs.club 的源码，在这里我们将分享 CRM 领域独有的建设经验，介绍如何以技术驱动 CRM 长期发展和高速增长。
 加入我们，与我们共同共同探索 CRM 技术前沿，解决行业中的挑战。
 主页内容 平台工程：我们的平台工程建设之路，关于 DevOps, DataOps, FinOps 以及 AIOps 的工程实践。 云原生：云原生技术探索，如何以云原生技术支撑起不断变化的复杂业务。 技术博客：研发踩坑记录，翻一翻总有惊喜。 awesome-x-ops：一些关于 AIOps、DataOps、DevOps、GitOps、FinOps 的优秀软件、博客、配套工具。 xlabs-ops：一些运维脚本和模板，如 Argo Workflows 模板仓库，是对官方 Examples 的组合、扩展。 License 本文档采用 CC BY-NC 4.0 许可协议。</description></item><item><title>Kubernetes</title><link>https://www.xlabs.club/docs/tldr/kubernetes/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/tldr/kubernetes/</guid><description>常用 Kubernetes 命令，复制，粘贴，这就是生活。
@@ -19,7 +19,22 @@ Koupleless 是蚂蚁集团内部经过 5 年打磨成熟的研发框架和运维
 研发工具 Arkctl, 提供模块创建、快速联调测试等能力。 运行组件 SOFAArk, Arklet，提供模块运维、模块生命周期管理，多模块运行环境。（这算两个组件？） 控制面组件 ModuleController，本质上是一个 K8S Operator，提供模块发布与运维能力。 我们公司有自己的发布系统、应用管理平台，很少允许运行额外的控制面组件，那么除去 ModuleController，我个人认为，Koupleless 约等于 SOFAArk。
 Koupleless 增强了 SOFAArk 运维部署相关的功能，解决了 SOFAArk 在企业内无法开箱即用的问题。
 应用接入遇见问题 基于官方文档我们改造接入了几个应用，分享几个我们遇见的问题。
-对 Java 17 或 21 的支持不好。 虽然官方已经声称支持 Java 17，但是若用了 Java 17 的语法或新特性，无法编译通过。最后只好自编译 SOFAArk plugin 修改相关依赖解决。</description></item><item><title>使用 Pulumi 部署 cert-manager 创建 K8S 自签名证书并信任证书</title><link>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</link><pubDate>Mon, 29 Apr 2024 21:49:22 +0800</pubDate><guid>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</guid><description>在搭建本地 Kubernetus 集群后，由于环境在内网，做不了域名验证，无法使用 Let&amp;rsquo;s Encrypt 颁发和自动更新证书，然而很多应用要求必须启用 HTTPS，只能用自签名 CA 证书，并由此 CA 继续颁发其他证书。
+对 Java 17 或 21 的支持不好。 虽然官方已经声称支持 Java 17，但是若用了 Java 17 的语法或新特性，无法编译通过。最后只好自编译 SOFAArk plugin 修改相关依赖解决。</description></item><item><title>容器镜像制作最佳实践，Dockerfile 实践经验和踩坑记录</title><link>https://www.xlabs.club/blog/docker-best-practices/</link><pubDate>Fri, 24 May 2024 20:56:08 +0800</pubDate><guid>https://www.xlabs.club/blog/docker-best-practices/</guid><description>整理了由 Docker 官方和社区推荐的用于构建高效镜像的最佳实践和方法，当然有些可能并不适用于你，请注意分辨。
+使用官方镜像作为基础镜像。官方镜像经过了充分验证并集成了最佳实践。
+正例： FROM node 反例： FROM ubuntu RUN apt-get install -y node保持尽可能小的镜像大小，绝不安装无关依赖。
+严格的版本化管理，使用确定性的标签，基础镜像禁用 latest。
+使用 .dockerignore 文件排除文件干扰。
+最经常变化的命令越往后执行，充分利用分层缓存机制。
+Dockerfile 中每行命令产生一层，请合并命令执行，最大限度减少层数。
+使用多阶段构建，减少所构建镜像的大小。
+禁用 root 用户，使用独立的 use 和 group。
+启用镜像安全扫描，并及时更新。
+一个容器只专注做一件事情。
+Java 应用程序不要使用 PID 为 1 的进程，使用 tini 或 dump-init 管理进程，避免僵尸进程。
+以上都是一些基本的原则，但是实际工作的过程中，大家可能会像我一样纠结几个问题。
+关于第 1 点，一定要使用官方镜像吗。未必，看情况。比如我们作为平台，涉及很多种开发语言，很多种组合场景，每个官方基础镜像可能都不同，就会自建基础镜像，以便统一操作系统、统一脚本和安全维护。为什么要统一操作系统，操作系统投的毒，就像出骨鱼片里未净的刺，给人一种不期待的伤痛。 为了镜像大小和安全，一定要使用 Alpine 或 distroless 镜像吗。我的建议是不要使用 Alpine 镜像，如有能力才使用 distroless 镜像。毕竟 libc 的坑，谁痛谁知道。 我们的镜像策略 Dockerfile 编写小技巧 辅助工具 kubectl debug kubectl debug 1.18
+skopeo 镜像搬运工具：https://github.com/containers/skopeo
+参考资料 构建 Java 镜像的 10 个最佳实践：https://zhuanlan.</description></item><item><title>使用 Pulumi 部署 cert-manager 创建 K8S 自签名证书并信任证书</title><link>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</link><pubDate>Mon, 29 Apr 2024 21:49:22 +0800</pubDate><guid>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</guid><description>在搭建本地 Kubernetus 集群后，由于环境在内网，做不了域名验证，无法使用 Let&amp;rsquo;s Encrypt 颁发和自动更新证书，然而很多应用要求必须启用 HTTPS，只能用自签名 CA 证书，并由此 CA 继续颁发其他证书。
 所以我们准备了以下工具，开始搭建。
 Pulumi: 当前非常流行的 IaC 工具，值得一试。 cert-manager: 云原生证书管理，用于自动管理和颁发各种发行来源的 TLS 证书。它将确保证书有效并定期更新，并尝试在到期前的适当时间更新证书。 核心步骤和相关代码如下，更多源码请参考我们的 GitHub 项目 xlabs-ops。
 使用 Pulumi 安装 cert-manager，生成自签名 CA 证书，根据自签名 CA 证书生成 cert-manager ClusterIssuer，都在如下代码了。
@@ -45,8 +60,4 @@ K8S Service 使用 round-robin 负载均衡策略。 客户端和服务端都启
 以 Tomcat 为例，它提供了 maxKeepAliveRequests 参数，到达此参数阈值后，Tomcat 会在 Response Header 中主动加一个 Connection: close，正常情况下客户端接收到此响应后会主动断开长连接。
 对于其他不支持此参数的服务器，可以自定义 Filter 或者自定代码，到达某阈值后在 Response Header 中主动追加 Connection: close。
 对于 Spring Boot 可通过 properties 配置。
-# Spring Boot Tomcat server.tomcat.max-keep-alive-requests=100 # Spring Boot WebFlux server.</description></item><item><title>K8S StatefulSet 应用 PV/PVC 平滑扩容</title><link>https://www.xlabs.club/blog/statefulset-resize-pvc/</link><pubDate>Sun, 31 Mar 2024 21:29:52 +0800</pubDate><guid>https://www.xlabs.club/blog/statefulset-resize-pvc/</guid><description>在 K8S 中使用 Helm 部署了一些有状态应用，并通过 Helm 自动生成了 PV 和 PVC，某天想扩容，竟然报错了。
-以下以 bitnami zookeeper 为例，其他 StatefulSet 同理。
-为了实现磁盘扩容，改大 persistence.size，比如由 8Gi 改为 10Gi，然后执行 helm upgrade，出现错误。
-Error: UPGRADE FAILED: cannot patch &amp;#34;zookeeper&amp;#34; with kind StatefulSet: StatefulSet.apps &amp;#34;zookeeper&amp;#34; is invalid: spec: Forbidden: updates to statefulset spec for fields other than &amp;#39;replicas&amp;#39;, &amp;#39;template&amp;#39;, &amp;#39;updateStrategy&amp;#39;, &amp;#39;persistentVolumeClaimRetentionPolicy&amp;#39; and &amp;#39;minReadySeconds&amp;#39; are forbidden 实际上我们想更新的是 StatefulSet 的 spec.volumeClaimTemplates 中的 storage 大小，根据提示信息，StatefulSet 竟然不允许。
-spec: volumeClaimTemplates: - apiVersion: v1 spec: resources: requests: storage: 8Gi查看 K8S 官方说明，果然当前版本 (1.</description></item></channel></rss>
+# Spring Boot Tomcat server.tomcat.max-keep-alive-requests=100 # Spring Boot WebFlux server.</description></item></channel></rss>
