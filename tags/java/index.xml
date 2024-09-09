@@ -1,45 +1,215 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Java on XLabs</title><link>https://www.xlabs.club/tags/java/</link><description>Recent content in Java on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 25 Aug 2024 16:22:26 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。
-顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：
-模块化开发、部署、资源共享的能力，减少 Cache、Class 等资源占用，有效降低内存占用。 更快更轻的依赖，应用能够更快的启动。 能够让各个项目组不改代码或少改代码即可接入，控制开发迁移的成本，毕竟很多历史老应用不是那么容易迁移。 基于以上背景，我们在 2022 年基于 SOFAArk 运行了一个版本，效果不太理想暂时搁置。今年 Koupleless 重新开源后做了一些增强和变更，开源社区活跃度有所提升，看宣传效果很好，我们决定重新评估是否可在公司内推广。
-什么是 Koupleless Koupleless 是一种模块化 Serverless 技术解决方案，它能让普通应用低成本演进为 Serverless 研发模式，让代码与资源解耦，轻松独立维护， 与此同时支持秒级构建部署、合并部署、动态伸缩等能力为用户提供极致的研发运维体验，最终帮助企业实现降本增效。
-Koupleless 是蚂蚁集团内部经过 5 年打磨成熟的研发框架和运维调度平台能力，相较于传统镜像化的应用模式研发、运维、运行阶段都有 10 倍左右的提升，总结起来 5 大特点：快、省、灵活部署、平滑演进、生产规模化验证。
-以上都是官网的宣传，更多介绍请链接到官网查看。
-在整个 Koupleless 平台里，需要四个组件：
-研发工具 Arkctl, 提供模块创建、快速联调测试等能力。 运行组件 SOFAArk, Arklet，提供模块运维、模块生命周期管理，多模块运行环境。（这算两个组件？） 控制面组件 ModuleController，本质上是一个 K8S Operator，提供模块发布与运维能力。 我们公司有自己的发布系统、应用管理平台，很少允许运行额外的控制面组件，那么除去 ModuleController，我个人认为，Koupleless 约等于 SOFAArk。
-Koupleless 增强了 SOFAArk 运维部署相关的功能，解决了 SOFAArk 在企业内无法开箱即用的问题。
-应用接入遇见问题 基于官方文档我们改造接入了几个应用，分享几个我们遇见的问题。
-对 Java 17 或 21 的支持不好。 虽然官方已经声称支持 Java 17，但是若用了 Java 17 的语法或新特性，无法编译通过。最后只好自编译 SOFAArk plugin 修改相关依赖解决。</description></item><item><title>Spring Boot Start 脚手架定制开发和快速入门</title><link>https://www.xlabs.club/blog/spring-boot-start-site/</link><pubDate>Sat, 09 Mar 2024 14:29:03 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-start-site/</guid><description>介绍基于 start.spring.io 快速定制自己的 Spring Boot 脚手架，主要应用场景：
-规范公司自己的 parent pom，增加特定的依赖项。 根据公司规范生成统一的包结构，统一命名。 根据需要增加特定代码或文件，比如根据公司要求统一 logback.xml、 application.properties 文件。 提供公司自研的二方 jar 包。 快速开始 基本步骤：
-对于 spring.initializr 我们没有定制的需求，直接引用官方的。 拷贝一份 start.spring.io，直接基于这个项目开发、部署、运行。以下都是关于如何修改 start.spring.io。 start.spring.io 主要关注两个模块：
-start-client：前端页面，可以定制些自己的 logo、title 等。 start-site：是一个标准的 spring boot 项目，实际 run 起来的服务，引用了 start-client，直接 run 这个项目的 main 方法就能看到效果。 主要配置文件：start-site/src/main/resources/application.yml，通过修改这个配置文件可以达到的效果如下。
-修改 start 启动时默认 group，把 com.example 改为公司自己的 group。
-initializr: group-id: value: com.yourgroup修改父 pom，使用公司自己的 pom。
-initializr: env: maven: # use your parent pom parent: groupId: com.yourself artifactId: your-parent version: 1.</description></item><item><title>基于 Alibaba Sentinel 实现的分布式限流中间件服务以及遇到的坑和注意事项</title><link>https://www.xlabs.club/blog/sentinel/</link><pubDate>Thu, 07 Mar 2024 21:06:10 +0800</pubDate><guid>https://www.xlabs.club/blog/sentinel/</guid><description>基于 Alibaba Sentinel 实现的分布式限流中间件服务。主要对服务提供者提供限流、系统保护，对服务调用者提供熔断降级、限流排队等待效果。
-实现目标：
-作为服务提供者，保护自己不被打死，服务可以慢不可以挂。 作为客户端及时限速和熔断，防止对服务提供方包含 Http、数据库、MQ 等造成太大压力，防止把糟糕的情况变得更糟。 以用户、租户、对象等更细粒度进行流量精细控制。 服务预热，应用新发布上线，缓存尚未完全建立，防止流量一下子把服务打死。 能够根据 Prometheus、ClickHouse、Elasticsearch 提供的监控指标，动态生成规则，自适应调整规则。 概述 Sentinel 的基础知识请参考官方文档描述，这里单独介绍一些与我们定制相关的内容。
-限流简单来说就三个点：资源、规则、效果。
-资源：就是一个字符串，这个字符串可以自己定义、可以用注解自动生成、可以通过拦截器按规则生成。
-规则：Sentinel 定义的一系列限流保护规则，比如流量控制规则、自适应保护规则。
-效果：实际上“效果”也是“规则”定义的一部分。任何一条请求，命中某些资源规则后产生的效果，比如直接抛出异常、匀速等待。
-Sentinel 全局注意事项和使用限制 使用开源默认 Sentinel 组件，有一些坑，或者说需要关注的注意事项：
-单个进程内资源数量阈值是 6000，多出的资源规则将不会生效（因为是懒加载，资源先到先得），也不提示错误而是直接忽略，资源数量太多建议使用热点参数控制。 对于限流的链路模式，context 阈值是 2000，所以默认的 WEB_CONTEXT_UNIFY 为 true，如果需要链路限流需要把这个改为 false。 自定义时，资源名中不要带 | 线， 这个日志中要用，日志以此作为分割符。 Sentinel 支持按来源限流，注意 origin 数量不能太多，否则会导致内存暴涨。 一个资源可以有多个规则，一条请求能否通过，取决于规则里阈值最小的限制条件。 限流的目的是保护系统，计数计量并不准确，所以不要拿限流做计量或配额控制。 增加限流一定程度上通过时间换空间，降低了 CPU、内存负载，对 K8S HPA 策略会有一定影响。后续我们也会考虑根据 Sentinel 限流指标进行扩缩容。 限流中如果有增加等待效果会使接口变慢，各调用链需要关注调用超时和事务配置。 目前 sentinel-web-servlet 和 sentinel-spring-webmvc-adapter 均不支持热点参数限流。为了支持热点参数需要自行扩展。 sentinel-web-servlet 和 sentinel-spring-webmvc-adapter 会将每个到来的不同的 URL 都作为不同的资源处理，因此对于 REST 风格的 API，需要自行实现 UrlCleaner 接口清洗一下资源（比如将满足 /foo/:id 的 URL 都归到 /foo/* 资源下）。否则会导致资源数量过多，超出资源数量阈值（目前是 6000）时多出的资源的规则将不会生效。 Java 中 sentinel-time-tick-thread 线程会额外多占用约 1-2% CPU，详细代码参考 com.</description></item><item><title>重复 Transfer-Encoding Response Header 引起的 Traefik 代理服务 500 问题</title><link>https://www.xlabs.club/blog/duplicate-transfer-encoding-chunked/</link><pubDate>Sun, 26 Nov 2023 10:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/duplicate-transfer-encoding-chunked/</guid><description>我有一个 Spring Boot 应用服务，提供了一些简单的查询接口，本身运行很正常，通过 curl 或其他 http 客户端 localhost 请求都没有问题。
-某天通过 Traefik 代理了此服务，经过代理后再访问，某个接口一直都是 500 internal server error，其他接口都没有问题。通过 tcpdump 抓包发现，应用服务并没有返回任何 500 错误，而且响应时间和 Body 体大小都很正常。
-根据网上经验排查了 Traefik SSL 证书问题、路径问题、消息体太大问题、请求 Header 不合规问题，都一一否定。最后无意间看了一眼 Response Header，发现 Spring Boot 应用返回了两个 Transfer-Encoding: chunked Header。
-再根据此 Header 搜索，发现果然有人遇到过类似问题，请参考这几个链接。
-https://github.com/traefik/traefik/issues/7741 https://github.com/spring-projects/spring-framework/issues/21523 https://github.com/spring-projects/spring-boot/issues/37646 https://stackoverflow.com/questions/77042701/nginx-upstream-sent-duplicate-header-line-transfer-encoding-chunked-previo 从上面链接描述中可知，不仅 Traefik 会出现此问题，nginx 包含以 nginx 为基础的 ingress 也会出现同样问题，不过 nginx 返回错误信息类似 Nginx: upstream sent duplicate header line: &amp;quot;Transfer-Encoding: chunked&amp;quot;, previous value: &amp;quot;Transfer-Encoding: chunked” ，返回错误码一般是 502 Bad Gateway。</description></item><item><title>K8S 容器 PID 限制引起的 Java OutOfMemoryError</title><link>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</link><pubDate>Thu, 07 Sep 2023 16:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</guid><description>问题描述：
-一个 Java 应用跑在 K8S 容器内，Pod 内只有 Java 这一个进程。应用跑了一段时间后，CPU、内存占用都不高，但是却出现以下 OutOfMemoryError 错误。
-Exception in thread &amp;#34;slow-fetch-15&amp;#34; java.lang.OutOfMemoryError: unable to create new native thread 428 at java.lang.Thread.start0(Native Method) 429 at java.lang.Thread.start(Thread.java:719) 430 at java.util.concurrent.ThreadPoolExecutor.addWorker(ThreadPoolExecutor.java:957) 431 at java.util.concurrent.ThreadPoolExecutor.processWorkerExit(ThreadPoolExecutor.java:1025) 432 at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167) 433 at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) 进入 Pod 内，尝试执行任何操作，又会出现 unable to start container process 错误。
-一开始怀疑是内存不足，调大了内存，同时也缩小了 Java 的 xss，都不起作用。
-真实原因： K8S 容器限制了 PID 数，无法创建新的线程，在 Pod 内 cat /sys/fs/cgroup/pids/pids.max 发现是 1024。
-关于 K8S pid limit， 可参考此资料：https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/.</description></item><item><title>K8S Pod 容器内 Java 进程内存分析</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>K8S Pod 容器内 Java 进程内存分析，容器 OOM 和 Jave OOM 问题定位。</description></item><item><title>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录</title><link>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</guid><description>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录。
-概述 从 Spring 到 Spring Boot，整体开发、运行方式主要变化。
-- 当前（老）模式 新模式（本地开发） 新模式（线上运行） 开发习惯 Spring + 外置 Tomcat Spring Boot（embed tomcat） Spring Boot War or Jar Java 版本 8、11、16、17 11、17、21（推荐） 11、17、21（推荐） Tomcat 版本 8.x、9.x 9.x 9.x（推荐）、10.x 说明：
-理论上完全兼容 Java11，但是要求业务方尽量使用 Java17 或 21。其他版本都是实验性质尽量兼容。 线上运行支持 Spring Boot jar 直接运行，但主要业务仍推荐以 war + tomcat 为主。如果希望以 java -jar 方式运行，参考下面的章节“jar 方式运行”描述。 目前 Spring Boot 主要推行版本是 2.7.x。 3.x 版本逐渐适配中，注意 3.x 要求 Java 最低版本是 17。 快速开始 线下支撑系统导航，点击 脚手架 进入 spring start 页面，按自己需求选择模块，生成自己业务模式初始化代码。 写（Copy）业务代码到项目里，修改 pom.</description></item><item><title>Spring Boot 使用 Micrometer 集成 Prometheus 监控，5 分钟接入自定义监控指标</title><link>https://www.xlabs.club/blog/spring-boot-micrometer/</link><pubDate>Mon, 07 Aug 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-micrometer/</guid><description>Spring Boot 使用 Micrometer 集成 Prometheus 监控，5 分钟接入自定义监控指标，主要内容：
-Micrometer 介绍。 业务如何自定义指标，如何接入 Prometheus，实现方式和规范。 Micrometer 介绍 Micrometer 为 Java 平台上的性能数据收集提供了一个通用的 API，应用程序只需要使用 Micrometer 的通用 API 来收集性能指标，Micrometer 会负责完成与不同监控系统的适配工作。
-Micrometer 提供了多种度量指标类型（Timers、Guauges、Counters 等），同时支持接入不同的监控系统，例如 Influxdb、Graphite、Prometheus、OTLP 等。
-从 Spring Boot 2.x 开始使用 Micrometer 作为默认的监控门面接口， Think SLF4J, but for observability 。
-Micrometer 核心概念 Micrometer 中两个最核心的概念：计量器注册表 (MeterRegistry)，计量器 (Meter)。
-MeterRegistry
-内存注册表 (SimpleMeterRegistry): 在内存中保存每一个 Meter（指标）的最新值，并且不会将数据导出到任何地方。 组合注册表 (CompositeMeterRegistry): 可以添加多个注册表，用于将各个注册表组合起来，可以同时将指标发布到多个监控系统。Micrometer 提供了一个全局的 MeterRegistry，io.micrometer.core.instrument.Metrics 中持有一个静态 final 的 CompositeMeterRegistry 实例 globalRegistry。 普罗米修斯注册表 (PrometheusMeterRegistry): 当使用普罗米修斯监控时，引入 micrometer-registry-prometheus 依赖时会提供此种收集器，用于将指标数据转换为普罗米修斯识别的格式和导出数据等功能。 Meter（指标）</description></item><item><title>基于 Envoy 的智能路由服务</title><link>https://www.xlabs.club/docs/cloud/service-mesh-envoy/</link><pubDate>Mon, 07 Aug 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/docs/cloud/service-mesh-envoy/</guid><description>基于 Envoy + Java Agent 的智能路由服务实现方案介绍。
-核心需求 服务自动注册和发现，通过 Service Name 直接调用服务。当然基本的负载均衡策略、熔断降级限流等功能也要支持。 公司约定的路由策略，支持按照租户路由到特定环境的服务，比如 VIP、Gray、Sandbox 等。 多集群通信，同云内新老 K8S 集群路由打通，可通过 POD IP 互相通信。 跨云通信，支持通过 VPN 或代理，从专属云访问公有云服务。 整体架构 智能路由服务从逻辑上分为数据平面和控制平面，主要包含以下组件。
-Nacos：服务注册中心，配置中心。 XDS Server：对接服务注册中心、配置中心，实现 CDS、LDS、RDS 协议将集群、服务、路由、灰度租户等配置下发到 Envoy。 Envoy + WASM Plugin：通过 Envoy 代理流量，自定义 WASM 插件实现按照租户、用户路由到不同服务，实现自定义负载均衡策略。 Java Agent：增强 Java 应用 Http Client，拦截 OkHttp、Apache Http Client、RestTemplate、OpenFeign 等客户端调用，将流量重定向到 Envoy，Envoy 再根据服务名路由到真实的 Pod，实现服务发现和灾备切换。 Nacos Service CRD：自定义 Nacos Service CRD，将 Service 注册到 Nacos 中作为一个永久实例，解决跨云、跨集群服务调用。比如跨云情况下注册的是一个公网地址或 VPN 可通的地址。 C4Context title 基于 Envoy + Java Agent 的智能路由服务 Enterprise_Boundary(dp, "</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Java on XLabs</title><link>https://www.xlabs.club/tags/java/</link><description>Recent content in Java on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Mon, 09 Sep 2024 11:40:07 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
+&lt;p>顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：&lt;/p>
+&lt;ul>
+&lt;li>模块化开发、部署、资源共享的能力，减少 Cache、Class 等资源占用，有效降低内存占用。&lt;/li>
+&lt;li>更快更轻的依赖，应用能够更快的启动。&lt;/li>
+&lt;li>能够让各个项目组不改代码或少改代码即可接入，控制开发迁移的成本，毕竟很多历史老应用不是那么容易迁移。&lt;/li>
+&lt;/ul>
+&lt;p>基于以上背景，我们在 2022 年基于 SOFAArk 运行了一个版本，效果不太理想暂时搁置。今年 Koupleless 重新开源后做了一些增强和变更，开源社区活跃度有所提升，看宣传效果很好，我们决定重新评估是否可在公司内推广。&lt;/p>
+&lt;h2 id="什么是-koupleless">什么是 Koupleless&lt;/h2>
+&lt;p>&lt;a href="https://koupleless.io/home/">Koupleless&lt;/a> 是一种模块化 Serverless 技术解决方案，它能让普通应用低成本演进为 Serverless 研发模式，让代码与资源解耦，轻松独立维护， 与此同时支持秒级构建部署、合并部署、动态伸缩等能力为用户提供极致的研发运维体验，最终帮助企业实现降本增效。&lt;/p>
+&lt;p>Koupleless 是蚂蚁集团内部经过 5 年打磨成熟的研发框架和运维调度平台能力，相较于传统镜像化的应用模式研发、运维、运行阶段都有 10 倍左右的提升，总结起来 5 大特点：快、省、灵活部署、平滑演进、生产规模化验证。&lt;/p>
+&lt;p>以上都是官网的宣传，更多介绍请链接到官网查看。&lt;/p>
+&lt;p>在整个 Koupleless 平台里，需要四个组件：&lt;/p>
+&lt;ul>
+&lt;li>研发工具 Arkctl, 提供模块创建、快速联调测试等能力。&lt;/li>
+&lt;li>运行组件 SOFAArk, Arklet，提供模块运维、模块生命周期管理，多模块运行环境。（这算两个组件？）&lt;/li>
+&lt;li>控制面组件 ModuleController，本质上是一个 K8S Operator，提供模块发布与运维能力。&lt;/li>
+&lt;/ul>
+&lt;p>我们公司有自己的发布系统、应用管理平台，很少允许运行额外的控制面组件，那么除去 ModuleController，我个人认为，Koupleless 约等于 SOFAArk。&lt;/p>
+&lt;p>Koupleless 增强了 SOFAArk 运维部署相关的功能，解决了 SOFAArk 在企业内无法开箱即用的问题。&lt;/p></description></item><item><title>Spring Boot Start 脚手架定制开发和快速入门</title><link>https://www.xlabs.club/blog/spring-boot-start-site/</link><pubDate>Sat, 09 Mar 2024 14:29:03 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-start-site/</guid><description>&lt;p>介绍基于 &lt;code>start.spring.io&lt;/code> 快速定制自己的 Spring Boot 脚手架，主要应用场景：&lt;/p>
+&lt;ol>
+&lt;li>规范公司自己的 parent pom，增加特定的依赖项。&lt;/li>
+&lt;li>根据公司规范生成统一的包结构，统一命名。&lt;/li>
+&lt;li>根据需要增加特定代码或文件，比如根据公司要求统一 logback.xml、 application.properties 文件。&lt;/li>
+&lt;li>提供公司自研的二方 jar 包。&lt;/li>
+&lt;/ol>
+&lt;h2 id="快速开始">快速开始&lt;/h2>
+&lt;p>基本步骤：&lt;/p>
+&lt;ol>
+&lt;li>对于 &lt;a href="https://github.com/spring-io/initializr">spring.initializr&lt;/a> 我们没有定制的需求，直接引用官方的。&lt;/li>
+&lt;li>拷贝一份 &lt;a href="https://github.com/spring-io/start.spring.io">start.spring.io&lt;/a>，直接基于这个项目开发、部署、运行。以下都是关于如何修改 &lt;code>start.spring.io&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;p>&lt;code>start.spring.io&lt;/code> 主要关注两个模块：&lt;/p>
+&lt;ul>
+&lt;li>start-client：前端页面，可以定制些自己的 logo、title 等。&lt;/li>
+&lt;li>start-site：是一个标准的 spring boot 项目，实际 run 起来的服务，引用了 start-client，直接 run 这个项目的 main 方法就能看到效果。&lt;/li>
+&lt;/ul>
+&lt;p>主要配置文件：&lt;code>start-site/src/main/resources/application.yml&lt;/code>，通过修改这个配置文件可以达到的效果如下。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>修改 start 启动时默认 group，把 &lt;code>com.example&lt;/code> 改为公司自己的 group。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">initializr&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">group-id&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">com.yourgroup&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>基于 Alibaba Sentinel 实现的分布式限流中间件服务以及遇到的坑和注意事项</title><link>https://www.xlabs.club/blog/sentinel/</link><pubDate>Thu, 07 Mar 2024 21:06:10 +0800</pubDate><guid>https://www.xlabs.club/blog/sentinel/</guid><description>&lt;p>基于 Alibaba Sentinel 实现的分布式限流中间件服务。主要对服务提供者提供限流、系统保护，对服务调用者提供熔断降级、限流排队等待效果。&lt;/p>
+&lt;p>实现目标：&lt;/p>
+&lt;ol>
+&lt;li>作为服务提供者，保护自己不被打死，服务可以慢不可以挂。&lt;/li>
+&lt;li>作为客户端及时限速和熔断，防止对服务提供方包含 Http、数据库、MQ 等造成太大压力，防止把糟糕的情况变得更糟。&lt;/li>
+&lt;li>以用户、租户、对象等更细粒度进行流量精细控制。&lt;/li>
+&lt;li>服务预热，应用新发布上线，缓存尚未完全建立，防止流量一下子把服务打死。&lt;/li>
+&lt;li>能够根据 Prometheus、ClickHouse、Elasticsearch 提供的监控指标，动态生成规则，自适应调整规则。&lt;/li>
+&lt;/ol>
+&lt;h2 id="概述">概述&lt;/h2>
+&lt;p>Sentinel 的基础知识请参考官方文档描述，这里单独介绍一些与我们定制相关的内容。&lt;/p>
+&lt;p>限流简单来说就三个点：资源、规则、效果。&lt;/p>
+&lt;p>资源：就是一个字符串，这个字符串可以自己定义、可以用注解自动生成、可以通过拦截器按规则生成。&lt;/p>
+&lt;p>规则：Sentinel 定义的一系列限流保护规则，比如流量控制规则、自适应保护规则。&lt;/p>
+&lt;p>效果：实际上“效果”也是“规则”定义的一部分。任何一条请求，命中某些资源规则后产生的效果，比如直接抛出异常、匀速等待。&lt;/p>
+&lt;h3 id="sentinel-全局注意事项和使用限制">Sentinel 全局注意事项和使用限制&lt;/h3>
+&lt;p>使用开源默认 Sentinel 组件，有一些坑，或者说需要关注的注意事项：&lt;/p>
+&lt;ol>
+&lt;li>单个进程内资源数量阈值是 6000，多出的资源规则将不会生效（因为是懒加载，资源先到先得），也不提示错误而是直接忽略，资源数量太多建议使用热点参数控制。&lt;/li>
+&lt;li>对于限流的链路模式，context 阈值是 2000，所以默认的 WEB_CONTEXT_UNIFY 为 true，如果需要链路限流需要把这个改为 false。&lt;/li>
+&lt;li>自定义时，资源名中不要带 &lt;code>|&lt;/code> 线， 这个日志中要用，日志以此作为分割符。&lt;/li>
+&lt;li>Sentinel 支持按来源限流，注意 &lt;code>origin&lt;/code> 数量不能太多，否则会导致内存暴涨。&lt;/li>
+&lt;li>一个资源可以有多个规则，一条请求能否通过，取决于规则里阈值最小的限制条件。&lt;/li>
+&lt;li>限流的目的是保护系统，计数计量并不准确，所以不要拿限流做计量或配额控制。&lt;/li>
+&lt;li>增加限流一定程度上通过时间换空间，降低了 CPU、内存负载，对 K8S HPA 策略会有一定影响。后续我们也会考虑根据 Sentinel 限流指标进行扩缩容。&lt;/li>
+&lt;li>限流中如果有增加等待效果会使接口变慢，各调用链需要关注调用超时和事务配置。&lt;/li>
+&lt;li>目前 sentinel-web-servlet 和 sentinel-spring-webmvc-adapter 均不支持热点参数限流。为了支持热点参数需要自行扩展。&lt;/li>
+&lt;li>sentinel-web-servlet 和 sentinel-spring-webmvc-adapter 会将每个到来的不同的 URL 都作为不同的资源处理，因此对于 REST 风格的 API，需要自行实现 UrlCleaner 接口清洗一下资源（比如将满足 /foo/:id 的 URL 都归到 /foo/* 资源下）。否则会导致资源数量过多，超出资源数量阈值（目前是 6000）时多出的资源的规则将不会生效。&lt;/li>
+&lt;li>Java 中 &lt;code>sentinel-time-tick-thread&lt;/code> 线程会额外多占用约 1-2% CPU，详细代码参考 &lt;code>com.alibaba.csp.sentinel.util.TimeUtil&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;p>一些文档中尚未更新但是大家可能关心的内容：&lt;/p></description></item><item><title>重复 Transfer-Encoding Response Header 引起的 Traefik 代理服务 500 问题</title><link>https://www.xlabs.club/blog/duplicate-transfer-encoding-chunked/</link><pubDate>Sun, 26 Nov 2023 10:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/duplicate-transfer-encoding-chunked/</guid><description>&lt;p>我有一个 Spring Boot 应用服务，提供了一些简单的查询接口，本身运行很正常，通过 curl 或其他 http 客户端 localhost 请求都没有问题。&lt;/p>
+&lt;p>某天通过 Traefik 代理了此服务，经过代理后再访问，某个接口一直都是 &lt;code>500 internal server error&lt;/code>，其他接口都没有问题。通过 tcpdump 抓包发现，应用服务并没有返回任何 500 错误，而且响应时间和 Body 体大小都很正常。&lt;/p>
+&lt;p>根据网上经验排查了 Traefik SSL 证书问题、路径问题、消息体太大问题、请求 Header 不合规问题，都一一否定。最后无意间看了一眼 Response Header，发现 Spring Boot 应用返回了两个 &lt;code>Transfer-Encoding: chunked&lt;/code> Header。&lt;/p>
+&lt;p>再根据此 Header 搜索，发现果然有人遇到过类似问题，请参考这几个链接。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/traefik/traefik/issues/7741">https://github.com/traefik/traefik/issues/7741&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/spring-projects/spring-framework/issues/21523">https://github.com/spring-projects/spring-framework/issues/21523&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/spring-projects/spring-boot/issues/37646">https://github.com/spring-projects/spring-boot/issues/37646&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://stackoverflow.com/questions/77042701/nginx-upstream-sent-duplicate-header-line-transfer-encoding-chunked-previo">https://stackoverflow.com/questions/77042701/nginx-upstream-sent-duplicate-header-line-transfer-encoding-chunked-previo&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>从上面链接描述中可知，不仅 Traefik 会出现此问题，nginx 包含以 nginx 为基础的 ingress 也会出现同样问题，不过 nginx 返回错误信息类似 &lt;code>Nginx: upstream sent duplicate header line: &amp;quot;Transfer-Encoding: chunked&amp;quot;, previous value: &amp;quot;Transfer-Encoding: chunked”&lt;/code> ，返回错误码一般是 502 Bad Gateway。&lt;/p></description></item><item><title>K8S 容器 PID 限制引起的 Java OutOfMemoryError</title><link>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</link><pubDate>Thu, 07 Sep 2023 16:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</guid><description>&lt;p>问题描述：&lt;/p>
+&lt;p>一个 Java 应用跑在 K8S 容器内，Pod 内只有 Java 这一个进程。应用跑了一段时间后，CPU、内存占用都不高，但是却出现以下 OutOfMemoryError 错误。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-console" data-lang="console">&lt;span class="line">&lt;span class="cl">&lt;span class="go">Exception in thread &amp;#34;slow-fetch-15&amp;#34; java.lang.OutOfMemoryError: unable to create new native thread
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">428 at java.lang.Thread.start0(Native Method)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">429 at java.lang.Thread.start(Thread.java:719)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">430 at java.util.concurrent.ThreadPoolExecutor.addWorker(ThreadPoolExecutor.java:957)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">431 at java.util.concurrent.ThreadPoolExecutor.processWorkerExit(ThreadPoolExecutor.java:1025)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">432 at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">433 at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>K8S Pod 容器内 Java 进程内存分析</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>K8S Pod 容器内 Java 进程内存分析，容器 OOM 和 Jave OOM 问题定位。</description></item><item><title>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录</title><link>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</guid><description>&lt;p>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录。&lt;/p>
+&lt;h2 id="概述">概述&lt;/h2>
+&lt;p>从 Spring 到 Spring Boot，整体开发、运行方式主要变化。&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">-&lt;/th>
+ &lt;th style="text-align: left">当前（老）模式&lt;/th>
+ &lt;th style="text-align: left">新模式（本地开发）&lt;/th>
+ &lt;th style="text-align: left">新模式（线上运行）&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">开发习惯&lt;/td>
+ &lt;td style="text-align: left">Spring + 外置 Tomcat&lt;/td>
+ &lt;td style="text-align: left">Spring Boot（embed tomcat）&lt;/td>
+ &lt;td style="text-align: left">Spring Boot War or Jar&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Java 版本&lt;/td>
+ &lt;td style="text-align: left">8、11、16、17&lt;/td>
+ &lt;td style="text-align: left">11、17、21（推荐）&lt;/td>
+ &lt;td style="text-align: left">11、17、21（推荐）&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Tomcat 版本&lt;/td>
+ &lt;td style="text-align: left">8.x、9.x&lt;/td>
+ &lt;td style="text-align: left">9.x&lt;/td>
+ &lt;td style="text-align: left">9.x（推荐）、10.x&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>说明：&lt;/p></description></item><item><title>Spring Boot 使用 Micrometer 集成 Prometheus 监控，5 分钟接入自定义监控指标</title><link>https://www.xlabs.club/blog/spring-boot-micrometer/</link><pubDate>Mon, 07 Aug 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-micrometer/</guid><description>&lt;p>Spring Boot 使用 Micrometer 集成 Prometheus 监控，5 分钟接入自定义监控指标，主要内容：&lt;/p>
+&lt;ol>
+&lt;li>Micrometer 介绍。&lt;/li>
+&lt;li>业务如何自定义指标，如何接入 Prometheus，实现方式和规范。&lt;/li>
+&lt;/ol>
+&lt;h2 id="micrometer-介绍">Micrometer 介绍&lt;/h2>
+&lt;p>Micrometer 为 Java 平台上的性能数据收集提供了一个通用的 API，应用程序只需要使用 Micrometer 的通用 API 来收集性能指标，Micrometer 会负责完成与不同监控系统的适配工作。&lt;/p>
+&lt;p>Micrometer 提供了多种度量指标类型（Timers、Guauges、Counters 等），同时支持接入不同的监控系统，例如 Influxdb、Graphite、Prometheus、OTLP 等。&lt;/p>
+&lt;p>从 Spring Boot 2.x 开始使用 Micrometer 作为默认的监控门面接口， &lt;code>Think SLF4J, but for observability&lt;/code> 。&lt;/p>
+&lt;h3 id="micrometer-核心概念">Micrometer 核心概念&lt;/h3>
+&lt;p>Micrometer 中两个最核心的概念：计量器注册表 (MeterRegistry)，计量器 (Meter)。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>MeterRegistry&lt;/p>
+&lt;ul>
+&lt;li>内存注册表 (SimpleMeterRegistry): 在内存中保存每一个 Meter（指标）的最新值，并且不会将数据导出到任何地方。&lt;/li>
+&lt;li>组合注册表 (CompositeMeterRegistry): 可以添加多个注册表，用于将各个注册表组合起来，可以同时将指标发布到多个监控系统。Micrometer 提供了一个全局的 MeterRegistry，&lt;code>io.micrometer.core.instrument.Metrics&lt;/code> 中持有一个静态 final 的 CompositeMeterRegistry 实例 globalRegistry。&lt;/li>
+&lt;li>普罗米修斯注册表 (PrometheusMeterRegistry): 当使用普罗米修斯监控时，引入 micrometer-registry-prometheus 依赖时会提供此种收集器，用于将指标数据转换为普罗米修斯识别的格式和导出数据等功能。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Meter（指标）&lt;/p></description></item><item><title>基于 Envoy 的智能路由服务</title><link>https://www.xlabs.club/docs/cloud/service-mesh-envoy/</link><pubDate>Mon, 07 Aug 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/docs/cloud/service-mesh-envoy/</guid><description>&lt;p>基于 Envoy + Java Agent 的智能路由服务实现方案介绍。&lt;/p>
+&lt;h2 id="核心需求">核心需求&lt;/h2>
+&lt;ol>
+&lt;li>服务自动注册和发现，通过 Service Name 直接调用服务。当然基本的负载均衡策略、熔断降级限流等功能也要支持。&lt;/li>
+&lt;li>公司约定的路由策略，支持按照租户路由到特定环境的服务，比如 VIP、Gray、Sandbox 等。&lt;/li>
+&lt;li>多集群通信，同云内新老 K8S 集群路由打通，可通过 POD IP 互相通信。&lt;/li>
+&lt;li>跨云通信，支持通过 VPN 或代理，从专属云访问公有云服务。&lt;/li>
+&lt;/ol>
+&lt;h2 id="整体架构">整体架构&lt;/h2>
+&lt;p>智能路由服务从逻辑上分为数据平面和控制平面，主要包含以下组件。&lt;/p>
+&lt;ul>
+&lt;li>Nacos：服务注册中心，配置中心。&lt;/li>
+&lt;li>XDS Server：对接服务注册中心、配置中心，实现 CDS、LDS、RDS 协议将集群、服务、路由、灰度租户等配置下发到 Envoy。&lt;/li>
+&lt;li>Envoy + WASM Plugin：通过 Envoy 代理流量，自定义 WASM 插件实现按照租户、用户路由到不同服务，实现自定义负载均衡策略。&lt;/li>
+&lt;li>Java Agent：增强 Java 应用 Http Client，拦截 OkHttp、Apache Http Client、RestTemplate、OpenFeign 等客户端调用，将流量重定向到 Envoy，Envoy 再根据服务名路由到真实的 Pod，实现服务发现和灾备切换。&lt;/li>
+&lt;li>Nacos Service CRD：自定义 Nacos Service CRD，将 Service 注册到 Nacos 中作为一个永久实例，解决跨云、跨集群服务调用。比如跨云情况下注册的是一个公网地址或 VPN 可通的地址。&lt;/li>
+&lt;/ul>
+&lt;div class="mermaid text-center">
+C4Context
+ title 基于 Envoy + Java Agent 的智能路由服务
+
+ Enterprise_Boundary(dp, "Data Plane") {
+ Container(appA, "Application A", "Java,Agent", "Agent 拦截客户端重定向到 Envoy")
+ Container(envoy, "Envoy Proxy", "Envoy,WASM", "代理所有入口流量&lt;br>基于租户、服务负载均衡")
+ Container(appB, "Application B", "Java,Agent", "应用注册到服务中心")
+
+ Rel(appA, envoy, "request by name", "http")
+ Rel(envoy, appB, "http proxy &amp; lb", "http")
+ UpdateRelStyle(appA, envoy, $offsetX="-40",$offsetY="-40")
+ UpdateRelStyle(envoy, appB, $offsetX="-40",$offsetY="-40")
+ }
+
+ Enterprise_Boundary(cp, "Control Plane") {
+ System(registry, "服务注册", "服务注册，服务元数据&lt;br>配置管理，双向刷新")
+ Container(xdsServer, "控制面板", "Java,Grpc", "对接服务注册中心配置中心&lt;br> 实现 XDS 协议将配置下发到 Envoy")
+ System(config, "配置管理", "服务注册，服务元数据&lt;br>配置管理，双向刷新")
+
+ Rel_L(xdsServer, registry, "实时获取服务实例")
+ Rel_R(xdsServer, config, "实时配置刷新")
+ UpdateRelStyle(xdsServer, registry, $offsetX="-40",$offsetY="-20")
+ UpdateRelStyle(xdsServer, config, $offsetX="-40",$offsetY="-20")
+
+ }
+
+ Rel_U(xdsServer,envoy,"通过 XDS 实现配置动态下发","grpc")
+ Rel_D(appA, registry, "服务注册，配置刷新")
+ Rel_D(appB, config, "服务注册，配置刷新")
+
+ UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
+&lt;/div>
+
+&lt;h2 id="方案对比">方案对比&lt;/h2>
+&lt;p>此方案原始的目标有几个：&lt;/p></description></item></channel></rss>

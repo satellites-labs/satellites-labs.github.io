@@ -1,76 +1,279 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 25 Aug 2024 16:22:26 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。
-顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：
-模块化开发、部署、资源共享的能力，减少 Cache、Class 等资源占用，有效降低内存占用。 更快更轻的依赖，应用能够更快的启动。 能够让各个项目组不改代码或少改代码即可接入，控制开发迁移的成本，毕竟很多历史老应用不是那么容易迁移。 基于以上背景，我们在 2022 年基于 SOFAArk 运行了一个版本，效果不太理想暂时搁置。今年 Koupleless 重新开源后做了一些增强和变更，开源社区活跃度有所提升，看宣传效果很好，我们决定重新评估是否可在公司内推广。
-什么是 Koupleless Koupleless 是一种模块化 Serverless 技术解决方案，它能让普通应用低成本演进为 Serverless 研发模式，让代码与资源解耦，轻松独立维护， 与此同时支持秒级构建部署、合并部署、动态伸缩等能力为用户提供极致的研发运维体验，最终帮助企业实现降本增效。
-Koupleless 是蚂蚁集团内部经过 5 年打磨成熟的研发框架和运维调度平台能力，相较于传统镜像化的应用模式研发、运维、运行阶段都有 10 倍左右的提升，总结起来 5 大特点：快、省、灵活部署、平滑演进、生产规模化验证。
-以上都是官网的宣传，更多介绍请链接到官网查看。
-在整个 Koupleless 平台里，需要四个组件：
-研发工具 Arkctl, 提供模块创建、快速联调测试等能力。 运行组件 SOFAArk, Arklet，提供模块运维、模块生命周期管理，多模块运行环境。（这算两个组件？） 控制面组件 ModuleController，本质上是一个 K8S Operator，提供模块发布与运维能力。 我们公司有自己的发布系统、应用管理平台，很少允许运行额外的控制面组件，那么除去 ModuleController，我个人认为，Koupleless 约等于 SOFAArk。
-Koupleless 增强了 SOFAArk 运维部署相关的功能，解决了 SOFAArk 在企业内无法开箱即用的问题。
-应用接入遇见问题 基于官方文档我们改造接入了几个应用，分享几个我们遇见的问题。
-对 Java 17 或 21 的支持不好。 虽然官方已经声称支持 Java 17，但是若用了 Java 17 的语法或新特性，无法编译通过。最后只好自编译 SOFAArk plugin 修改相关依赖解决。</description></item><item><title>容器镜像制作最佳实践，Dockerfile 实践经验和踩坑记录</title><link>https://www.xlabs.club/blog/docker-best-practices/</link><pubDate>Fri, 24 May 2024 20:56:08 +0800</pubDate><guid>https://www.xlabs.club/blog/docker-best-practices/</guid><description>整理了由 Docker 官方和社区推荐的用于构建高效镜像的最佳实践和方法，当然有些可能并不适用于你，请注意分辨。
-使用官方镜像作为基础镜像。官方镜像经过了充分验证并集成了最佳实践。
-# 正例： FROM node # 反例： FROM ubuntu RUN apt-get install -y node保持尽可能小的镜像大小，绝不安装无关依赖。
-严格的版本化管理，使用确定性的标签，基础镜像禁用 latest。
-使用 .dockerignore 文件排除文件干扰。
-最经常变化的命令越往后执行，充分利用分层缓存机制。
-Dockerfile 中每行命令产生一层，请合并命令执行，最大限度减少层数。
-使用多阶段构建，减少所构建镜像的大小。
-禁用 root 用户，使用独立的 use 和 group。
-启用镜像安全扫描，并及时更新。
-一个容器只专注做一件事情。
-Java 应用程序不要使用 PID 为 1 的进程，使用 tini 或 dump-init 管理进程，避免僵尸进程。
-以上都是一些基本的原则，但是实际工作的过程中，大家可能会像我一样纠结几个问题。
-关于第 1 点，一定要使用官方镜像吗。未必，看情况。比如我们作为平台，涉及很多种开发语言，很多种组合场景，每个官方基础镜像可能都不同，就会自建基础镜像，以便统一操作系统、统一脚本和安全维护。为什么要统一操作系统，操作系统投的毒，就像出骨鱼片里未净的刺，给人一种不期待的伤痛。 为了镜像大小和安全，一定要使用 Alpine 或 distroless 镜像吗。我的建议是不要使用 Alpine 镜像，如有能力才使用 distroless 镜像。毕竟 libc 的坑，谁痛谁知道。 我们的镜像策略 Dockerfile 编写小技巧 使用 Heredocs 语法代替又长又臭的字符串拼接，当然 Heredocs 支持更多功能比如 run python、多文件内容拷贝，以下举例只是最常用的。</description></item><item><title>使用 Pulumi 部署 cert-manager 创建 K8S 自签名证书并信任证书</title><link>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</link><pubDate>Mon, 29 Apr 2024 21:49:22 +0800</pubDate><guid>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</guid><description>在搭建本地 Kubernetus 集群后，由于环境在内网，做不了域名验证，无法使用 Let&amp;rsquo;s Encrypt 颁发和自动更新证书，然而很多应用要求必须启用 HTTPS，只能用自签名 CA 证书，并由此 CA 继续颁发其他证书。
-所以我们准备了以下工具，开始搭建。
-Pulumi: 当前非常流行的 IaC 工具，值得一试。 cert-manager: 云原生证书管理，用于自动管理和颁发各种发行来源的 TLS 证书。它将确保证书有效并定期更新，并尝试在到期前的适当时间更新证书。 核心步骤和相关代码如下，更多源码请参考我们的 GitHub 项目 xlabs-ops。
-使用 Pulumi 安装 cert-manager，生成自签名 CA 证书，根据自签名 CA 证书生成 cert-manager ClusterIssuer，都在如下代码了。
-import * as pulumi from &amp;#34;@pulumi/pulumi&amp;#34;; import * as kubernetes from &amp;#34;@pulumi/kubernetes&amp;#34;; import * as tls from &amp;#34;@pulumi/tls&amp;#34;; // 部署 cert-manager Helm chart const certManagerRelease = new kubernetes.helm.v3.Release(&amp;#34;cert-manager&amp;#34;, { name: &amp;#34;cert-manager&amp;#34;, chart: &amp;#34;cert-manager&amp;#34;, version: &amp;#34;1.14.5&amp;#34;, namespace: &amp;#34;cert-manager&amp;#34;, createNamespace: true, timeout: 600, repositoryOpts: { repo: &amp;#34;https://charts.</description></item><item><title>Mac 搭建本地 K8S 开发环境方案选型</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司集群，所以就有了本地搭建 K8S 的需求。
-另外如果你有以下需求，此文档中提到的方案也许有所帮助：
-开发机器模拟 Arm、AMD64 等不同架构。 完全隔离的不同环境，比如为测试 docker、podman、buildkit、containd 等不同软件设置的独立环境。 CI/CD 流程中即用即消的轻量级虚拟机替代方案。 有限的资源模拟大批量的 K8S 节点。 以下介绍一下我用过的几种不同方案，有些纯属个人观点仅供参考。
-Docker Desktop 并启用 Kubernetes 功能。
-优点：最简单，开箱即用。
-缺点：只支持单节点 K8S，且 K8S 部分功能不支持，不易定制。
-Docker run K3D, K3D run K3S。
-优点：简单，任何支持 docker 的工具（Rancher Desktop、Podman） 启动一个容器即可。
-缺点：只支持 K3S。
-multipass 启动虚拟机安装 K8S 或 K3S。
-优点：multipass 可启动空白 ubuntu 虚拟机，或者启动已经安装好 minikube 的虚拟机。
-缺点：只支持 ubuntu，虚拟机与宿主机同架构。
-lima 启动虚拟机安装 K8S 或 K3S。
-优点：支持虚拟多种 Linux，支持异构虚拟机，支持 contained 可代替 docker。
-缺点：架构稍复杂，启动略慢，不如 multipass 稳定，不支持运行在 Windows。
-以上方案，在网络畅通的情况下，均能在 10 分钟内启动一个单节点 K8S，所以整体方案都不复杂。</description></item><item><title>K8S 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上。
-已知的情况是：
-K8S Service 使用 round-robin 负载均衡策略。 客户端和服务端都启用了 Keep-Alive 长连接。 经过抓包分析，负载较高的 Pod 保持着较多 KeepAlive 长连接。将 kube-proxy 的 ipvs 转发模式设置为 Least-Connection，即倾向转发给连接数少的 Pod，可能会有所缓解，但也不一定，因为 ipvs 的负载均衡状态是分散在各个节点的，并没有收敛到一个地方，也就无法在全局层面感知哪个 Pod 上的连接数少，并不能真正做到 Least-Connection。
-服务端主动要求断开长连接 客户端连接我们可能无法控制，那么如何从服务端主动断开长连接。
-以 Tomcat 为例，它提供了 maxKeepAliveRequests 参数，到达此参数阈值后，Tomcat 会在 Response Header 中主动加一个 Connection: close，正常情况下客户端接收到此响应后会主动断开长连接。
-对于其他不支持此参数的服务器，可以自定义 Filter 或者自定代码，到达某阈值后在 Response Header 中主动追加 Connection: close。
-对于 Spring Boot 可通过 properties 配置。
-# Spring Boot Tomcat server.tomcat.max-keep-alive-requests=100 # Spring Boot WebFlux server.</description></item><item><title>MacOS 固化配置，彻底解决 too many open files in system 的问题</title><link>https://www.xlabs.club/blog/macos-too-many-open-files/</link><pubDate>Tue, 19 Mar 2024 23:05:07 +0800</pubDate><guid>https://www.xlabs.club/blog/macos-too-many-open-files/</guid><description>作为一个开发者，经常在 MacOS 遇到 Too many open files in system 的报错，尤其是碰到黑洞 node_modules 时，如何固化配置彻底解决，直接上代码。
-输入 launchctl limit 即可看到当前的限制，我这里 maxfiles 是改过以后的。
-$ launchctl limit cpu unlimited unlimited filesize unlimited unlimited data unlimited unlimited stack 8388608 67104768 core 0 unlimited rss unlimited unlimited memlock unlimited unlimited maxproc 1392 2088 maxfiles 10240 102400 开始创建文件 sudo vi /Library/LaunchDaemons/limit.maxfiles.plist ，内容如下，可根据自己爱好改后面的两个数字值。
-&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;!DOCTYPE plist PUBLIC &amp;#34;-//Apple//DTD PLIST 1.0//EN&amp;#34; &amp;#34;http://www.apple.com/DTDs/PropertyList-1.0.dtd&amp;#34;&amp;gt; &amp;lt;plist version=&amp;#34;1.0&amp;#34;&amp;gt; &amp;lt;dict&amp;gt; &amp;lt;key&amp;gt;Label&amp;lt;/key&amp;gt; &amp;lt;string&amp;gt;limit.maxfiles&amp;lt;/string&amp;gt; &amp;lt;key&amp;gt;ProgramArguments&amp;lt;/key&amp;gt; &amp;lt;array&amp;gt; &amp;lt;string&amp;gt;launchctl&amp;lt;/string&amp;gt; &amp;lt;string&amp;gt;limit&amp;lt;/string&amp;gt; &amp;lt;string&amp;gt;maxfiles&amp;lt;/string&amp;gt; &amp;lt;string&amp;gt;10240&amp;lt;/string&amp;gt; &amp;lt;string&amp;gt;102400&amp;lt;/string&amp;gt; &amp;lt;/array&amp;gt; &amp;lt;key&amp;gt;RunAtLoad&amp;lt;/key&amp;gt; &amp;lt;true/&amp;gt; &amp;lt;key&amp;gt;ServiceIPC&amp;lt;/key&amp;gt; &amp;lt;false/&amp;gt; &amp;lt;/dict&amp;gt; &amp;lt;/plist&amp;gt;验证文件格式和内容，并应用生效。</description></item><item><title>Spring Boot Start 脚手架定制开发和快速入门</title><link>https://www.xlabs.club/blog/spring-boot-start-site/</link><pubDate>Sat, 09 Mar 2024 14:29:03 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-start-site/</guid><description>介绍基于 start.spring.io 快速定制自己的 Spring Boot 脚手架，主要应用场景：
-规范公司自己的 parent pom，增加特定的依赖项。 根据公司规范生成统一的包结构，统一命名。 根据需要增加特定代码或文件，比如根据公司要求统一 logback.xml、 application.properties 文件。 提供公司自研的二方 jar 包。 快速开始 基本步骤：
-对于 spring.initializr 我们没有定制的需求，直接引用官方的。 拷贝一份 start.spring.io，直接基于这个项目开发、部署、运行。以下都是关于如何修改 start.spring.io。 start.spring.io 主要关注两个模块：
-start-client：前端页面，可以定制些自己的 logo、title 等。 start-site：是一个标准的 spring boot 项目，实际 run 起来的服务，引用了 start-client，直接 run 这个项目的 main 方法就能看到效果。 主要配置文件：start-site/src/main/resources/application.yml，通过修改这个配置文件可以达到的效果如下。
-修改 start 启动时默认 group，把 com.example 改为公司自己的 group。
-initializr: group-id: value: com.yourgroup修改父 pom，使用公司自己的 pom。
-initializr: env: maven: # use your parent pom parent: groupId: com.yourself artifactId: your-parent version: 1.</description></item><item><title>基于 Alibaba Sentinel 实现的分布式限流中间件服务以及遇到的坑和注意事项</title><link>https://www.xlabs.club/blog/sentinel/</link><pubDate>Thu, 07 Mar 2024 21:06:10 +0800</pubDate><guid>https://www.xlabs.club/blog/sentinel/</guid><description>基于 Alibaba Sentinel 实现的分布式限流中间件服务。主要对服务提供者提供限流、系统保护，对服务调用者提供熔断降级、限流排队等待效果。
-实现目标：
-作为服务提供者，保护自己不被打死，服务可以慢不可以挂。 作为客户端及时限速和熔断，防止对服务提供方包含 Http、数据库、MQ 等造成太大压力，防止把糟糕的情况变得更糟。 以用户、租户、对象等更细粒度进行流量精细控制。 服务预热，应用新发布上线，缓存尚未完全建立，防止流量一下子把服务打死。 能够根据 Prometheus、ClickHouse、Elasticsearch 提供的监控指标，动态生成规则，自适应调整规则。 概述 Sentinel 的基础知识请参考官方文档描述，这里单独介绍一些与我们定制相关的内容。
-限流简单来说就三个点：资源、规则、效果。
-资源：就是一个字符串，这个字符串可以自己定义、可以用注解自动生成、可以通过拦截器按规则生成。
-规则：Sentinel 定义的一系列限流保护规则，比如流量控制规则、自适应保护规则。
-效果：实际上“效果”也是“规则”定义的一部分。任何一条请求，命中某些资源规则后产生的效果，比如直接抛出异常、匀速等待。
-Sentinel 全局注意事项和使用限制 使用开源默认 Sentinel 组件，有一些坑，或者说需要关注的注意事项：
-单个进程内资源数量阈值是 6000，多出的资源规则将不会生效（因为是懒加载，资源先到先得），也不提示错误而是直接忽略，资源数量太多建议使用热点参数控制。 对于限流的链路模式，context 阈值是 2000，所以默认的 WEB_CONTEXT_UNIFY 为 true，如果需要链路限流需要把这个改为 false。 自定义时，资源名中不要带 | 线， 这个日志中要用，日志以此作为分割符。 Sentinel 支持按来源限流，注意 origin 数量不能太多，否则会导致内存暴涨。 一个资源可以有多个规则，一条请求能否通过，取决于规则里阈值最小的限制条件。 限流的目的是保护系统，计数计量并不准确，所以不要拿限流做计量或配额控制。 增加限流一定程度上通过时间换空间，降低了 CPU、内存负载，对 K8S HPA 策略会有一定影响。后续我们也会考虑根据 Sentinel 限流指标进行扩缩容。 限流中如果有增加等待效果会使接口变慢，各调用链需要关注调用超时和事务配置。 目前 sentinel-web-servlet 和 sentinel-spring-webmvc-adapter 均不支持热点参数限流。为了支持热点参数需要自行扩展。 sentinel-web-servlet 和 sentinel-spring-webmvc-adapter 会将每个到来的不同的 URL 都作为不同的资源处理，因此对于 REST 风格的 API，需要自行实现 UrlCleaner 接口清洗一下资源（比如将满足 /foo/:id 的 URL 都归到 /foo/* 资源下）。否则会导致资源数量过多，超出资源数量阈值（目前是 6000）时多出的资源的规则将不会生效。 Java 中 sentinel-time-tick-thread 线程会额外多占用约 1-2% CPU，详细代码参考 com.</description></item><item><title>Windows 提权和设置环境变量</title><link>https://www.xlabs.club/blog/windows-takeown/</link><pubDate>Mon, 26 Feb 2024 23:25:29 +0800</pubDate><guid>https://www.xlabs.club/blog/windows-takeown/</guid><description>背景：公司 Windows 办公机受域控安全策略限制，部分文件无权直接修改，另外开发常用的设置系统环境变量也变灰无法设置。此问题解决方式如下。
-提升文件权限 点击 Windows + X 快捷键 – 选择「命令提示符（管理员）。
-在 CDM 窗口中执行如下命令。
-takeown /f C:\要修复的文件路径在拿到文件所有权后，还需要使用如下命令获取文件的完全控制权限。
-icacls C:\要修复的文件路径 /Grant Administrators:F命令行设置环境变量 Windows 下命令行设置环境变量，方式为 setx 变量名 变量值，变量值带空格等特殊符号的，用引号引起来。
-# 通过命令行设置 Java Home setx JAVA_HOME &amp;#34;C:\Program Files\Java\jdk-11.0.2&amp;#34; # 设置 GO Path setx GOPATH &amp;#34;D:\workspace\go&amp;#34;</description></item><item><title>Git SSH 客户端同一机器多用户多仓库配置</title><link>https://www.xlabs.club/blog/git-multi-user/</link><pubDate>Mon, 26 Feb 2024 22:55:10 +0800</pubDate><guid>https://www.xlabs.club/blog/git-multi-user/</guid><description>Git 为不同目录配置不同的 config，比如在同一个电脑上区分个人开发账号和公司开发账号，开源项目放一个文件夹，公司项目放一个文件夹，这样在提交代码的时候就不会混乱。
-为账户 B 准备一个单独的配置文件，比如： ~/.gitconfig-b，内容根据需要定义。
-[user] name = userb-name email = userb-email@test.com修改 ~/.gitconfig 文件，增加以下配置，引用上面创建的配置文件，注意其中的路径用绝对路径，并且路径以 / 结尾。
-[includeIf &amp;#34;gitdir:/project/path-b/&amp;#34;] path = /Users/xxxx/.gitconfig-b保存后，在 /project/path-b/ 下新的仓库都会以 .gitconfig-b 中的用户名和邮箱提交了。
-注意如果使用 ssh key 方式，在生成 key 的时候 ssh-keygen 名字指定文件名，多个 key 不要覆盖了。</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Mon, 09 Sep 2024 11:40:07 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
+&lt;p>顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：&lt;/p>
+&lt;ul>
+&lt;li>模块化开发、部署、资源共享的能力，减少 Cache、Class 等资源占用，有效降低内存占用。&lt;/li>
+&lt;li>更快更轻的依赖，应用能够更快的启动。&lt;/li>
+&lt;li>能够让各个项目组不改代码或少改代码即可接入，控制开发迁移的成本，毕竟很多历史老应用不是那么容易迁移。&lt;/li>
+&lt;/ul>
+&lt;p>基于以上背景，我们在 2022 年基于 SOFAArk 运行了一个版本，效果不太理想暂时搁置。今年 Koupleless 重新开源后做了一些增强和变更，开源社区活跃度有所提升，看宣传效果很好，我们决定重新评估是否可在公司内推广。&lt;/p>
+&lt;h2 id="什么是-koupleless">什么是 Koupleless&lt;/h2>
+&lt;p>&lt;a href="https://koupleless.io/home/">Koupleless&lt;/a> 是一种模块化 Serverless 技术解决方案，它能让普通应用低成本演进为 Serverless 研发模式，让代码与资源解耦，轻松独立维护， 与此同时支持秒级构建部署、合并部署、动态伸缩等能力为用户提供极致的研发运维体验，最终帮助企业实现降本增效。&lt;/p>
+&lt;p>Koupleless 是蚂蚁集团内部经过 5 年打磨成熟的研发框架和运维调度平台能力，相较于传统镜像化的应用模式研发、运维、运行阶段都有 10 倍左右的提升，总结起来 5 大特点：快、省、灵活部署、平滑演进、生产规模化验证。&lt;/p>
+&lt;p>以上都是官网的宣传，更多介绍请链接到官网查看。&lt;/p>
+&lt;p>在整个 Koupleless 平台里，需要四个组件：&lt;/p>
+&lt;ul>
+&lt;li>研发工具 Arkctl, 提供模块创建、快速联调测试等能力。&lt;/li>
+&lt;li>运行组件 SOFAArk, Arklet，提供模块运维、模块生命周期管理，多模块运行环境。（这算两个组件？）&lt;/li>
+&lt;li>控制面组件 ModuleController，本质上是一个 K8S Operator，提供模块发布与运维能力。&lt;/li>
+&lt;/ul>
+&lt;p>我们公司有自己的发布系统、应用管理平台，很少允许运行额外的控制面组件，那么除去 ModuleController，我个人认为，Koupleless 约等于 SOFAArk。&lt;/p>
+&lt;p>Koupleless 增强了 SOFAArk 运维部署相关的功能，解决了 SOFAArk 在企业内无法开箱即用的问题。&lt;/p></description></item><item><title>容器镜像制作最佳实践，Dockerfile 实践经验和踩坑记录</title><link>https://www.xlabs.club/blog/docker-best-practices/</link><pubDate>Fri, 24 May 2024 20:56:08 +0800</pubDate><guid>https://www.xlabs.club/blog/docker-best-practices/</guid><description>&lt;p>整理了由 Docker 官方和社区推荐的用于构建高效镜像的最佳实践和方法，当然有些可能并不适用于你，请注意分辨。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>使用官方镜像作为基础镜像。官方镜像经过了充分验证并集成了最佳实践。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-dockerfile" data-lang="dockerfile">&lt;span class="line">&lt;span class="cl">&lt;span class="c"># 正例：&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> FROM node&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="c"># 反例：&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> FROM ubuntu&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> RUN apt-get install -y node&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>使用 Pulumi 部署 cert-manager 创建 K8S 自签名证书并信任证书</title><link>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</link><pubDate>Mon, 29 Apr 2024 21:49:22 +0800</pubDate><guid>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</guid><description>&lt;p>在搭建本地 Kubernetus 集群后，由于环境在内网，做不了域名验证，无法使用 Let&amp;rsquo;s Encrypt 颁发和自动更新证书，然而很多应用要求必须启用 HTTPS，只能用自签名 CA 证书，并由此 CA 继续颁发其他证书。&lt;/p>
+&lt;p>所以我们准备了以下工具，开始搭建。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://www.pulumi.com/">Pulumi&lt;/a>: 当前非常流行的 IaC 工具，值得一试。&lt;/li>
+&lt;li>&lt;a href="https://cert-manager.io/">cert-manager&lt;/a>: 云原生证书管理，用于自动管理和颁发各种发行来源的 TLS 证书。它将确保证书有效并定期更新，并尝试在到期前的适当时间更新证书。&lt;/li>
+&lt;/ul>
+&lt;p>核心步骤和相关代码如下，更多源码请参考我们的 GitHub 项目 &lt;a href="https://github.com/xlabs-club/xlabs-ops">xlabs-ops&lt;/a>。&lt;/p>
+&lt;p>使用 Pulumi 安装 cert-manager，生成自签名 CA 证书，根据自签名 CA 证书生成 cert-manager ClusterIssuer，都在如下代码了。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-ts" data-lang="ts">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="kr">as&lt;/span> &lt;span class="nx">pulumi&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s2">&amp;#34;@pulumi/pulumi&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="kr">as&lt;/span> &lt;span class="nx">kubernetes&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s2">&amp;#34;@pulumi/kubernetes&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="kr">as&lt;/span> &lt;span class="nx">tls&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s2">&amp;#34;@pulumi/tls&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 部署 cert-manager Helm chart
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">certManagerRelease&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">kubernetes&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">helm&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">v3&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Release&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;cert-manager&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;cert-manager&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">chart&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;cert-manager&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">version&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;1.14.5&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">namespace&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;cert-manager&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">createNamespace&lt;/span>: &lt;span class="kt">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">timeout&lt;/span>: &lt;span class="kt">600&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">repositoryOpts&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">repo&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;https://charts.jetstack.io&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">values&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">installCRDs&lt;/span>: &lt;span class="kt">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 生成一个 CA private key
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">caPrivateKey&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">tls&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PrivateKey&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;caPrivateKey&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">algorithm&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;RSA&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 生成一个 自签名 CA 证书
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">caCert&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">tls&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SelfSignedCert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;caCert&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// keyAlgorithm: &amp;#34;RSA&amp;#34;,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">privateKeyPem&lt;/span>: &lt;span class="kt">caPrivateKey.privateKeyPem&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">isCaCertificate&lt;/span>: &lt;span class="kt">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">validityPeriodHours&lt;/span>: &lt;span class="kt">87600&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 10 year
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">allowedUses&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;cert_signing&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;crl_signing&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">subject&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">commonName&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;your.domain.com&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">organization&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Xlabs Club&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 生成一个带有 CA crt 和 key 的 Kubernetes Secret
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">caSecret&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">kubernetes&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">core&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">v1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Secret&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;caSecret&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">metadata&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;selfsigned-cert-manager-ca&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">namespace&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;cert-manager&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">type&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Opaque&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">stringData&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;tls.crt&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">caCert&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">certPem&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;tls.key&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">caPrivateKey&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">privateKeyPem&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 创建一个自签名的 ClusterIssuer 给 ingress 用
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">clusterIssuer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">kubernetes&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">apiextensions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CustomResource&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;selfsigned-issuer&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">apiVersion&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;cert-manager.io/v1&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">kind&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;ClusterIssuer&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">metadata&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;selfsigned-issuer&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 注意 ClusterIssuer 和 caSecret 放在同一个 namespace，不写 namespace 时 ClusterIssuer 找不到 caSecret
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">namespace&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;cert-manager&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">spec&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ca&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">secretName&lt;/span>: &lt;span class="kt">caSecret.metadata.name&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">dependsOn&lt;/span>: &lt;span class="kt">certManagerRelease&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">certManagerVersion&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">certManagerRelease&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">version&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">clusterIssuerName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">clusterIssuer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">metadata&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Export CA 证书，便于客户端导入信任证书
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">caCertificatePem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">caCert&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">certPem&lt;/span>&lt;span class="p">;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>Mac 搭建本地 K8S 开发环境方案选型</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>&lt;p>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司集群，所以就有了本地搭建 K8S 的需求。&lt;/p>
+&lt;p>另外如果你有以下需求，此文档中提到的方案也许有所帮助：&lt;/p>
+&lt;ul>
+&lt;li>开发机器模拟 Arm、AMD64 等不同架构。&lt;/li>
+&lt;li>完全隔离的不同环境，比如为测试 docker、podman、buildkit、containd 等不同软件设置的独立环境。&lt;/li>
+&lt;li>CI/CD 流程中即用即消的轻量级虚拟机替代方案。&lt;/li>
+&lt;li>有限的资源模拟大批量的 K8S 节点。&lt;/li>
+&lt;/ul>
+&lt;p>以下介绍一下我用过的几种不同方案，有些纯属个人观点仅供参考。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Docker Desktop 并启用 Kubernetes 功能。&lt;/p>
+&lt;p>优点：最简单，开箱即用。&lt;/p>
+&lt;p>缺点：只支持单节点 K8S，且 K8S 部分功能不支持，不易定制。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Docker run K3D, K3D run K3S。&lt;/p>
+&lt;p>优点：简单，任何支持 docker 的工具（Rancher Desktop、Podman） 启动一个容器即可。&lt;/p>
+&lt;p>缺点：只支持 K3S。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://multipass.run/">multipass&lt;/a> 启动虚拟机安装 K8S 或 K3S。&lt;/p>
+&lt;p>优点：multipass 可启动空白 ubuntu 虚拟机，或者启动已经安装好 minikube 的虚拟机。&lt;/p></description></item><item><title>K8S 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>&lt;p>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上。&lt;/p>
+&lt;p>已知的情况是：&lt;/p>
+&lt;ol>
+&lt;li>K8S Service 使用 round-robin 负载均衡策略。&lt;/li>
+&lt;li>客户端和服务端都启用了 Keep-Alive 长连接。&lt;/li>
+&lt;/ol>
+&lt;p>经过抓包分析，负载较高的 Pod 保持着较多 KeepAlive 长连接。将 kube-proxy 的 ipvs 转发模式设置为 Least-Connection，即倾向转发给连接数少的 Pod，可能会有所缓解，但也不一定，因为 ipvs 的负载均衡状态是分散在各个节点的，并没有收敛到一个地方，也就无法在全局层面感知哪个 Pod 上的连接数少，并不能真正做到 Least-Connection。&lt;/p>
+&lt;h2 id="服务端主动要求断开长连接">服务端主动要求断开长连接&lt;/h2>
+&lt;p>客户端连接我们可能无法控制，那么如何从服务端主动断开长连接。&lt;/p>
+&lt;p>以 Tomcat 为例，它提供了 maxKeepAliveRequests 参数，到达此参数阈值后，Tomcat 会在 Response Header 中主动加一个 &lt;code>Connection: close&lt;/code>，正常情况下客户端接收到此响应后会主动断开长连接。&lt;/p>
+&lt;p>对于其他不支持此参数的服务器，可以自定义 Filter 或者自定代码，到达某阈值后在 Response Header 中主动追加 &lt;code>Connection: close&lt;/code>。&lt;/p>
+&lt;p>对于 Spring Boot 可通过 properties 配置。&lt;/p></description></item><item><title>MacOS 固化配置，彻底解决 too many open files in system 的问题</title><link>https://www.xlabs.club/blog/macos-too-many-open-files/</link><pubDate>Tue, 19 Mar 2024 23:05:07 +0800</pubDate><guid>https://www.xlabs.club/blog/macos-too-many-open-files/</guid><description>&lt;p>作为一个开发者，经常在 MacOS 遇到 Too many open files in system 的报错，尤其是碰到黑洞 node_modules 时，如何固化配置彻底解决，直接上代码。&lt;/p>
+&lt;p>输入 launchctl limit 即可看到当前的限制，我这里 maxfiles 是改过以后的。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-console" data-lang="console">&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="gp">$&lt;/span> launchctl limit
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go"> cpu unlimited unlimited
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go"> filesize unlimited unlimited
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go"> data unlimited unlimited
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go"> stack 8388608 67104768
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go"> core 0 unlimited
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go"> rss unlimited unlimited
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go"> memlock unlimited unlimited
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go"> maxproc 1392 2088
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go"> maxfiles 10240 102400
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>Spring Boot Start 脚手架定制开发和快速入门</title><link>https://www.xlabs.club/blog/spring-boot-start-site/</link><pubDate>Sat, 09 Mar 2024 14:29:03 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-start-site/</guid><description>&lt;p>介绍基于 &lt;code>start.spring.io&lt;/code> 快速定制自己的 Spring Boot 脚手架，主要应用场景：&lt;/p>
+&lt;ol>
+&lt;li>规范公司自己的 parent pom，增加特定的依赖项。&lt;/li>
+&lt;li>根据公司规范生成统一的包结构，统一命名。&lt;/li>
+&lt;li>根据需要增加特定代码或文件，比如根据公司要求统一 logback.xml、 application.properties 文件。&lt;/li>
+&lt;li>提供公司自研的二方 jar 包。&lt;/li>
+&lt;/ol>
+&lt;h2 id="快速开始">快速开始&lt;/h2>
+&lt;p>基本步骤：&lt;/p>
+&lt;ol>
+&lt;li>对于 &lt;a href="https://github.com/spring-io/initializr">spring.initializr&lt;/a> 我们没有定制的需求，直接引用官方的。&lt;/li>
+&lt;li>拷贝一份 &lt;a href="https://github.com/spring-io/start.spring.io">start.spring.io&lt;/a>，直接基于这个项目开发、部署、运行。以下都是关于如何修改 &lt;code>start.spring.io&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;p>&lt;code>start.spring.io&lt;/code> 主要关注两个模块：&lt;/p>
+&lt;ul>
+&lt;li>start-client：前端页面，可以定制些自己的 logo、title 等。&lt;/li>
+&lt;li>start-site：是一个标准的 spring boot 项目，实际 run 起来的服务，引用了 start-client，直接 run 这个项目的 main 方法就能看到效果。&lt;/li>
+&lt;/ul>
+&lt;p>主要配置文件：&lt;code>start-site/src/main/resources/application.yml&lt;/code>，通过修改这个配置文件可以达到的效果如下。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>修改 start 启动时默认 group，把 &lt;code>com.example&lt;/code> 改为公司自己的 group。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">initializr&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">group-id&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">com.yourgroup&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>基于 Alibaba Sentinel 实现的分布式限流中间件服务以及遇到的坑和注意事项</title><link>https://www.xlabs.club/blog/sentinel/</link><pubDate>Thu, 07 Mar 2024 21:06:10 +0800</pubDate><guid>https://www.xlabs.club/blog/sentinel/</guid><description>&lt;p>基于 Alibaba Sentinel 实现的分布式限流中间件服务。主要对服务提供者提供限流、系统保护，对服务调用者提供熔断降级、限流排队等待效果。&lt;/p>
+&lt;p>实现目标：&lt;/p>
+&lt;ol>
+&lt;li>作为服务提供者，保护自己不被打死，服务可以慢不可以挂。&lt;/li>
+&lt;li>作为客户端及时限速和熔断，防止对服务提供方包含 Http、数据库、MQ 等造成太大压力，防止把糟糕的情况变得更糟。&lt;/li>
+&lt;li>以用户、租户、对象等更细粒度进行流量精细控制。&lt;/li>
+&lt;li>服务预热，应用新发布上线，缓存尚未完全建立，防止流量一下子把服务打死。&lt;/li>
+&lt;li>能够根据 Prometheus、ClickHouse、Elasticsearch 提供的监控指标，动态生成规则，自适应调整规则。&lt;/li>
+&lt;/ol>
+&lt;h2 id="概述">概述&lt;/h2>
+&lt;p>Sentinel 的基础知识请参考官方文档描述，这里单独介绍一些与我们定制相关的内容。&lt;/p>
+&lt;p>限流简单来说就三个点：资源、规则、效果。&lt;/p>
+&lt;p>资源：就是一个字符串，这个字符串可以自己定义、可以用注解自动生成、可以通过拦截器按规则生成。&lt;/p>
+&lt;p>规则：Sentinel 定义的一系列限流保护规则，比如流量控制规则、自适应保护规则。&lt;/p>
+&lt;p>效果：实际上“效果”也是“规则”定义的一部分。任何一条请求，命中某些资源规则后产生的效果，比如直接抛出异常、匀速等待。&lt;/p>
+&lt;h3 id="sentinel-全局注意事项和使用限制">Sentinel 全局注意事项和使用限制&lt;/h3>
+&lt;p>使用开源默认 Sentinel 组件，有一些坑，或者说需要关注的注意事项：&lt;/p>
+&lt;ol>
+&lt;li>单个进程内资源数量阈值是 6000，多出的资源规则将不会生效（因为是懒加载，资源先到先得），也不提示错误而是直接忽略，资源数量太多建议使用热点参数控制。&lt;/li>
+&lt;li>对于限流的链路模式，context 阈值是 2000，所以默认的 WEB_CONTEXT_UNIFY 为 true，如果需要链路限流需要把这个改为 false。&lt;/li>
+&lt;li>自定义时，资源名中不要带 &lt;code>|&lt;/code> 线， 这个日志中要用，日志以此作为分割符。&lt;/li>
+&lt;li>Sentinel 支持按来源限流，注意 &lt;code>origin&lt;/code> 数量不能太多，否则会导致内存暴涨。&lt;/li>
+&lt;li>一个资源可以有多个规则，一条请求能否通过，取决于规则里阈值最小的限制条件。&lt;/li>
+&lt;li>限流的目的是保护系统，计数计量并不准确，所以不要拿限流做计量或配额控制。&lt;/li>
+&lt;li>增加限流一定程度上通过时间换空间，降低了 CPU、内存负载，对 K8S HPA 策略会有一定影响。后续我们也会考虑根据 Sentinel 限流指标进行扩缩容。&lt;/li>
+&lt;li>限流中如果有增加等待效果会使接口变慢，各调用链需要关注调用超时和事务配置。&lt;/li>
+&lt;li>目前 sentinel-web-servlet 和 sentinel-spring-webmvc-adapter 均不支持热点参数限流。为了支持热点参数需要自行扩展。&lt;/li>
+&lt;li>sentinel-web-servlet 和 sentinel-spring-webmvc-adapter 会将每个到来的不同的 URL 都作为不同的资源处理，因此对于 REST 风格的 API，需要自行实现 UrlCleaner 接口清洗一下资源（比如将满足 /foo/:id 的 URL 都归到 /foo/* 资源下）。否则会导致资源数量过多，超出资源数量阈值（目前是 6000）时多出的资源的规则将不会生效。&lt;/li>
+&lt;li>Java 中 &lt;code>sentinel-time-tick-thread&lt;/code> 线程会额外多占用约 1-2% CPU，详细代码参考 &lt;code>com.alibaba.csp.sentinel.util.TimeUtil&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;p>一些文档中尚未更新但是大家可能关心的内容：&lt;/p></description></item><item><title>Windows 提权和设置环境变量</title><link>https://www.xlabs.club/blog/windows-takeown/</link><pubDate>Mon, 26 Feb 2024 23:25:29 +0800</pubDate><guid>https://www.xlabs.club/blog/windows-takeown/</guid><description>&lt;p>背景：公司 Windows 办公机受域控安全策略限制，部分文件无权直接修改，另外开发常用的设置系统环境变量也变灰无法设置。此问题解决方式如下。&lt;/p>
+&lt;h2 id="提升文件权限">提升文件权限&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>点击 Windows + X 快捷键 – 选择「命令提示符（管理员）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在 CDM 窗口中执行如下命令。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl">takeown /f C:\要修复的文件路径&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>在拿到文件所有权后，还需要使用如下命令获取文件的完全控制权限。&lt;/p></description></item><item><title>Git SSH 客户端同一机器多用户多仓库配置</title><link>https://www.xlabs.club/blog/git-multi-user/</link><pubDate>Mon, 26 Feb 2024 22:55:10 +0800</pubDate><guid>https://www.xlabs.club/blog/git-multi-user/</guid><description>&lt;p>Git 为不同目录配置不同的 config，比如在同一个电脑上区分个人开发账号和公司开发账号，开源项目放一个文件夹，公司项目放一个文件夹，这样在提交代码的时候就不会混乱。&lt;/p>
+&lt;p>为账户 B 准备一个单独的配置文件，比如： ~/.gitconfig-b，内容根据需要定义。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-txt" data-lang="txt">&lt;span class="line">&lt;span class="cl">[user]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> name = userb-name
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> email = userb-email@test.com&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;p>修改 ~/.gitconfig 文件，增加以下配置，引用上面创建的配置文件，注意其中的路径用绝对路径，并且路径以 / 结尾。&lt;/p></description></item></channel></rss>
