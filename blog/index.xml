@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Wed, 11 Sep 2024 23:55:13 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 13 Sep 2024 09:24:37 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
 &lt;p>顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：&lt;/p>
 &lt;ul>
 &lt;li>模块化开发、部署、资源共享的能力，减少 Cache、Class 等资源占用，有效降低内存占用。&lt;/li>
@@ -170,7 +170,7 @@
 &lt;p>缺点：只支持 K3S。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;a href="https://multipass.run/">multipass&lt;/a> 启动虚拟机安装 K8S 或 K3S。&lt;/p>
+&lt;p>&lt;a href="https://multipass.run/">multipass&lt;/a> 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
 &lt;p>优点：multipass 可启动空白 ubuntu 虚拟机，或者启动已经安装好 minikube 的虚拟机。&lt;/p></description></item><item><title>K8S 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>&lt;p>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上。&lt;/p>
 &lt;p>已知的情况是：&lt;/p>
 &lt;ol>
