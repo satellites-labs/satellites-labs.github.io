@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 22 Sep 2024 12:31:01 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 22 Sep 2024 12:35:18 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
 &lt;p>顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：&lt;/p>
 &lt;ul>
 &lt;li>模块化开发、部署、资源共享的能力，减少 Cache、Class 等资源占用，有效降低内存占用。&lt;/li>
@@ -17,7 +17,13 @@
 &lt;li>控制面组件 ModuleController，本质上是一个 K8S Operator，提供模块发布与运维能力。&lt;/li>
 &lt;/ul>
 &lt;p>我们公司有自己的发布系统、应用管理平台，很少允许运行额外的控制面组件，那么除去 ModuleController，我个人认为，Koupleless 约等于 SOFAArk。&lt;/p>
-&lt;p>Koupleless 增强了 SOFAArk 运维部署相关的功能，解决了 SOFAArk 在企业内无法开箱即用的问题。&lt;/p></description></item><item><title>容器镜像制作最佳实践，Dockerfile 实践经验和踩坑记录</title><link>https://www.xlabs.club/blog/docker-best-practices/</link><pubDate>Fri, 24 May 2024 20:56:08 +0800</pubDate><guid>https://www.xlabs.club/blog/docker-best-practices/</guid><description>&lt;p>整理了由 Docker 官方和社区推荐的用于构建高效镜像的最佳实践和方法，当然有些可能并不适用于你，请注意分辨。&lt;/p>
+&lt;p>Koupleless 增强了 SOFAArk 运维部署相关的功能，解决了 SOFAArk 在企业内无法开箱即用的问题。&lt;/p>
+&lt;h2 id="应用接入遇见问题">应用接入遇见问题&lt;/h2>
+&lt;p>基于官方文档我们改造接入了几个应用，分享几个我们遇见的问题。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>对 Java 17 或 21 的支持不好。
+虽然官方已经声称支持 Java 17，但是若用了 Java 17 的语法或新特性，无法编译通过。最后只好自编译 SOFAArk plugin 修改相关依赖解决。&lt;/p></description></item><item><title>容器镜像制作最佳实践，Dockerfile 实践经验和踩坑记录</title><link>https://www.xlabs.club/blog/docker-best-practices/</link><pubDate>Fri, 24 May 2024 20:56:08 +0800</pubDate><guid>https://www.xlabs.club/blog/docker-best-practices/</guid><description>&lt;p>整理了由 Docker 官方和社区推荐的用于构建高效镜像的最佳实践和方法，当然有些可能并不适用于你，请注意分辨。&lt;/p>
 &lt;ol>
 &lt;li>
 &lt;p>使用官方镜像作为基础镜像。官方镜像经过了充分验证并集成了最佳实践。&lt;/p>
@@ -33,7 +39,51 @@
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> FROM node&lt;span class="err">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="c"># 反例：&lt;/span>&lt;span class="err">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> FROM ubuntu&lt;span class="err">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> RUN apt-get install -y node&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>使用 Pulumi 部署 cert-manager 创建 K8S 自签名证书并信任证书</title><link>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</link><pubDate>Mon, 29 Apr 2024 21:49:22 +0800</pubDate><guid>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</guid><description>&lt;p>在搭建本地 Kubernetus 集群后，由于环境在内网，做不了域名验证，无法使用 Let&amp;rsquo;s Encrypt 颁发和自动更新证书，然而很多应用要求必须启用 HTTPS，只能用自签名 CA 证书，并由此 CA 继续颁发其他证书。&lt;/p>
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> RUN apt-get install -y node&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>保持尽可能小的镜像大小，绝不安装无关依赖。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>严格的版本化管理，使用确定性的标签，基础镜像禁用 latest。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用 .dockerignore 文件排除文件干扰。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>最经常变化的命令越往后执行，充分利用分层缓存机制。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Dockerfile 中每行命令产生一层，请合并命令执行，最大限度减少层数。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用多阶段构建，减少所构建镜像的大小。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>禁用 root 用户，使用独立的 use 和 group。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>启用镜像安全扫描，并及时更新。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>一个容器只专注做一件事情。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Java 应用程序不要使用 PID 为 1 的进程，使用 tini 或 dump-init 管理进程，避免僵尸进程。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>以上都是一些基本的原则，但是实际工作的过程中，大家可能会像我一样纠结几个问题。&lt;/p>
+&lt;ul>
+&lt;li>关于第 1 点，一定要使用官方镜像吗。未必，看情况。比如我们作为平台，涉及很多种开发语言，很多种组合场景，每个官方基础镜像可能都不同，就会自建基础镜像，以便统一操作系统、统一脚本和安全维护。为什么要统一操作系统，操作系统投的毒，就像出骨鱼片里未净的刺，给人一种不期待的伤痛。&lt;/li>
+&lt;li>为了镜像大小和安全，一定要使用 Alpine 或 distroless 镜像吗。我的建议是不要使用 Alpine 镜像，如有能力才使用 distroless 镜像。毕竟 libc 的坑，谁痛谁知道。&lt;/li>
+&lt;/ul>
+&lt;h2 id="我们的镜像策略">我们的镜像策略&lt;/h2>
+&lt;h2 id="dockerfile-编写小技巧">Dockerfile 编写小技巧&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>使用 Heredocs 语法代替又长又臭的字符串拼接，当然 Heredocs 支持更多功能比如 run python、多文件内容拷贝，具体请参考官方文档。&lt;/p></description></item><item><title>使用 Pulumi 部署 cert-manager 创建 K8S 自签名证书并信任证书</title><link>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</link><pubDate>Mon, 29 Apr 2024 21:49:22 +0800</pubDate><guid>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</guid><description>&lt;p>在搭建本地 Kubernetus 集群后，由于环境在内网，做不了域名验证，无法使用 Let&amp;rsquo;s Encrypt 颁发和自动更新证书，然而很多应用要求必须启用 HTTPS，只能用自签名 CA 证书，并由此 CA 继续颁发其他证书。&lt;/p>
 &lt;p>所以我们准备了以下工具，开始搭建。&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://www.pulumi.com/">Pulumi&lt;/a>: 当前非常流行的 IaC 工具，值得一试。&lt;/li>
@@ -124,7 +174,10 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">clusterIssuerName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">clusterIssuer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">metadata&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Export CA 证书，便于客户端导入信任证书
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">caCertificatePem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">caCert&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">certPem&lt;/span>&lt;span class="p">;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>Mac 搭建本地 K8S 开发环境方案选型</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>&lt;p>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司集群，所以就有了本地搭建 K8S 的需求。&lt;/p>
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">caCertificatePem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">caCert&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">certPem&lt;/span>&lt;span class="p">;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;p>以上执行 &lt;code>pulumi up&lt;/code> 后，我们就得到了一个自签名的 CA 证书、一个可用于为 ingress 自动签发 TLS 的 ClusterIssuer。&lt;/p></description></item><item><title>Mac 搭建本地 K8S 开发环境方案选型</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>&lt;p>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司集群，所以就有了本地搭建 K8S 的需求。&lt;/p>
 &lt;p>另外如果你有以下需求，此文档中提到的方案也许有所帮助：&lt;/p>
 &lt;ul>
 &lt;li>开发机器模拟 Arm、AMD64 等不同架构。&lt;/li>
@@ -146,7 +199,20 @@
 &lt;/li>
 &lt;li>
 &lt;p>&lt;a href="https://multipass.run/">multipass&lt;/a> 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
-&lt;p>优点：multipass 可启动空白 ubuntu 虚拟机，或者启动已经安装好 minikube 的虚拟机。&lt;/p></description></item><item><title>K8S 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>&lt;p>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上。&lt;/p>
+&lt;p>优点：multipass 可启动空白 ubuntu 虚拟机，或者启动已经安装好 minikube 的虚拟机。&lt;/p>
+&lt;p>缺点：只支持 ubuntu，虚拟机与宿主机同架构。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://lima-vm.io/">lima&lt;/a> 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
+&lt;p>优点：支持虚拟多种 Linux，支持异构虚拟机。&lt;/p>
+&lt;p>缺点：架构稍复杂，启动略慢，不如 multipass 稳定，不支持运行在 Windows。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>以上方案，在网络畅通的情况下，均能在 10 分钟内启动一个单节点 K8S，所以整体方案都不复杂。&lt;/p>
+&lt;p>如何选择：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>如果你需要在公司使用，并且不想买商业 License 的话，可直接排除 Docker Desktop。&lt;/p></description></item><item><title>K8S 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>&lt;p>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上。&lt;/p>
 &lt;p>已知的情况是：&lt;/p>
 &lt;ol>
 &lt;li>K8S Service 使用 round-robin 负载均衡策略。&lt;/li>
@@ -157,7 +223,22 @@
 &lt;p>客户端连接我们可能无法控制，那么如何从服务端主动断开长连接。&lt;/p>
 &lt;p>以 Tomcat 为例，它提供了 maxKeepAliveRequests 参数，到达此参数阈值后，Tomcat 会在 Response Header 中主动加一个 &lt;code>Connection: close&lt;/code>，正常情况下客户端接收到此响应后会主动断开长连接。&lt;/p>
 &lt;p>对于其他不支持此参数的服务器，可以自定义 Filter 或者自定代码，到达某阈值后在 Response Header 中主动追加 &lt;code>Connection: close&lt;/code>。&lt;/p>
-&lt;p>对于 Spring Boot 可通过 properties 配置。&lt;/p></description></item><item><title>MacOS 固化配置，彻底解决 too many open files in system 的问题</title><link>https://www.xlabs.club/blog/macos-too-many-open-files/</link><pubDate>Tue, 19 Mar 2024 23:05:07 +0800</pubDate><guid>https://www.xlabs.club/blog/macos-too-many-open-files/</guid><description>&lt;p>作为一个开发者，经常在 MacOS 遇到 Too many open files in system 的报错，尤其是碰到黑洞 node_modules 时，如何固化配置彻底解决，直接上代码。&lt;/p>
+&lt;p>对于 Spring Boot 可通过 properties 配置。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-properties" data-lang="properties">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Spring Boot Tomcat&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">server.tomcat.max-keep-alive-requests&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">100&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Spring Boot WebFlux&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">server.netty.max-keep-alive-requests&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">100&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;p>对于独立部署 Tomcat，在 server.xml 文件 Connector 中配置 maxKeepAliveRequests。&lt;/p></description></item><item><title>MacOS 固化配置，彻底解决 too many open files in system 的问题</title><link>https://www.xlabs.club/blog/macos-too-many-open-files/</link><pubDate>Tue, 19 Mar 2024 23:05:07 +0800</pubDate><guid>https://www.xlabs.club/blog/macos-too-many-open-files/</guid><description>&lt;p>作为一个开发者，经常在 MacOS 遇到 Too many open files in system 的报错，尤其是碰到黑洞 node_modules 时，如何固化配置彻底解决，直接上代码。&lt;/p>
 &lt;p>输入 launchctl limit 即可看到当前的限制，我这里 maxfiles 是改过以后的。&lt;/p>
 
 
@@ -178,7 +259,42 @@
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go"> memlock unlimited unlimited
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go"> maxproc 1392 2088
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go"> maxfiles 10240 102400
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>Spring Boot Start 脚手架定制开发和快速入门</title><link>https://www.xlabs.club/blog/spring-boot-start-site/</link><pubDate>Sat, 09 Mar 2024 14:29:03 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-start-site/</guid><description>&lt;p>介绍基于 &lt;code>start.spring.io&lt;/code> 快速定制自己的 Spring Boot 脚手架，主要应用场景：&lt;/p>
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;p>开始创建文件 &lt;code>sudo vi /Library/LaunchDaemons/limit.maxfiles.plist&lt;/code> ，内容如下，可根据自己爱好改后面的两个数字值。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-xml" data-lang="xml">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&amp;lt;!DOCTYPE plist PUBLIC &amp;#34;-//Apple//DTD PLIST 1.0//EN&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp"> &amp;#34;http://www.apple.com/DTDs/PropertyList-1.0.dtd&amp;#34;&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">&amp;lt;plist&lt;/span> &lt;span class="na">version=&lt;/span>&lt;span class="s">&amp;#34;1.0&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;dict&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;key&amp;gt;&lt;/span>Label&lt;span class="nt">&amp;lt;/key&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>limit.maxfiles&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;key&amp;gt;&lt;/span>ProgramArguments&lt;span class="nt">&amp;lt;/key&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;array&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>launchctl&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>limit&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>maxfiles&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>10240&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>102400&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/array&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;key&amp;gt;&lt;/span>RunAtLoad&lt;span class="nt">&amp;lt;/key&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;true/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;key&amp;gt;&lt;/span>ServiceIPC&lt;span class="nt">&amp;lt;/key&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;false/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/dict&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">&amp;lt;/plist&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;p>验证文件格式和内容，并应用生效。&lt;/p></description></item><item><title>Spring Boot Start 脚手架定制开发和快速入门</title><link>https://www.xlabs.club/blog/spring-boot-start-site/</link><pubDate>Sat, 09 Mar 2024 14:29:03 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-start-site/</guid><description>&lt;p>介绍基于 &lt;code>start.spring.io&lt;/code> 快速定制自己的 Spring Boot 脚手架，主要应用场景：&lt;/p>
 &lt;ol>
 &lt;li>规范公司自己的 parent pom，增加特定的依赖项。&lt;/li>
 &lt;li>根据公司规范生成统一的包结构，统一命名。&lt;/li>
@@ -210,7 +326,35 @@
  &lt;/figcaption>
  &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">initializr&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">group-id&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">com.yourgroup&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>基于 Alibaba Sentinel 实现的分布式限流中间件服务以及遇到的坑和注意事项</title><link>https://www.xlabs.club/blog/sentinel/</link><pubDate>Thu, 07 Mar 2024 21:06:10 +0800</pubDate><guid>https://www.xlabs.club/blog/sentinel/</guid><description>&lt;p>基于 Alibaba Sentinel 实现的分布式限流中间件服务。主要对服务提供者提供限流、系统保护，对服务调用者提供熔断降级、限流排队等待效果。&lt;/p>
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">com.yourgroup&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>修改父 pom，使用公司自己的 pom。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">initializr&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">env&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">maven&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># use your parent pom&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">parent&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">groupId&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">com.yourself&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">artifactId&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">your-parent&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1.0.0&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># relativePath: ../pom.xml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">includeSpringBootBom&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>限定 Java 和 Spring Boot 版：修改 languages 和 bootVersions 即可。&lt;/p></description></item><item><title>基于 Alibaba Sentinel 实现的分布式限流中间件服务以及遇到的坑和注意事项</title><link>https://www.xlabs.club/blog/sentinel/</link><pubDate>Thu, 07 Mar 2024 21:06:10 +0800</pubDate><guid>https://www.xlabs.club/blog/sentinel/</guid><description>&lt;p>基于 Alibaba Sentinel 实现的分布式限流中间件服务。主要对服务提供者提供限流、系统保护，对服务调用者提供熔断降级、限流排队等待效果。&lt;/p>
 &lt;p>实现目标：&lt;/p>
 &lt;ol>
 &lt;li>作为服务提供者，保护自己不被打死，服务可以慢不可以挂。&lt;/li>
@@ -261,7 +405,36 @@
 &lt;/div>
 &lt;/li>
 &lt;li>
-&lt;p>在拿到文件所有权后，还需要使用如下命令获取文件的完全控制权限。&lt;/p></description></item><item><title>Git SSH 客户端同一机器多用户多仓库配置</title><link>https://www.xlabs.club/blog/git-multi-user/</link><pubDate>Mon, 26 Feb 2024 22:55:10 +0800</pubDate><guid>https://www.xlabs.club/blog/git-multi-user/</guid><description>&lt;p>Git 为不同目录配置不同的 config，比如在同一个电脑上区分个人开发账号和公司开发账号，开源项目放一个文件夹，公司项目放一个文件夹，这样在提交代码的时候就不会混乱。&lt;/p>
+&lt;p>在拿到文件所有权后，还需要使用如下命令获取文件的完全控制权限。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl">icacls C:\要修复的文件路径 /Grant Administrators:F&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="命令行设置环境变量">命令行设置环境变量&lt;/h2>
+&lt;p>Windows 下命令行设置环境变量，方式为 &lt;code>setx 变量名 变量值&lt;/code>，变量值带空格等特殊符号的，用引号引起来。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl"># 通过命令行设置 Java Home
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">setx JAVA_HOME &lt;span class="s2">&amp;#34;C:\Program Files\Java\jdk-11.0.2&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 设置 GO Path
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">setx GOPATH &lt;span class="s2">&amp;#34;D:\workspace\go&amp;#34;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div></description></item><item><title>Git SSH 客户端同一机器多用户多仓库配置</title><link>https://www.xlabs.club/blog/git-multi-user/</link><pubDate>Mon, 26 Feb 2024 22:55:10 +0800</pubDate><guid>https://www.xlabs.club/blog/git-multi-user/</guid><description>&lt;p>Git 为不同目录配置不同的 config，比如在同一个电脑上区分个人开发账号和公司开发账号，开源项目放一个文件夹，公司项目放一个文件夹，这样在提交代码的时候就不会混乱。&lt;/p>
 &lt;p>为账户 B 准备一个单独的配置文件，比如： ~/.gitconfig-b，内容根据需要定义。&lt;/p>
 
 
@@ -276,4 +449,18 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> email = userb-email@test.com&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
  &lt;/figure>
 &lt;/div>
-&lt;p>修改 ~/.gitconfig 文件，增加以下配置，引用上面创建的配置文件，注意其中的路径用绝对路径，并且路径以 / 结尾。&lt;/p></description></item></channel></rss>
+&lt;p>修改 ~/.gitconfig 文件，增加以下配置，引用上面创建的配置文件，注意其中的路径用绝对路径，并且路径以 / 结尾。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-txt" data-lang="txt">&lt;span class="line">&lt;span class="cl">[includeIf &amp;#34;gitdir:/project/path-b/&amp;#34;]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">path = /Users/xxxx/.gitconfig-b&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;p>保存后，在 /project/path-b/ 下新的仓库都会以 .gitconfig-b 中的用户名和邮箱提交了。&lt;/p>
+&lt;p>注意如果使用 ssh key 方式，在生成 key 的时候 ssh-keygen 名字指定文件名，多个 key 不要覆盖了。&lt;/p></description></item></channel></rss>

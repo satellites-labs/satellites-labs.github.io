@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Java on XLabs</title><link>https://www.xlabs.club/tags/java/</link><description>Recent content in Java on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 22 Sep 2024 12:31:01 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Java on XLabs</title><link>https://www.xlabs.club/tags/java/</link><description>Recent content in Java on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 22 Sep 2024 12:35:18 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
 &lt;p>顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：&lt;/p>
 &lt;ul>
 &lt;li>模块化开发、部署、资源共享的能力，减少 Cache、Class 等资源占用，有效降低内存占用。&lt;/li>
@@ -17,7 +17,13 @@
 &lt;li>控制面组件 ModuleController，本质上是一个 K8S Operator，提供模块发布与运维能力。&lt;/li>
 &lt;/ul>
 &lt;p>我们公司有自己的发布系统、应用管理平台，很少允许运行额外的控制面组件，那么除去 ModuleController，我个人认为，Koupleless 约等于 SOFAArk。&lt;/p>
-&lt;p>Koupleless 增强了 SOFAArk 运维部署相关的功能，解决了 SOFAArk 在企业内无法开箱即用的问题。&lt;/p></description></item><item><title>Spring Boot Start 脚手架定制开发和快速入门</title><link>https://www.xlabs.club/blog/spring-boot-start-site/</link><pubDate>Sat, 09 Mar 2024 14:29:03 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-start-site/</guid><description>&lt;p>介绍基于 &lt;code>start.spring.io&lt;/code> 快速定制自己的 Spring Boot 脚手架，主要应用场景：&lt;/p>
+&lt;p>Koupleless 增强了 SOFAArk 运维部署相关的功能，解决了 SOFAArk 在企业内无法开箱即用的问题。&lt;/p>
+&lt;h2 id="应用接入遇见问题">应用接入遇见问题&lt;/h2>
+&lt;p>基于官方文档我们改造接入了几个应用，分享几个我们遇见的问题。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>对 Java 17 或 21 的支持不好。
+虽然官方已经声称支持 Java 17，但是若用了 Java 17 的语法或新特性，无法编译通过。最后只好自编译 SOFAArk plugin 修改相关依赖解决。&lt;/p></description></item><item><title>Spring Boot Start 脚手架定制开发和快速入门</title><link>https://www.xlabs.club/blog/spring-boot-start-site/</link><pubDate>Sat, 09 Mar 2024 14:29:03 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-start-site/</guid><description>&lt;p>介绍基于 &lt;code>start.spring.io&lt;/code> 快速定制自己的 Spring Boot 脚手架，主要应用场景：&lt;/p>
 &lt;ol>
 &lt;li>规范公司自己的 parent pom，增加特定的依赖项。&lt;/li>
 &lt;li>根据公司规范生成统一的包结构，统一命名。&lt;/li>
@@ -49,7 +55,35 @@
  &lt;/figcaption>
  &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">initializr&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">group-id&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">com.yourgroup&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>基于 Alibaba Sentinel 实现的分布式限流中间件服务以及遇到的坑和注意事项</title><link>https://www.xlabs.club/blog/sentinel/</link><pubDate>Thu, 07 Mar 2024 21:06:10 +0800</pubDate><guid>https://www.xlabs.club/blog/sentinel/</guid><description>&lt;p>基于 Alibaba Sentinel 实现的分布式限流中间件服务。主要对服务提供者提供限流、系统保护，对服务调用者提供熔断降级、限流排队等待效果。&lt;/p>
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">com.yourgroup&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>修改父 pom，使用公司自己的 pom。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">initializr&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">env&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">maven&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># use your parent pom&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">parent&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">groupId&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">com.yourself&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">artifactId&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">your-parent&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1.0.0&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># relativePath: ../pom.xml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">includeSpringBootBom&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>限定 Java 和 Spring Boot 版：修改 languages 和 bootVersions 即可。&lt;/p></description></item><item><title>基于 Alibaba Sentinel 实现的分布式限流中间件服务以及遇到的坑和注意事项</title><link>https://www.xlabs.club/blog/sentinel/</link><pubDate>Thu, 07 Mar 2024 21:06:10 +0800</pubDate><guid>https://www.xlabs.club/blog/sentinel/</guid><description>&lt;p>基于 Alibaba Sentinel 实现的分布式限流中间件服务。主要对服务提供者提供限流、系统保护，对服务调用者提供熔断降级、限流排队等待效果。&lt;/p>
 &lt;p>实现目标：&lt;/p>
 &lt;ol>
 &lt;li>作为服务提供者，保护自己不被打死，服务可以慢不可以挂。&lt;/li>
@@ -106,7 +140,13 @@
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">431 at java.util.concurrent.ThreadPoolExecutor.processWorkerExit(ThreadPoolExecutor.java:1025)
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">432 at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">433 at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>K8S Pod 容器内 Java 进程内存分析</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>K8S Pod 容器内 Java 进程内存分析，容器 OOM 和 Jave OOM 问题定位。</description></item><item><title>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录</title><link>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</guid><description>&lt;p>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录。&lt;/p>
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;p>进入 Pod 内，尝试执行任何操作，又会出现 &lt;code>unable to start container process&lt;/code> 错误。&lt;/p>
+&lt;p>一开始怀疑是内存不足，调大了内存，同时也缩小了 Java 的 &lt;code>xss&lt;/code>，都不起作用。&lt;/p>
+&lt;p>真实原因： K8S 容器限制了 PID 数，无法创建新的线程，在 Pod 内 &lt;code>cat /sys/fs/cgroup/pids/pids.max&lt;/code> 发现是 1024。&lt;/p>
+&lt;p>关于 K8S pid limit， 可参考此资料：&lt;a href="https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/">https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/&lt;/a>.&lt;/p></description></item><item><title>K8S Pod 容器内 Java 进程内存分析</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>K8S Pod 容器内 Java 进程内存分析，容器 OOM 和 Jave OOM 问题定位。</description></item><item><title>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录</title><link>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</guid><description>&lt;p>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录。&lt;/p>
 &lt;h2 id="概述">概述&lt;/h2>
 &lt;p>从 Spring 到 Spring Boot，整体开发、运行方式主要变化。&lt;/p>
 &lt;table>
@@ -139,7 +179,21 @@
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
-&lt;p>说明：&lt;/p></description></item><item><title>Spring Boot 使用 Micrometer 集成 Prometheus 监控，5 分钟接入自定义监控指标</title><link>https://www.xlabs.club/blog/spring-boot-micrometer/</link><pubDate>Mon, 07 Aug 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-micrometer/</guid><description>&lt;p>Spring Boot 使用 Micrometer 集成 Prometheus 监控，5 分钟接入自定义监控指标，主要内容：&lt;/p>
+&lt;p>说明：&lt;/p>
+&lt;ol>
+&lt;li>理论上完全兼容 Java11，但是要求业务方尽量使用 Java17 或 21。其他版本都是实验性质尽量兼容。&lt;/li>
+&lt;li>线上运行支持 Spring Boot jar 直接运行，但主要业务仍推荐以 war + tomcat 为主。如果希望以 &lt;code>java -jar&lt;/code> 方式运行，参考下面的章节“jar 方式运行”描述。&lt;/li>
+&lt;li>目前 Spring Boot 主要推行版本是 2.7.x。 3.x 版本逐渐适配中，注意 3.x 要求 Java 最低版本是 17。&lt;/li>
+&lt;/ol>
+&lt;h2 id="快速开始">快速开始&lt;/h2>
+&lt;ol>
+&lt;li>线下支撑系统导航，点击 &lt;code>脚手架&lt;/code> 进入 spring start 页面，按自己需求选择模块，生成自己业务模式初始化代码。&lt;/li>
+&lt;li>写（Copy）业务代码到项目里，修改 pom.xml 根据需要添加新的依赖。&lt;/li>
+&lt;li>查看本文档中 &lt;code>遇见问题及解决方案&lt;/code> 章节，注意如果是老项目迁移，这一步很重要。&lt;/li>
+&lt;li>本地开发工具启动 main 方法。&lt;/li>
+&lt;li>上线发布系统，选择 &lt;code>tomcat9:openjdk17&lt;/code> 镜像，并勾选 &lt;code>镜像 JDK 版本编译代码&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;p>以上生成的一个最简略的代码结构，更多复杂使用方式参考下方主要 starter 使用说明。&lt;/p></description></item><item><title>Spring Boot 使用 Micrometer 集成 Prometheus 监控，5 分钟接入自定义监控指标</title><link>https://www.xlabs.club/blog/spring-boot-micrometer/</link><pubDate>Mon, 07 Aug 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-micrometer/</guid><description>&lt;p>Spring Boot 使用 Micrometer 集成 Prometheus 监控，5 分钟接入自定义监控指标，主要内容：&lt;/p>
 &lt;ol>
 &lt;li>Micrometer 介绍。&lt;/li>
 &lt;li>业务如何自定义指标，如何接入 Prometheus，实现方式和规范。&lt;/li>
@@ -160,7 +214,8 @@
 &lt;/ul>
 &lt;/li>
 &lt;li>
-&lt;p>Meter（指标）&lt;/p></description></item><item><title>基于 Envoy 的智能路由服务</title><link>https://www.xlabs.club/docs/cloud/service-mesh-envoy/</link><pubDate>Mon, 07 Aug 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/docs/cloud/service-mesh-envoy/</guid><description>&lt;p>基于 Envoy + Java Agent 的智能路由服务实现方案介绍。&lt;/p>
+&lt;p>Meter（指标）&lt;/p>
+&lt;p>监控数据的整个过程都是围绕着 Meter（指标）, 通过一个一个的 Meter（指标）数据来进行观察应用的状态。常用的指标如：&lt;/p></description></item><item><title>基于 Envoy 的智能路由服务</title><link>https://www.xlabs.club/docs/cloud/service-mesh-envoy/</link><pubDate>Mon, 07 Aug 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/docs/cloud/service-mesh-envoy/</guid><description>&lt;p>基于 Envoy + Java Agent 的智能路由服务实现方案介绍。&lt;/p>
 &lt;h2 id="核心需求">核心需求&lt;/h2>
 &lt;ol>
 &lt;li>服务自动注册和发现，通过 Service Name 直接调用服务。当然基本的负载均衡策略、熔断降级限流等功能也要支持。&lt;/li>

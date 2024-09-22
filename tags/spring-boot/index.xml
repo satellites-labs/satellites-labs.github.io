@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Spring Boot on XLabs</title><link>https://www.xlabs.club/tags/spring-boot/</link><description>Recent content in Spring Boot on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 22 Sep 2024 12:31:01 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/spring-boot/index.xml" rel="self" type="application/rss+xml"/><item><title>Spring Boot Start 脚手架定制开发和快速入门</title><link>https://www.xlabs.club/blog/spring-boot-start-site/</link><pubDate>Sat, 09 Mar 2024 14:29:03 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-start-site/</guid><description>&lt;p>介绍基于 &lt;code>start.spring.io&lt;/code> 快速定制自己的 Spring Boot 脚手架，主要应用场景：&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Spring Boot on XLabs</title><link>https://www.xlabs.club/tags/spring-boot/</link><description>Recent content in Spring Boot on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 22 Sep 2024 12:35:18 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/spring-boot/index.xml" rel="self" type="application/rss+xml"/><item><title>Spring Boot Start 脚手架定制开发和快速入门</title><link>https://www.xlabs.club/blog/spring-boot-start-site/</link><pubDate>Sat, 09 Mar 2024 14:29:03 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-start-site/</guid><description>&lt;p>介绍基于 &lt;code>start.spring.io&lt;/code> 快速定制自己的 Spring Boot 脚手架，主要应用场景：&lt;/p>
 &lt;ol>
 &lt;li>规范公司自己的 parent pom，增加特定的依赖项。&lt;/li>
 &lt;li>根据公司规范生成统一的包结构，统一命名。&lt;/li>
@@ -30,7 +30,35 @@
  &lt;/figcaption>
  &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">initializr&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">group-id&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">com.yourgroup&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录</title><link>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</guid><description>&lt;p>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录。&lt;/p>
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">com.yourgroup&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>修改父 pom，使用公司自己的 pom。&lt;/p>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">initializr&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">env&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">maven&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># use your parent pom&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">parent&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">groupId&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">com.yourself&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">artifactId&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">your-parent&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1.0.0&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># relativePath: ../pom.xml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">includeSpringBootBom&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>限定 Java 和 Spring Boot 版：修改 languages 和 bootVersions 即可。&lt;/p></description></item><item><title>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录</title><link>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</guid><description>&lt;p>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录。&lt;/p>
 &lt;h2 id="概述">概述&lt;/h2>
 &lt;p>从 Spring 到 Spring Boot，整体开发、运行方式主要变化。&lt;/p>
 &lt;table>
@@ -63,7 +91,21 @@
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
-&lt;p>说明：&lt;/p></description></item><item><title>Spring Boot 使用 Micrometer 集成 Prometheus 监控，5 分钟接入自定义监控指标</title><link>https://www.xlabs.club/blog/spring-boot-micrometer/</link><pubDate>Mon, 07 Aug 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-micrometer/</guid><description>&lt;p>Spring Boot 使用 Micrometer 集成 Prometheus 监控，5 分钟接入自定义监控指标，主要内容：&lt;/p>
+&lt;p>说明：&lt;/p>
+&lt;ol>
+&lt;li>理论上完全兼容 Java11，但是要求业务方尽量使用 Java17 或 21。其他版本都是实验性质尽量兼容。&lt;/li>
+&lt;li>线上运行支持 Spring Boot jar 直接运行，但主要业务仍推荐以 war + tomcat 为主。如果希望以 &lt;code>java -jar&lt;/code> 方式运行，参考下面的章节“jar 方式运行”描述。&lt;/li>
+&lt;li>目前 Spring Boot 主要推行版本是 2.7.x。 3.x 版本逐渐适配中，注意 3.x 要求 Java 最低版本是 17。&lt;/li>
+&lt;/ol>
+&lt;h2 id="快速开始">快速开始&lt;/h2>
+&lt;ol>
+&lt;li>线下支撑系统导航，点击 &lt;code>脚手架&lt;/code> 进入 spring start 页面，按自己需求选择模块，生成自己业务模式初始化代码。&lt;/li>
+&lt;li>写（Copy）业务代码到项目里，修改 pom.xml 根据需要添加新的依赖。&lt;/li>
+&lt;li>查看本文档中 &lt;code>遇见问题及解决方案&lt;/code> 章节，注意如果是老项目迁移，这一步很重要。&lt;/li>
+&lt;li>本地开发工具启动 main 方法。&lt;/li>
+&lt;li>上线发布系统，选择 &lt;code>tomcat9:openjdk17&lt;/code> 镜像，并勾选 &lt;code>镜像 JDK 版本编译代码&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;p>以上生成的一个最简略的代码结构，更多复杂使用方式参考下方主要 starter 使用说明。&lt;/p></description></item><item><title>Spring Boot 使用 Micrometer 集成 Prometheus 监控，5 分钟接入自定义监控指标</title><link>https://www.xlabs.club/blog/spring-boot-micrometer/</link><pubDate>Mon, 07 Aug 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-boot-micrometer/</guid><description>&lt;p>Spring Boot 使用 Micrometer 集成 Prometheus 监控，5 分钟接入自定义监控指标，主要内容：&lt;/p>
 &lt;ol>
 &lt;li>Micrometer 介绍。&lt;/li>
 &lt;li>业务如何自定义指标，如何接入 Prometheus，实现方式和规范。&lt;/li>
@@ -84,7 +126,8 @@
 &lt;/ul>
 &lt;/li>
 &lt;li>
-&lt;p>Meter（指标）&lt;/p></description></item><item><title>基于 Envoy 的智能路由服务</title><link>https://www.xlabs.club/docs/cloud/service-mesh-envoy/</link><pubDate>Mon, 07 Aug 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/docs/cloud/service-mesh-envoy/</guid><description>&lt;p>基于 Envoy + Java Agent 的智能路由服务实现方案介绍。&lt;/p>
+&lt;p>Meter（指标）&lt;/p>
+&lt;p>监控数据的整个过程都是围绕着 Meter（指标）, 通过一个一个的 Meter（指标）数据来进行观察应用的状态。常用的指标如：&lt;/p></description></item><item><title>基于 Envoy 的智能路由服务</title><link>https://www.xlabs.club/docs/cloud/service-mesh-envoy/</link><pubDate>Mon, 07 Aug 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/docs/cloud/service-mesh-envoy/</guid><description>&lt;p>基于 Envoy + Java Agent 的智能路由服务实现方案介绍。&lt;/p>
 &lt;h2 id="核心需求">核心需求&lt;/h2>
 &lt;ol>
 &lt;li>服务自动注册和发现，通过 Service Name 直接调用服务。当然基本的负载均衡策略、熔断降级限流等功能也要支持。&lt;/li>

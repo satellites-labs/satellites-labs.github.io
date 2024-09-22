@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>平台工程 on XLabs</title><link>https://www.xlabs.club/docs/platform/</link><description>Recent content in 平台工程 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 22 Sep 2024 12:31:01 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/docs/platform/index.xml" rel="self" type="application/rss+xml"/><item><title>总体架构</title><link>https://www.xlabs.club/docs/platform/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/platform/introduction/</guid><description>&lt;p>我们的平台工程建设之路，介绍前期方案设计、中间踩坑历程。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>平台工程 on XLabs</title><link>https://www.xlabs.club/docs/platform/</link><description>Recent content in 平台工程 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 22 Sep 2024 12:35:18 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/docs/platform/index.xml" rel="self" type="application/rss+xml"/><item><title>总体架构</title><link>https://www.xlabs.club/docs/platform/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/platform/introduction/</guid><description>&lt;p>我们的平台工程建设之路，介绍前期方案设计、中间踩坑历程。&lt;/p>
 &lt;h2 id="原则">原则&lt;/h2>
 &lt;p>分享我们平台工程建设的一些基本原则。&lt;/p>
 &lt;ol>
@@ -150,4 +150,15 @@ C4Context
 &lt;p>基于以上背景，我们探索了 &lt;a href="https://docs.openrewrite.org/">OpenRewrite&lt;/a>、&lt;a href="https://github.com/spring-projects-experimental/spring-boot-migrator">Spring Boot Migrator&lt;/a>、&lt;a href="https://github.com/windup">Redhat Windup&lt;/a>、&lt;a href="https://github.com/adoptium/emt4j">emt4j&lt;/a> 和一众不便具名的 AI 代码助手，本文将分享我们使用 OpenRewrite、Spring Boot Migrator 进行代码重构和升级的一些使用经验和体验。&lt;/p>
 &lt;h2 id="openrewrite">OpenRewrite&lt;/h2>
 &lt;p>&lt;a href="https://docs.openrewrite.org/">OpenRewrite&lt;/a> 是一个开源的代码重写工具，旨在帮助开发人员自动化大规模重构代码。&lt;/p>
-&lt;p>它提供了一套强大的 API 和插件系统，可以通过静态分析和代码转换技术来解析、修改和生成代码。OpenRewrite 支持多种编程语言，包括 Java、C#、 TypeScript、Python、Kubernetes 等。通过使用 OpenRewrite，开发人员可以轻松地进行代码重构、性能优化、代码风格调整和代码迁移等操作，从而提高代码质量和可维护性。OpenRewrite 的开源性质使得开发人员可以自由地定制和扩展其功能，以满足特定项目的需求。&lt;/p></description></item></channel></rss>
+&lt;p>它提供了一套强大的 API 和插件系统，可以通过静态分析和代码转换技术来解析、修改和生成代码。OpenRewrite 支持多种编程语言，包括 Java、C#、 TypeScript、Python、Kubernetes 等。通过使用 OpenRewrite，开发人员可以轻松地进行代码重构、性能优化、代码风格调整和代码迁移等操作，从而提高代码质量和可维护性。OpenRewrite 的开源性质使得开发人员可以自由地定制和扩展其功能，以满足特定项目的需求。&lt;/p>
+&lt;p>比如 Java 领域一些热门的应用场景：&lt;/p>
+&lt;ul>
+&lt;li>Java 版本升级：从 Java 8 到 Java 21，从 Java EE 到 Jakarta EE 。&lt;/li>
+&lt;li>Spring 框架迁移：从 Spring 5 到 Spring 6，从 Spring Boot 2 到 Spring Boot 3。&lt;/li>
+&lt;li>测试框架迁移： 从 Junit 4 到 Junit 5。&lt;/li>
+&lt;li>依赖管理：自动更新 Java 项目的 Maven 或 Gradle 依赖，确保使用最新和最安全的库版本。&lt;/li>
+&lt;li>代码清理和格式化：自动清理和格式化 Java 代码，确保符合项目或组织的编码标准和风格指南。&lt;/li>
+&lt;li>修复安全漏洞：自动识别和修复 Java 代码中的已知安全漏洞，如使用了有安全问题的库或方法。&lt;/li>
+&lt;li>代码异味检测和修复：识别并自动重构 Java 代码中的“代码异味”，以提高代码可维护性。&lt;/li>
+&lt;/ul>
+&lt;p>相比于时下火热的 AI 代码工具，比如 GitHub Copilot、Amazon CodeWhisperer，我认为 OpenRewrite 的优势主要有以下几点：&lt;/p></description></item></channel></rss>

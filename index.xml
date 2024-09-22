@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>卫星实验室 on XLabs</title><link>https://www.xlabs.club/</link><description>Recent content in 卫星实验室 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 22 Sep 2024 12:31:01 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/cloud/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/cloud/introduction/</guid><description>&lt;p>云原生技术探索。&lt;/p></description></item><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>&lt;p>卫星实验室，一个专注于技术创新的开源组织。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>卫星实验室 on XLabs</title><link>https://www.xlabs.club/</link><description>Recent content in 卫星实验室 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 22 Sep 2024 12:35:18 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/cloud/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/cloud/introduction/</guid><description>&lt;p>云原生技术探索。&lt;/p></description></item><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>&lt;p>卫星实验室，一个专注于技术创新的开源组织。&lt;/p>
 &lt;p>此项目为卫星实验室主页 &lt;a href="https://www.xlabs.club">xlabs.club&lt;/a> 的源码，在这里将分享我们的平台工程实践经验，介绍如何以技术驱动业务长期发展和高速增长。&lt;/p>
 &lt;p>欢迎提交 PR 进行开源共建。&lt;/p>
 &lt;h2 id="主页内容">主页内容&lt;/h2>
@@ -25,7 +25,122 @@
  &lt;figcaption class="header">
  &lt;span class="title">&lt;/span>
  &lt;/figcaption>
- &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">kubectl get secret mys --namespace&lt;span class="o">=&lt;/span>na -oyaml &lt;span class="p">|&lt;/span> grep -v &lt;span class="s1">&amp;#39;^\s*namespace:\s&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> kubectl apply --namespace&lt;span class="o">=&lt;/span>nb -f -&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>总体架构</title><link>https://www.xlabs.club/docs/platform/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/platform/introduction/</guid><description>&lt;p>我们的平台工程建设之路，介绍前期方案设计、中间踩坑历程。&lt;/p>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">kubectl get secret mys --namespace&lt;span class="o">=&lt;/span>na -oyaml &lt;span class="p">|&lt;/span> grep -v &lt;span class="s1">&amp;#39;^\s*namespace:\s&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> kubectl apply --namespace&lt;span class="o">=&lt;/span>nb -f -&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;ul>
+&lt;li>批量删除 pod。&lt;/li>
+&lt;/ul>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame is-terminal not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">kubectl get pods --all-namespaces &lt;span class="p">|&lt;/span> grep Evicted &lt;span class="p">|&lt;/span> awk &lt;span class="s1">&amp;#39;{print $2 &amp;#34; --namespace=&amp;#34; $1}&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> xargs kubectl delete pod
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Delete by label&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">kubectl delete pod -n idaas-book -l app.kubernetes.io/name&lt;span class="o">=&lt;/span>idaas-book&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;ul>
+&lt;li>原地重启 Pod。&lt;/li>
+&lt;/ul>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame is-terminal not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">kubectl rollout restart deploy/xxx -n your-namespace&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;ul>
+&lt;li>命令行快速扩缩容。&lt;/li>
+&lt;/ul>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame is-terminal not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># kubectl scale -h&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">kubectl scale --replicas&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span> deploy/xxx -n your-namespace&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;ul>
+&lt;li>密钥解密。&lt;/li>
+&lt;/ul>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame is-terminal not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl"> kubectl get secret my-creds -n mysql -o &lt;span class="nv">jsonpath&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;{.data.ADMIN_PASSWORD}&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> base64 --decode&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;ul>
+&lt;li>合并多个 kube config 文件。&lt;/li>
+&lt;/ul>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame is-terminal not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">KUBECONFIG&lt;/span>&lt;span class="o">=&lt;/span>~/.kube/config:~/.kube/anotherconfig
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">kubectl config view --flatten &amp;gt; ~/.kube/config-all
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp ~/.kube/config-all ~/.kube/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 顺手把权限改了，避免 helm 或 kubectl 客户端 warning&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">600&lt;/span> ~/.kube/config&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;ul>
+&lt;li>获取某个 namespace 下的全部资源，找出你看不见的资源，常用于 webhook/CR/CRD 等资源清理，解决强制删除失败。&lt;/li>
+&lt;/ul>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame is-terminal not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ns&lt;/span>&lt;span class="o">=&lt;/span>your-namespace
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> resource in &lt;span class="sb">`&lt;/span>kubectl api-resources --verbs&lt;span class="o">=&lt;/span>list --namespaced -o name &lt;span class="p">|&lt;/span> xargs -n &lt;span class="m">1&lt;/span> kubectl get -o name -n &lt;span class="nv">$ns&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> kubectl get &lt;span class="nv">$resource&lt;/span> -n &lt;span class="nv">$ns&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># kubectl patch $resource -p &amp;#39;{&amp;#34;metadata&amp;#34;: {&amp;#34;finalizers&amp;#34;: []}}&amp;#39; --type=&amp;#39;merge&amp;#39; -n $ns;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">done&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;ul>
+&lt;li>根据特定字段排序 Pod 列表。&lt;/li>
+&lt;/ul>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame is-terminal not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 根据重启次数排序&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">kubectl get pods --sort-by&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;.status.containerStatuses[0].restartCount&amp;#39;&lt;/span> -A&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div></description></item><item><title>总体架构</title><link>https://www.xlabs.club/docs/platform/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/platform/introduction/</guid><description>&lt;p>我们的平台工程建设之路，介绍前期方案设计、中间踩坑历程。&lt;/p>
 &lt;h2 id="原则">原则&lt;/h2>
 &lt;p>分享我们平台工程建设的一些基本原则。&lt;/p>
 &lt;ol>
@@ -185,7 +300,13 @@ C4Context
 &lt;li>控制面组件 ModuleController，本质上是一个 K8S Operator，提供模块发布与运维能力。&lt;/li>
 &lt;/ul>
 &lt;p>我们公司有自己的发布系统、应用管理平台，很少允许运行额外的控制面组件，那么除去 ModuleController，我个人认为，Koupleless 约等于 SOFAArk。&lt;/p>
-&lt;p>Koupleless 增强了 SOFAArk 运维部署相关的功能，解决了 SOFAArk 在企业内无法开箱即用的问题。&lt;/p></description></item><item><title>容器镜像制作最佳实践，Dockerfile 实践经验和踩坑记录</title><link>https://www.xlabs.club/blog/docker-best-practices/</link><pubDate>Fri, 24 May 2024 20:56:08 +0800</pubDate><guid>https://www.xlabs.club/blog/docker-best-practices/</guid><description>&lt;p>整理了由 Docker 官方和社区推荐的用于构建高效镜像的最佳实践和方法，当然有些可能并不适用于你，请注意分辨。&lt;/p>
+&lt;p>Koupleless 增强了 SOFAArk 运维部署相关的功能，解决了 SOFAArk 在企业内无法开箱即用的问题。&lt;/p>
+&lt;h2 id="应用接入遇见问题">应用接入遇见问题&lt;/h2>
+&lt;p>基于官方文档我们改造接入了几个应用，分享几个我们遇见的问题。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>对 Java 17 或 21 的支持不好。
+虽然官方已经声称支持 Java 17，但是若用了 Java 17 的语法或新特性，无法编译通过。最后只好自编译 SOFAArk plugin 修改相关依赖解决。&lt;/p></description></item><item><title>容器镜像制作最佳实践，Dockerfile 实践经验和踩坑记录</title><link>https://www.xlabs.club/blog/docker-best-practices/</link><pubDate>Fri, 24 May 2024 20:56:08 +0800</pubDate><guid>https://www.xlabs.club/blog/docker-best-practices/</guid><description>&lt;p>整理了由 Docker 官方和社区推荐的用于构建高效镜像的最佳实践和方法，当然有些可能并不适用于你，请注意分辨。&lt;/p>
 &lt;ol>
 &lt;li>
 &lt;p>使用官方镜像作为基础镜像。官方镜像经过了充分验证并集成了最佳实践。&lt;/p>
@@ -201,7 +322,51 @@ C4Context
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> FROM node&lt;span class="err">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="c"># 反例：&lt;/span>&lt;span class="err">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> FROM ubuntu&lt;span class="err">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> RUN apt-get install -y node&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>从 Java 8 升级到 Java 21，踩坑记录、变更评估和工具介绍</title><link>https://www.xlabs.club/blog/migrating-java8-to-java21/</link><pubDate>Thu, 23 May 2024 21:03:11 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-java8-to-java21/</guid><description>&lt;h2 id="破坏性变更评估">破坏性变更评估&lt;/h2>
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> RUN apt-get install -y node&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>保持尽可能小的镜像大小，绝不安装无关依赖。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>严格的版本化管理，使用确定性的标签，基础镜像禁用 latest。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用 .dockerignore 文件排除文件干扰。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>最经常变化的命令越往后执行，充分利用分层缓存机制。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Dockerfile 中每行命令产生一层，请合并命令执行，最大限度减少层数。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用多阶段构建，减少所构建镜像的大小。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>禁用 root 用户，使用独立的 use 和 group。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>启用镜像安全扫描，并及时更新。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>一个容器只专注做一件事情。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Java 应用程序不要使用 PID 为 1 的进程，使用 tini 或 dump-init 管理进程，避免僵尸进程。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>以上都是一些基本的原则，但是实际工作的过程中，大家可能会像我一样纠结几个问题。&lt;/p>
+&lt;ul>
+&lt;li>关于第 1 点，一定要使用官方镜像吗。未必，看情况。比如我们作为平台，涉及很多种开发语言，很多种组合场景，每个官方基础镜像可能都不同，就会自建基础镜像，以便统一操作系统、统一脚本和安全维护。为什么要统一操作系统，操作系统投的毒，就像出骨鱼片里未净的刺，给人一种不期待的伤痛。&lt;/li>
+&lt;li>为了镜像大小和安全，一定要使用 Alpine 或 distroless 镜像吗。我的建议是不要使用 Alpine 镜像，如有能力才使用 distroless 镜像。毕竟 libc 的坑，谁痛谁知道。&lt;/li>
+&lt;/ul>
+&lt;h2 id="我们的镜像策略">我们的镜像策略&lt;/h2>
+&lt;h2 id="dockerfile-编写小技巧">Dockerfile 编写小技巧&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>使用 Heredocs 语法代替又长又臭的字符串拼接，当然 Heredocs 支持更多功能比如 run python、多文件内容拷贝，具体请参考官方文档。&lt;/p></description></item><item><title>从 Java 8 升级到 Java 21，踩坑记录、变更评估和工具介绍</title><link>https://www.xlabs.club/blog/migrating-java8-to-java21/</link><pubDate>Thu, 23 May 2024 21:03:11 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-java8-to-java21/</guid><description>&lt;h2 id="破坏性变更评估">破坏性变更评估&lt;/h2>
 &lt;p>在升级之前，可通过 jdeps 和 jdeprscan 先评估下是否有使用内部类和废弃 API，有一个总的概览。&lt;/p>
 &lt;p>jdeps 是 Java 自带的命令行工具，可以用来分析依赖关系和生成模块信息文件，这里我们只借用他的其中一项功能。&lt;/p>
 &lt;p>通过 &lt;code>jdeps --jdk-internals&lt;/code> 检查是否有使用内部 API，以下例子显示使用了 &lt;code>sun.net.util.IPAddressUtil&lt;/code> 这个 Java 内部工具类，会显示详细的源码类和 jar 包位置。&lt;/p>
@@ -226,7 +391,10 @@ C4Context
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">Please modify your code to eliminate dependence on any JDK internal APIs.
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">For the most recent update on JDK internal API replacements, please check:
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">https://wiki.openjdk.org/display/JDK8/Java+Dependency+Analysis+Tool
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>使用 Pulumi 部署 cert-manager 创建 K8S 自签名证书并信任证书</title><link>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</link><pubDate>Mon, 29 Apr 2024 21:49:22 +0800</pubDate><guid>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</guid><description>&lt;p>在搭建本地 Kubernetus 集群后，由于环境在内网，做不了域名验证，无法使用 Let&amp;rsquo;s Encrypt 颁发和自动更新证书，然而很多应用要求必须启用 HTTPS，只能用自签名 CA 证书，并由此 CA 继续颁发其他证书。&lt;/p>
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;p>jdeprscan 也是 Java 自带分析工具，可查看是否使用了已弃用或已删除的 API。使用已弃用的 API 不是阻塞性问题，还能接着跑，但是建议替换掉。使用已删除的 API，那就彻底跑不起来了。&lt;/p></description></item><item><title>使用 Pulumi 部署 cert-manager 创建 K8S 自签名证书并信任证书</title><link>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</link><pubDate>Mon, 29 Apr 2024 21:49:22 +0800</pubDate><guid>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</guid><description>&lt;p>在搭建本地 Kubernetus 集群后，由于环境在内网，做不了域名验证，无法使用 Let&amp;rsquo;s Encrypt 颁发和自动更新证书，然而很多应用要求必须启用 HTTPS，只能用自签名 CA 证书，并由此 CA 继续颁发其他证书。&lt;/p>
 &lt;p>所以我们准备了以下工具，开始搭建。&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://www.pulumi.com/">Pulumi&lt;/a>: 当前非常流行的 IaC 工具，值得一试。&lt;/li>
@@ -317,7 +485,10 @@ C4Context
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">clusterIssuerName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">clusterIssuer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">metadata&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Export CA 证书，便于客户端导入信任证书
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">caCertificatePem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">caCert&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">certPem&lt;/span>&lt;span class="p">;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>Mac 搭建本地 K8S 开发环境方案选型</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>&lt;p>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司集群，所以就有了本地搭建 K8S 的需求。&lt;/p>
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">caCertificatePem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">caCert&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">certPem&lt;/span>&lt;span class="p">;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;p>以上执行 &lt;code>pulumi up&lt;/code> 后，我们就得到了一个自签名的 CA 证书、一个可用于为 ingress 自动签发 TLS 的 ClusterIssuer。&lt;/p></description></item><item><title>Mac 搭建本地 K8S 开发环境方案选型</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>&lt;p>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司集群，所以就有了本地搭建 K8S 的需求。&lt;/p>
 &lt;p>另外如果你有以下需求，此文档中提到的方案也许有所帮助：&lt;/p>
 &lt;ul>
 &lt;li>开发机器模拟 Arm、AMD64 等不同架构。&lt;/li>
@@ -339,4 +510,17 @@ C4Context
 &lt;/li>
 &lt;li>
 &lt;p>&lt;a href="https://multipass.run/">multipass&lt;/a> 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
-&lt;p>优点：multipass 可启动空白 ubuntu 虚拟机，或者启动已经安装好 minikube 的虚拟机。&lt;/p></description></item></channel></rss>
+&lt;p>优点：multipass 可启动空白 ubuntu 虚拟机，或者启动已经安装好 minikube 的虚拟机。&lt;/p>
+&lt;p>缺点：只支持 ubuntu，虚拟机与宿主机同架构。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://lima-vm.io/">lima&lt;/a> 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
+&lt;p>优点：支持虚拟多种 Linux，支持异构虚拟机。&lt;/p>
+&lt;p>缺点：架构稍复杂，启动略慢，不如 multipass 稳定，不支持运行在 Windows。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>以上方案，在网络畅通的情况下，均能在 10 分钟内启动一个单节点 K8S，所以整体方案都不复杂。&lt;/p>
+&lt;p>如何选择：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>如果你需要在公司使用，并且不想买商业 License 的话，可直接排除 Docker Desktop。&lt;/p></description></item></channel></rss>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>K8s on XLabs</title><link>https://www.xlabs.club/categories/k8s/</link><description>Recent content in K8s on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 22 Sep 2024 12:31:01 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/categories/k8s/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 搭建本地 K8S 开发环境方案选型</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>&lt;p>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司集群，所以就有了本地搭建 K8S 的需求。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>K8s on XLabs</title><link>https://www.xlabs.club/categories/k8s/</link><description>Recent content in K8s on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 22 Sep 2024 12:35:18 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/categories/k8s/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 搭建本地 K8S 开发环境方案选型</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>&lt;p>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司集群，所以就有了本地搭建 K8S 的需求。&lt;/p>
 &lt;p>另外如果你有以下需求，此文档中提到的方案也许有所帮助：&lt;/p>
 &lt;ul>
 &lt;li>开发机器模拟 Arm、AMD64 等不同架构。&lt;/li>
@@ -20,7 +20,20 @@
 &lt;/li>
 &lt;li>
 &lt;p>&lt;a href="https://multipass.run/">multipass&lt;/a> 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
-&lt;p>优点：multipass 可启动空白 ubuntu 虚拟机，或者启动已经安装好 minikube 的虚拟机。&lt;/p></description></item><item><title>K8S 容器 PID 限制引起的 Java OutOfMemoryError</title><link>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</link><pubDate>Thu, 07 Sep 2023 16:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</guid><description>&lt;p>问题描述：&lt;/p>
+&lt;p>优点：multipass 可启动空白 ubuntu 虚拟机，或者启动已经安装好 minikube 的虚拟机。&lt;/p>
+&lt;p>缺点：只支持 ubuntu，虚拟机与宿主机同架构。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://lima-vm.io/">lima&lt;/a> 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
+&lt;p>优点：支持虚拟多种 Linux，支持异构虚拟机。&lt;/p>
+&lt;p>缺点：架构稍复杂，启动略慢，不如 multipass 稳定，不支持运行在 Windows。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>以上方案，在网络畅通的情况下，均能在 10 分钟内启动一个单节点 K8S，所以整体方案都不复杂。&lt;/p>
+&lt;p>如何选择：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>如果你需要在公司使用，并且不想买商业 License 的话，可直接排除 Docker Desktop。&lt;/p></description></item><item><title>K8S 容器 PID 限制引起的 Java OutOfMemoryError</title><link>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</link><pubDate>Thu, 07 Sep 2023 16:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</guid><description>&lt;p>问题描述：&lt;/p>
 &lt;p>一个 Java 应用跑在 K8S 容器内，Pod 内只有 Java 这一个进程。应用跑了一段时间后，CPU、内存占用都不高，但是却出现以下 OutOfMemoryError 错误。&lt;/p>
 
 
@@ -37,4 +50,10 @@
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">431 at java.util.concurrent.ThreadPoolExecutor.processWorkerExit(ThreadPoolExecutor.java:1025)
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">432 at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">433 at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/figure>
+&lt;/div>
+&lt;p>进入 Pod 内，尝试执行任何操作，又会出现 &lt;code>unable to start container process&lt;/code> 错误。&lt;/p>
+&lt;p>一开始怀疑是内存不足，调大了内存，同时也缩小了 Java 的 &lt;code>xss&lt;/code>，都不起作用。&lt;/p>
+&lt;p>真实原因： K8S 容器限制了 PID 数，无法创建新的线程，在 Pod 内 &lt;code>cat /sys/fs/cgroup/pids/pids.max&lt;/code> 发现是 1024。&lt;/p>
+&lt;p>关于 K8S pid limit， 可参考此资料：&lt;a href="https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/">https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/&lt;/a>.&lt;/p></description></item></channel></rss>
