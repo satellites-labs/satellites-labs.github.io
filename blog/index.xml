@@ -1,4 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Tue, 24 Sep 2024 10:05:51 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Thu, 26 Sep 2024 09:56:32 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>卫星实验室友情链接</title><link>https://www.xlabs.club/blog/xlabs-link-exchange/</link><pubDate>Thu, 26 Sep 2024 09:27:42 +0800</pubDate><guid>https://www.xlabs.club/blog/xlabs-link-exchange/</guid><description>&lt;p>在建设本博客的过程中，我发现了一些有用、有趣的独立博客，也发现了一些良心开源产品，我觉得有必要把他们展示出来。&lt;/p>
+&lt;p>如有侵权，请提 issue，如有推荐链接，请提 PR。&lt;/p>
+&lt;h2 id="独立博客">独立博客&lt;/h2>
+&lt;h2 id="独立产品">独立产品&lt;/h2></description></item><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
 &lt;p>顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：&lt;/p>
 &lt;ul>
 &lt;li>模块化开发、部署、资源共享的能力，减少 Cache、Class 等资源占用，有效降低内存占用。&lt;/li>
@@ -386,35 +389,4 @@
  &lt;/figure>
 &lt;/div>
 &lt;h2 id="压缩">压缩&lt;/h2>
-&lt;p>请根据需要选择压缩算法。&lt;/p></description></item><item><title>MySQL 大文件导入优化，提高速度，提升性能</title><link>https://www.xlabs.club/blog/mysql-large-import/</link><pubDate>Sun, 10 Mar 2024 15:18:22 +0800</pubDate><guid>https://www.xlabs.club/blog/mysql-large-import/</guid><description>&lt;p>项目中需要根据 SQL 文件导入数据，文件大约 20G，正常导入约需要 2 小时，如何提高导入速度。&lt;/p>
-&lt;p>经过实验测试，如果一个 SQL 文件只有一个表的数据，可以直接使用 mysql load data infile 语法，速度比较快。&lt;/p>
-&lt;p>我们是一个 SQL 文件包含了很多表，mysql load data infile 就不支持了，可考虑在导入过程中设置如下参数，经过测试 20G 大约需要 40 分钟，比之前快了很多。&lt;/p>
-
-
-
-&lt;div class="expressive-code">
- &lt;figure class="frame is-terminal not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 进入 mysql&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mysql -u root -p
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 创建数据库（如果已经有数据库忽略此步骤）&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">CREATE DATABASE 数据库名；
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 设置参数&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">set&lt;/span> &lt;span class="nv">sql_log_bin&lt;/span>&lt;span class="o">=&lt;/span>OFF&lt;span class="p">;&lt;/span>//关闭日志
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">set&lt;/span> &lt;span class="nv">autocommit&lt;/span>&lt;span class="o">=&lt;/span>0&lt;span class="p">;&lt;/span>//关闭 autocommit 自动提交模式 &lt;span class="m">0&lt;/span> 是关闭 &lt;span class="m">1&lt;/span> 是开启（默认）
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">set&lt;/span> global &lt;span class="nv">max_allowed_packet&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">20&lt;/span> *1024* &lt;span class="m">1024&lt;/span> * 1024&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 使用数据库&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">use 数据库名；
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 开启事务&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">START TRANSACTION&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 导入 SQL 文件并 COMMIT（因为导入比较耗时，导入和 COMMIT 一行命令，这样不用盯着屏幕等提交了）&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> /xxx.sql；COMMIT&lt;span class="p">;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
- &lt;/figure>
-&lt;/div></description></item></channel></rss>
+&lt;p>请根据需要选择压缩算法。&lt;/p></description></item></channel></rss>
