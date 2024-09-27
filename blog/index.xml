@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Thu, 26 Sep 2024 09:56:32 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>卫星实验室友情链接</title><link>https://www.xlabs.club/blog/xlabs-link-exchange/</link><pubDate>Thu, 26 Sep 2024 09:27:42 +0800</pubDate><guid>https://www.xlabs.club/blog/xlabs-link-exchange/</guid><description>&lt;p>在建设本博客的过程中，我发现了一些有用、有趣的独立博客，也发现了一些良心开源产品，我觉得有必要把他们展示出来。&lt;/p>
-&lt;p>如有侵权，请提 issue，如有推荐链接，请提 PR。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 27 Sep 2024 18:45:10 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>卫星实验室友情链接</title><link>https://www.xlabs.club/blog/xlabs-link-exchange/</link><pubDate>Thu, 26 Sep 2024 09:27:42 +0800</pubDate><guid>https://www.xlabs.club/blog/xlabs-link-exchange/</guid><description>&lt;p>在建设本博客的过程中，发现了一些有用、有趣的独立博客，以及很多良心开源产品，我觉得有必要把他们展示出来。&lt;/p>
+&lt;p>如有侵权，请提 issue，如有推荐，请提 PR。&lt;/p>
 &lt;h2 id="独立博客">独立博客&lt;/h2>
 &lt;h2 id="独立产品">独立产品&lt;/h2></description></item><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
 &lt;p>顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：&lt;/p>
@@ -243,7 +243,7 @@
 &lt;p>如何选择：&lt;/p>
 &lt;ul>
 &lt;li>
-&lt;p>如果你需要在公司使用，并且不想买商业 License 的话，可直接排除 Docker Desktop。&lt;/p></description></item><item><title>K8S 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>&lt;p>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上。&lt;/p>
+&lt;p>如果你需要在公司使用，并且不想买商业 License 的话，可直接排除 Docker Desktop。&lt;/p></description></item><item><title>K8S Tomcat 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>&lt;p>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上，很不均衡。&lt;/p>
 &lt;p>已知的情况是：&lt;/p>
 &lt;ol>
 &lt;li>K8S Service 使用 round-robin 负载均衡策略。&lt;/li>
@@ -269,7 +269,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">server.netty.max-keep-alive-requests&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">100&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
  &lt;/figure>
 &lt;/div>
-&lt;p>对于独立部署 Tomcat，在 server.xml 文件 Connector 中配置 maxKeepAliveRequests。&lt;/p></description></item><item><title>K8S StatefulSet 应用 PV/PVC 平滑扩容</title><link>https://www.xlabs.club/blog/statefulset-resize-pvc/</link><pubDate>Sun, 31 Mar 2024 21:29:52 +0800</pubDate><guid>https://www.xlabs.club/blog/statefulset-resize-pvc/</guid><description>&lt;p>在 K8S 中使用 Helm 部署了一些有状态应用，并通过 Helm 自动生成了 PV 和 PVC，某天想扩容，竟然报错了。&lt;/p>
+&lt;p>对于独立部署 Tomcat，可在 server.xml 文件 Connector 中配置 maxKeepAliveRequests，Tomcat xml 可解析启动参数，启动时增加 &lt;code>-D=server.tomcat.max-keep-alive-requests=200&lt;/code> 来调整默认值大小，另外注意，Tomcat xml 不支持解析 ENV 变量。&lt;/p></description></item><item><title>K8S StatefulSet 应用 PV/PVC 平滑扩容</title><link>https://www.xlabs.club/blog/statefulset-resize-pvc/</link><pubDate>Sun, 31 Mar 2024 21:29:52 +0800</pubDate><guid>https://www.xlabs.club/blog/statefulset-resize-pvc/</guid><description>&lt;p>在 K8S 中使用 Helm 部署了一些有状态应用，并通过 Helm 自动生成了 PV 和 PVC，某天想扩容，竟然报错了。&lt;/p>
 &lt;p>以下以 bitnami zookeeper 为例，其他 StatefulSet 同理。&lt;/p>
 &lt;p>为了实现磁盘扩容，改大 &lt;code>persistence.size&lt;/code>，比如由 8Gi 改为 10Gi，然后执行 helm upgrade，出现错误。&lt;/p>
 
