@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>卫星实验室 on XLabs</title><link>https://www.xlabs.club/</link><description>Recent content in 卫星实验室 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 27 Sep 2024 18:45:10 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/cloud/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/cloud/introduction/</guid><description>&lt;p>云原生技术探索。&lt;/p></description></item><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>&lt;p>卫星实验室，一个专注于技术创新的开源组织。&lt;/p>
-&lt;p>此项目为卫星实验室主页 &lt;a href="https://www.xlabs.club">xlabs.club&lt;/a> 的源码，在这里将分享我们的平台工程实践经验，介绍如何以技术驱动业务长期发展和高速增长。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>卫星实验室 on XLabs</title><link>https://www.xlabs.club/</link><description>Recent content in 卫星实验室 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 28 Sep 2024 11:59:58 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/cloud/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/cloud/introduction/</guid><description>&lt;p>云原生技术探索。&lt;/p></description></item><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>&lt;p>卫星实验室，一个专注于技术创新的开源组织。&lt;/p>
+&lt;p>此项目为卫星实验室主页 &lt;a href="https://www.xlabs.club" target="_blank" rel="noopener">xlabs.club&lt;/a>
+ 的源码，在这里将分享我们的平台工程实践经验，介绍如何以技术驱动业务长期发展和高速增长。&lt;/p>
 &lt;p>欢迎提交 PR 进行开源共建。&lt;/p>
 &lt;h2 id="主页内容">主页内容&lt;/h2>
 &lt;ul>
@@ -12,7 +13,8 @@
 &lt;li>backstage-plugins：卫星实验室的开源 backstage plugins，欢迎提交 PR。&lt;/li>
 &lt;/ul>
 &lt;h2 id="license">License&lt;/h2>
-&lt;p>本文档采用 &lt;a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0&lt;/a> 许可协议。&lt;/p></description></item><item><title>Kubernetes</title><link>https://www.xlabs.club/docs/tldr/kubernetes/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/tldr/kubernetes/</guid><description>&lt;p>常用 Kubernetes 命令，复制，粘贴，这就是生活。&lt;/p>
+&lt;p>本文档采用 &lt;a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0&lt;/a>
+ 许可协议。&lt;/p></description></item><item><title>Kubernetes</title><link>https://www.xlabs.club/docs/tldr/kubernetes/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/tldr/kubernetes/</guid><description>&lt;p>常用 Kubernetes 命令，复制，粘贴，这就是生活。&lt;/p>
 &lt;hr>
 &lt;ul>
 &lt;li>复制 secret 到另一个 namespace。&lt;/li>
@@ -213,11 +215,16 @@ C4Context
 &lt;h2 id="技术选项">技术选项&lt;/h2>
 &lt;p>为满足以上需求，在初期技术选项时主要关注以下几个开源组件。&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://github.com/keycloak/">keycloak&lt;/a>: 全面的 IAM 解决方案 ，实现用户、权限管理，单点登录、MFA 等。&lt;/li>
-&lt;li>&lt;a href="https://github.com/dexidp">Dex&lt;/a>: 身份代理，连接多个身份源，仅作为 OpenID Connect。&lt;/li>
-&lt;li>&lt;a href="https://github.com/ory/">Ory&lt;/a>: 包含多个独立的组件，组成一个全家桶的解决方案。&lt;/li>
-&lt;li>&lt;a href="https://github.com/oauth2-proxy">oauth2-proxy&lt;/a>: 反向代理工具，专为提供 OAuth 2.0 身份验证和授权服务而设计，附带基于用户、分组、角色的权限管理。&lt;/li>
-&lt;li>&lt;a href="https://github.com/pomerium/">Pomerium&lt;/a>: Pomerium 不仅仅是一个 OAuth 2.0 代理，它还提供了细粒度的访问控制，能够根据用户、组、和其他上下文属性来决定访问权限。&lt;/li>
+&lt;li>&lt;a href="https://github.com/keycloak/" target="_blank" rel="noopener">keycloak&lt;/a>
+: 全面的 IAM 解决方案 ，实现用户、权限管理，单点登录、MFA 等。&lt;/li>
+&lt;li>&lt;a href="https://github.com/dexidp" target="_blank" rel="noopener">Dex&lt;/a>
+: 身份代理，连接多个身份源，仅作为 OpenID Connect。&lt;/li>
+&lt;li>&lt;a href="https://github.com/ory/" target="_blank" rel="noopener">Ory&lt;/a>
+: 包含多个独立的组件，组成一个全家桶的解决方案。&lt;/li>
+&lt;li>&lt;a href="https://github.com/oauth2-proxy" target="_blank" rel="noopener">oauth2-proxy&lt;/a>
+: 反向代理工具，专为提供 OAuth 2.0 身份验证和授权服务而设计，附带基于用户、分组、角色的权限管理。&lt;/li>
+&lt;li>&lt;a href="https://github.com/pomerium/" target="_blank" rel="noopener">Pomerium&lt;/a>
+: Pomerium 不仅仅是一个 OAuth 2.0 代理，它还提供了细粒度的访问控制，能够根据用户、组、和其他上下文属性来决定访问权限。&lt;/li>
 &lt;/ul>
 &lt;p>以下为 keycloak 和 Dex 的简单对比。为什么不把 Ory 加进来，因为没有实际用过，不便于发表意见，如果你是一个 Ory 用户欢迎补充。&lt;/p>
 &lt;table>
@@ -284,6 +291,10 @@ C4Context
 &lt;p>以下为 OAuth2 Proxy 和 Pomerium 的简单对比。&lt;/p></description></item><item><title>卫星实验室友情链接</title><link>https://www.xlabs.club/blog/xlabs-link-exchange/</link><pubDate>Thu, 26 Sep 2024 09:27:42 +0800</pubDate><guid>https://www.xlabs.club/blog/xlabs-link-exchange/</guid><description>&lt;p>在建设本博客的过程中，发现了一些有用、有趣的独立博客，以及很多良心开源产品，我觉得有必要把他们展示出来。&lt;/p>
 &lt;p>如有侵权，请提 issue，如有推荐，请提 PR。&lt;/p>
 &lt;h2 id="独立博客">独立博客&lt;/h2>
+&lt;ul>
+&lt;li>地瓜哥，分享技术带来的喜悦：&lt;a href="https://www.diguage.com" target="_blank" rel="noopener">https://www.diguage.com&lt;/a>
+。&lt;/li>
+&lt;/ul>
 &lt;h2 id="独立产品">独立产品&lt;/h2></description></item><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
 &lt;p>顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：&lt;/p>
 &lt;ul>
@@ -293,7 +304,8 @@ C4Context
 &lt;/ul>
 &lt;p>基于以上背景，我们在 2022 年基于 SOFAArk 运行了一个版本，效果不太理想暂时搁置。今年 Koupleless 重新开源后做了一些增强和变更，开源社区活跃度有所提升，看宣传效果很好，我们决定重新评估是否可在公司内推广。&lt;/p>
 &lt;h2 id="什么是-koupleless">什么是 Koupleless&lt;/h2>
-&lt;p>&lt;a href="https://koupleless.io/home/">Koupleless&lt;/a> 是一种模块化 Serverless 技术解决方案，它能让普通应用低成本演进为 Serverless 研发模式，让代码与资源解耦，轻松独立维护， 与此同时支持秒级构建部署、合并部署、动态伸缩等能力为用户提供极致的研发运维体验，最终帮助企业实现降本增效。&lt;/p>
+&lt;p>&lt;a href="https://koupleless.io/home/" target="_blank" rel="noopener">Koupleless&lt;/a>
+ 是一种模块化 Serverless 技术解决方案，它能让普通应用低成本演进为 Serverless 研发模式，让代码与资源解耦，轻松独立维护， 与此同时支持秒级构建部署、合并部署、动态伸缩等能力为用户提供极致的研发运维体验，最终帮助企业实现降本增效。&lt;/p>
 &lt;p>Koupleless 是蚂蚁集团内部经过 5 年打磨成熟的研发框架和运维调度平台能力，相较于传统镜像化的应用模式研发、运维、运行阶段都有 10 倍左右的提升，总结起来 5 大特点：快、省、灵活部署、平滑演进、生产规模化验证。&lt;/p>
 &lt;p>以上都是官网的宣传，更多介绍请链接到官网查看。&lt;/p>
 &lt;p>在整个 Koupleless 平台里，需要四个组件：&lt;/p>
@@ -373,7 +385,8 @@ C4Context
 &lt;p>在升级之前，可通过 jdeps 和 jdeprscan 先评估下是否有使用内部类和废弃 API，有一个总的概览。&lt;/p>
 &lt;p>jdeps 是 Java 自带的命令行工具，可以用来分析依赖关系和生成模块信息文件，这里我们只借用他的其中一项功能。&lt;/p>
 &lt;p>通过 &lt;code>jdeps --jdk-internals&lt;/code> 检查是否有使用内部 API，以下例子显示使用了 &lt;code>sun.net.util.IPAddressUtil&lt;/code> 这个 Java 内部工具类，会显示详细的源码类和 jar 包位置。&lt;/p>
-&lt;p>可以继续使用 Java 中的内部 API，OpenJDK Wiki 页面 &lt;a href="https://wiki.openjdk.org/display/JDK8/Java&amp;#43;Dependency&amp;#43;Analysis&amp;#43;Tool">Java Dependency Analysis Tool&lt;/a> 推荐了某些常用 JDK 内部 API 的替换项。&lt;/p>
+&lt;p>可以继续使用 Java 中的内部 API，OpenJDK Wiki 页面 &lt;a href="https://wiki.openjdk.org/display/JDK8/Java&amp;#43;Dependency&amp;#43;Analysis&amp;#43;Tool" target="_blank" rel="noopener">Java Dependency Analysis Tool&lt;/a>
+ 推荐了某些常用 JDK 内部 API 的替换项。&lt;/p>
 
 
 
@@ -400,10 +413,13 @@ C4Context
 &lt;p>jdeprscan 也是 Java 自带分析工具，可查看是否使用了已弃用或已删除的 API。使用已弃用的 API 不是阻塞性问题，还能接着跑，但是建议替换掉。使用已删除的 API，那就彻底跑不起来了。&lt;/p></description></item><item><title>使用 Pulumi 部署 cert-manager 创建 K8S 自签名证书并信任证书</title><link>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</link><pubDate>Mon, 29 Apr 2024 21:49:22 +0800</pubDate><guid>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</guid><description>&lt;p>在搭建本地 Kubernetus 集群后，由于环境在内网，做不了域名验证，无法使用 Let&amp;rsquo;s Encrypt 颁发和自动更新证书，然而很多应用要求必须启用 HTTPS，只能用自签名 CA 证书，并由此 CA 继续颁发其他证书。&lt;/p>
 &lt;p>所以我们准备了以下工具，开始搭建。&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://www.pulumi.com/">Pulumi&lt;/a>: 当前非常流行的 IaC 工具，值得一试。&lt;/li>
-&lt;li>&lt;a href="https://cert-manager.io/">cert-manager&lt;/a>: 云原生证书管理，用于自动管理和颁发各种发行来源的 TLS 证书。它将确保证书有效并定期更新，并尝试在到期前的适当时间更新证书。&lt;/li>
+&lt;li>&lt;a href="https://www.pulumi.com/" target="_blank" rel="noopener">Pulumi&lt;/a>
+: 当前非常流行的 IaC 工具，值得一试。&lt;/li>
+&lt;li>&lt;a href="https://cert-manager.io/" target="_blank" rel="noopener">cert-manager&lt;/a>
+: 云原生证书管理，用于自动管理和颁发各种发行来源的 TLS 证书。它将确保证书有效并定期更新，并尝试在到期前的适当时间更新证书。&lt;/li>
 &lt;/ul>
-&lt;p>核心步骤和相关代码如下，更多源码请参考我们的 GitHub 项目 &lt;a href="https://github.com/xlabs-club/xlabs-ops">xlabs-ops&lt;/a>。&lt;/p>
+&lt;p>核心步骤和相关代码如下，更多源码请参考我们的 GitHub 项目 &lt;a href="https://github.com/xlabs-club/xlabs-ops" target="_blank" rel="noopener">xlabs-ops&lt;/a>
+。&lt;/p>
 &lt;p>使用 Pulumi 安装 cert-manager，生成自签名 CA 证书，根据自签名 CA 证书生成 cert-manager ClusterIssuer，都在如下代码了。&lt;/p>
 
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TL;DR on XLabs</title><link>https://www.xlabs.club/docs/tldr/</link><description>Recent content in TL;DR on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 27 Sep 2024 18:45:10 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/docs/tldr/index.xml" rel="self" type="application/rss+xml"/><item><title>Kubernetes</title><link>https://www.xlabs.club/docs/tldr/kubernetes/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/tldr/kubernetes/</guid><description>&lt;p>常用 Kubernetes 命令，复制，粘贴，这就是生活。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TL;DR on XLabs</title><link>https://www.xlabs.club/docs/tldr/</link><description>Recent content in TL;DR on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 28 Sep 2024 11:59:58 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/docs/tldr/index.xml" rel="self" type="application/rss+xml"/><item><title>Kubernetes</title><link>https://www.xlabs.club/docs/tldr/kubernetes/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/tldr/kubernetes/</guid><description>&lt;p>常用 Kubernetes 命令，复制，粘贴，这就是生活。&lt;/p>
 &lt;hr>
 &lt;ul>
 &lt;li>复制 secret 到另一个 namespace。&lt;/li>
@@ -130,7 +130,8 @@
 &lt;h2 id="procs">procs&lt;/h2>
 &lt;p>比 ps 好用的工具，查看路径和端口一步到位，支持过滤。&lt;/p>
 &lt;h2 id="ripgrep">ripgrep&lt;/h2>
-&lt;p>&lt;a href="https://github.com/BurntSushi/ripgrep">ripgrep&lt;/a> 简称 rg，是一个面向行的搜索工具，Rust 编写，全平台支持，也是 VS Code 的默认搜索工具。它的搜索性能极高，在大项目中也有着出色的表现，并且默认可以忽略 .gitignore 文件中的内容，非常实用。&lt;/p>
+&lt;p>&lt;a href="https://github.com/BurntSushi/ripgrep" target="_blank" rel="noopener">ripgrep&lt;/a>
+ 简称 rg，是一个面向行的搜索工具，Rust 编写，全平台支持，也是 VS Code 的默认搜索工具。它的搜索性能极高，在大项目中也有着出色的表现，并且默认可以忽略 .gitignore 文件中的内容，非常实用。&lt;/p>
 &lt;p>除了作为一个高效的命令行工具使用外，整个项目的设计也不错，另外还是一个学习 Rust 的好项目。&lt;/p>
 &lt;p>&lt;code>rg -h&lt;/code> 开启探索之旅吧。&lt;/p>
 &lt;h2 id="tldr">TL;DR&lt;/h2>
@@ -161,7 +162,8 @@
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
  &lt;/figure>
 &lt;/div>
-&lt;p>&lt;a href="https://github.com/tldr-pages/tldr">tldr&lt;/a> 命令行有多种实现，比如官方推荐的有 npm 和 python。&lt;/p></description></item><item><title>Shell Coding</title><link>https://www.xlabs.club/docs/tldr/shell-coding/</link><pubDate>Sat, 09 Mar 2024 11:01:01 +0800</pubDate><guid>https://www.xlabs.club/docs/tldr/shell-coding/</guid><description>&lt;p>Linux Shell 日常编程实用句式速查，注意以下例子如无特殊说明都是 bash 语法。&lt;/p>
+&lt;p>&lt;a href="https://github.com/tldr-pages/tldr" target="_blank" rel="noopener">tldr&lt;/a>
+ 命令行有多种实现，比如官方推荐的有 npm 和 python。&lt;/p></description></item><item><title>Shell Coding</title><link>https://www.xlabs.club/docs/tldr/shell-coding/</link><pubDate>Sat, 09 Mar 2024 11:01:01 +0800</pubDate><guid>https://www.xlabs.club/docs/tldr/shell-coding/</guid><description>&lt;p>Linux Shell 日常编程实用句式速查，注意以下例子如无特殊说明都是 bash 语法。&lt;/p>
 &lt;hr>
 &lt;ul>
 &lt;li>选择执行环境。&lt;/li>

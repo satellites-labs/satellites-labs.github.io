@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 27 Sep 2024 18:45:10 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 28 Sep 2024 11:59:58 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
 &lt;p>顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：&lt;/p>
 &lt;ul>
 &lt;li>模块化开发、部署、资源共享的能力，减少 Cache、Class 等资源占用，有效降低内存占用。&lt;/li>
@@ -7,7 +7,8 @@
 &lt;/ul>
 &lt;p>基于以上背景，我们在 2022 年基于 SOFAArk 运行了一个版本，效果不太理想暂时搁置。今年 Koupleless 重新开源后做了一些增强和变更，开源社区活跃度有所提升，看宣传效果很好，我们决定重新评估是否可在公司内推广。&lt;/p>
 &lt;h2 id="什么是-koupleless">什么是 Koupleless&lt;/h2>
-&lt;p>&lt;a href="https://koupleless.io/home/">Koupleless&lt;/a> 是一种模块化 Serverless 技术解决方案，它能让普通应用低成本演进为 Serverless 研发模式，让代码与资源解耦，轻松独立维护， 与此同时支持秒级构建部署、合并部署、动态伸缩等能力为用户提供极致的研发运维体验，最终帮助企业实现降本增效。&lt;/p>
+&lt;p>&lt;a href="https://koupleless.io/home/" target="_blank" rel="noopener">Koupleless&lt;/a>
+ 是一种模块化 Serverless 技术解决方案，它能让普通应用低成本演进为 Serverless 研发模式，让代码与资源解耦，轻松独立维护， 与此同时支持秒级构建部署、合并部署、动态伸缩等能力为用户提供极致的研发运维体验，最终帮助企业实现降本增效。&lt;/p>
 &lt;p>Koupleless 是蚂蚁集团内部经过 5 年打磨成熟的研发框架和运维调度平台能力，相较于传统镜像化的应用模式研发、运维、运行阶段都有 10 倍左右的提升，总结起来 5 大特点：快、省、灵活部署、平滑演进、生产规模化验证。&lt;/p>
 &lt;p>以上都是官网的宣传，更多介绍请链接到官网查看。&lt;/p>
 &lt;p>在整个 Koupleless 平台里，需要四个组件：&lt;/p>
@@ -86,10 +87,13 @@
 &lt;p>使用 Heredocs 语法代替又长又臭的字符串拼接，当然 Heredocs 支持更多功能比如 run python、多文件内容拷贝，具体请参考官方文档。&lt;/p></description></item><item><title>使用 Pulumi 部署 cert-manager 创建 K8S 自签名证书并信任证书</title><link>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</link><pubDate>Mon, 29 Apr 2024 21:49:22 +0800</pubDate><guid>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</guid><description>&lt;p>在搭建本地 Kubernetus 集群后，由于环境在内网，做不了域名验证，无法使用 Let&amp;rsquo;s Encrypt 颁发和自动更新证书，然而很多应用要求必须启用 HTTPS，只能用自签名 CA 证书，并由此 CA 继续颁发其他证书。&lt;/p>
 &lt;p>所以我们准备了以下工具，开始搭建。&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://www.pulumi.com/">Pulumi&lt;/a>: 当前非常流行的 IaC 工具，值得一试。&lt;/li>
-&lt;li>&lt;a href="https://cert-manager.io/">cert-manager&lt;/a>: 云原生证书管理，用于自动管理和颁发各种发行来源的 TLS 证书。它将确保证书有效并定期更新，并尝试在到期前的适当时间更新证书。&lt;/li>
+&lt;li>&lt;a href="https://www.pulumi.com/" target="_blank" rel="noopener">Pulumi&lt;/a>
+: 当前非常流行的 IaC 工具，值得一试。&lt;/li>
+&lt;li>&lt;a href="https://cert-manager.io/" target="_blank" rel="noopener">cert-manager&lt;/a>
+: 云原生证书管理，用于自动管理和颁发各种发行来源的 TLS 证书。它将确保证书有效并定期更新，并尝试在到期前的适当时间更新证书。&lt;/li>
 &lt;/ul>
-&lt;p>核心步骤和相关代码如下，更多源码请参考我们的 GitHub 项目 &lt;a href="https://github.com/xlabs-club/xlabs-ops">xlabs-ops&lt;/a>。&lt;/p>
+&lt;p>核心步骤和相关代码如下，更多源码请参考我们的 GitHub 项目 &lt;a href="https://github.com/xlabs-club/xlabs-ops" target="_blank" rel="noopener">xlabs-ops&lt;/a>
+。&lt;/p>
 &lt;p>使用 Pulumi 安装 cert-manager，生成自签名 CA 证书，根据自签名 CA 证书生成 cert-manager ClusterIssuer，都在如下代码了。&lt;/p>
 
 
@@ -198,12 +202,14 @@
 &lt;p>缺点：只支持 K3S。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;a href="https://multipass.run/">multipass&lt;/a> 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
+&lt;p>&lt;a href="https://multipass.run/" target="_blank" rel="noopener">multipass&lt;/a>
+ 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
 &lt;p>优点：multipass 可启动空白 ubuntu 虚拟机，或者启动已经安装好 minikube 的虚拟机。&lt;/p>
 &lt;p>缺点：只支持 ubuntu，虚拟机与宿主机同架构。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;a href="https://lima-vm.io/">lima&lt;/a> 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
+&lt;p>&lt;a href="https://lima-vm.io/" target="_blank" rel="noopener">lima&lt;/a>
+ 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
 &lt;p>优点：支持虚拟多种 Linux，支持异构虚拟机。&lt;/p>
 &lt;p>缺点：架构稍复杂，启动略慢，不如 multipass 稳定，不支持运行在 Windows。&lt;/p>
 &lt;/li>
@@ -304,8 +310,10 @@
 &lt;h2 id="快速开始">快速开始&lt;/h2>
 &lt;p>基本步骤：&lt;/p>
 &lt;ol>
-&lt;li>对于 &lt;a href="https://github.com/spring-io/initializr">spring.initializr&lt;/a> 我们没有定制的需求，直接引用官方的。&lt;/li>
-&lt;li>拷贝一份 &lt;a href="https://github.com/spring-io/start.spring.io">start.spring.io&lt;/a>，直接基于这个项目开发、部署、运行。以下都是关于如何修改 &lt;code>start.spring.io&lt;/code>。&lt;/li>
+&lt;li>对于 &lt;a href="https://github.com/spring-io/initializr" target="_blank" rel="noopener">spring.initializr&lt;/a>
+ 我们没有定制的需求，直接引用官方的。&lt;/li>
+&lt;li>拷贝一份 &lt;a href="https://github.com/spring-io/start.spring.io" target="_blank" rel="noopener">start.spring.io&lt;/a>
+，直接基于这个项目开发、部署、运行。以下都是关于如何修改 &lt;code>start.spring.io&lt;/code>。&lt;/li>
 &lt;/ol>
 &lt;p>&lt;code>start.spring.io&lt;/code> 主要关注两个模块：&lt;/p>
 &lt;ul>

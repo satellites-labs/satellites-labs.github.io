@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Devops on XLabs</title><link>https://www.xlabs.club/tags/devops/</link><description>Recent content in Devops on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 27 Sep 2024 18:45:10 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/devops/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Visual Studio Code 搭建多用户远程 IDE</title><link>https://www.xlabs.club/blog/code-server/</link><pubDate>Wed, 07 Sep 2022 16:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/code-server/</guid><description>&lt;p>为 VS Code Web 版 &lt;a href="https://github.com/coder/code-server">code-server&lt;/a> 增加外部认证，并支持多用户，不同用户的 code-server 实例完全隔离。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Devops on XLabs</title><link>https://www.xlabs.club/tags/devops/</link><description>Recent content in Devops on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 28 Sep 2024 11:59:58 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/devops/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Visual Studio Code 搭建多用户远程 IDE</title><link>https://www.xlabs.club/blog/code-server/</link><pubDate>Wed, 07 Sep 2022 16:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/code-server/</guid><description>&lt;p>为 VS Code Web 版 &lt;a href="https://github.com/coder/code-server" target="_blank" rel="noopener">code-server&lt;/a>
+ 增加外部认证，并支持多用户，不同用户的 code-server 实例完全隔离。&lt;/p>
 &lt;p>主要为了解决问题：&lt;/p>
 &lt;ol>
 &lt;li>
@@ -11,16 +12,20 @@
 &lt;p>使用开源 Auth Proxy，无需自己编码即可实现认证授权流程，比如 &lt;code>code flow with pkce&lt;/code> 对大部分人来说读懂这个协议都很困难。&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;p>此文档源码请参考：&lt;a href="https://github.com/xlabs-club/architecture-diagram">architecture-diagram&lt;/a>&lt;/p>
+&lt;p>此文档源码请参考：&lt;a href="https://github.com/xlabs-club/architecture-diagram" target="_blank" rel="noopener">architecture-diagram&lt;/a>
+&lt;/p>
 &lt;h2 id="使用组件">使用组件&lt;/h2>
 &lt;ul>
 &lt;li>
-&lt;p>&lt;a href="https://github.com/keycloak/keycloak">keycloak&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://github.com/keycloak/keycloak" target="_blank" rel="noopener">keycloak&lt;/a>
+&lt;/p>
 &lt;p>Redhat 开源 IAM 系统，目前也是 CNCF 项目，提供用户、组织服务，提供标准 OIDC。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;a href="https://github.com/oauth2-proxy/oauth2-proxy">oauth2-proxy&lt;/a>&lt;/p>
-&lt;p>认证代理，配合 keycloak 提供完整 OAuth2 Code Flow 认证流程。也可以试试 &lt;a href="https://github.com/pomerium/pomerium">pomerium&lt;/a>，看样子也不错。&lt;/p>
+&lt;p>&lt;a href="https://github.com/oauth2-proxy/oauth2-proxy" target="_blank" rel="noopener">oauth2-proxy&lt;/a>
+&lt;/p>
+&lt;p>认证代理，配合 keycloak 提供完整 OAuth2 Code Flow 认证流程。也可以试试 &lt;a href="https://github.com/pomerium/pomerium" target="_blank" rel="noopener">pomerium&lt;/a>
+，看样子也不错。&lt;/p>
 &lt;/li>
 &lt;/ul>
 &lt;p>架构图如下。&lt;/p>
@@ -42,7 +47,8 @@
 &lt;p>keycloak 创建 client，使用 OIDC 协议，作为 oauth2-proxy 的 provider。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>ingress(nginx) 使用 auth_request 指令拦截所有请求，从 oauth2-proxy 进行代理认证，配置可参考 &lt;a href="https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview/#configuring-for-use-with-the-nginx-auth_request-directive">oauth2-proxy auth_request&lt;/a> 指导。&lt;/p>
+&lt;p>ingress(nginx) 使用 auth_request 指令拦截所有请求，从 oauth2-proxy 进行代理认证，配置可参考 &lt;a href="https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview/#configuring-for-use-with-the-nginx-auth_request-directive" target="_blank" rel="noopener">oauth2-proxy auth_request&lt;/a>
+ 指导。&lt;/p>
 
 
 

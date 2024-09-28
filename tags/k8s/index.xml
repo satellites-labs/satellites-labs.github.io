@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>K8s on XLabs</title><link>https://www.xlabs.club/tags/k8s/</link><description>Recent content in K8s on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 27 Sep 2024 18:45:10 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/k8s/index.xml" rel="self" type="application/rss+xml"/><item><title>容器镜像制作最佳实践，Dockerfile 实践经验和踩坑记录</title><link>https://www.xlabs.club/blog/docker-best-practices/</link><pubDate>Fri, 24 May 2024 20:56:08 +0800</pubDate><guid>https://www.xlabs.club/blog/docker-best-practices/</guid><description>&lt;p>整理了由 Docker 官方和社区推荐的用于构建高效镜像的最佳实践和方法，当然有些可能并不适用于你，请注意分辨。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>K8s on XLabs</title><link>https://www.xlabs.club/tags/k8s/</link><description>Recent content in K8s on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 28 Sep 2024 11:59:58 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/k8s/index.xml" rel="self" type="application/rss+xml"/><item><title>容器镜像制作最佳实践，Dockerfile 实践经验和踩坑记录</title><link>https://www.xlabs.club/blog/docker-best-practices/</link><pubDate>Fri, 24 May 2024 20:56:08 +0800</pubDate><guid>https://www.xlabs.club/blog/docker-best-practices/</guid><description>&lt;p>整理了由 Docker 官方和社区推荐的用于构建高效镜像的最佳实践和方法，当然有些可能并不适用于你，请注意分辨。&lt;/p>
 &lt;ol>
 &lt;li>
 &lt;p>使用官方镜像作为基础镜像。官方镜像经过了充分验证并集成了最佳实践。&lt;/p>
@@ -61,10 +61,13 @@
 &lt;p>使用 Heredocs 语法代替又长又臭的字符串拼接，当然 Heredocs 支持更多功能比如 run python、多文件内容拷贝，具体请参考官方文档。&lt;/p></description></item><item><title>使用 Pulumi 部署 cert-manager 创建 K8S 自签名证书并信任证书</title><link>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</link><pubDate>Mon, 29 Apr 2024 21:49:22 +0800</pubDate><guid>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</guid><description>&lt;p>在搭建本地 Kubernetus 集群后，由于环境在内网，做不了域名验证，无法使用 Let&amp;rsquo;s Encrypt 颁发和自动更新证书，然而很多应用要求必须启用 HTTPS，只能用自签名 CA 证书，并由此 CA 继续颁发其他证书。&lt;/p>
 &lt;p>所以我们准备了以下工具，开始搭建。&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://www.pulumi.com/">Pulumi&lt;/a>: 当前非常流行的 IaC 工具，值得一试。&lt;/li>
-&lt;li>&lt;a href="https://cert-manager.io/">cert-manager&lt;/a>: 云原生证书管理，用于自动管理和颁发各种发行来源的 TLS 证书。它将确保证书有效并定期更新，并尝试在到期前的适当时间更新证书。&lt;/li>
+&lt;li>&lt;a href="https://www.pulumi.com/" target="_blank" rel="noopener">Pulumi&lt;/a>
+: 当前非常流行的 IaC 工具，值得一试。&lt;/li>
+&lt;li>&lt;a href="https://cert-manager.io/" target="_blank" rel="noopener">cert-manager&lt;/a>
+: 云原生证书管理，用于自动管理和颁发各种发行来源的 TLS 证书。它将确保证书有效并定期更新，并尝试在到期前的适当时间更新证书。&lt;/li>
 &lt;/ul>
-&lt;p>核心步骤和相关代码如下，更多源码请参考我们的 GitHub 项目 &lt;a href="https://github.com/xlabs-club/xlabs-ops">xlabs-ops&lt;/a>。&lt;/p>
+&lt;p>核心步骤和相关代码如下，更多源码请参考我们的 GitHub 项目 &lt;a href="https://github.com/xlabs-club/xlabs-ops" target="_blank" rel="noopener">xlabs-ops&lt;/a>
+。&lt;/p>
 &lt;p>使用 Pulumi 安装 cert-manager，生成自签名 CA 证书，根据自签名 CA 证书生成 cert-manager ClusterIssuer，都在如下代码了。&lt;/p>
 
 
@@ -173,12 +176,14 @@
 &lt;p>缺点：只支持 K3S。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;a href="https://multipass.run/">multipass&lt;/a> 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
+&lt;p>&lt;a href="https://multipass.run/" target="_blank" rel="noopener">multipass&lt;/a>
+ 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
 &lt;p>优点：multipass 可启动空白 ubuntu 虚拟机，或者启动已经安装好 minikube 的虚拟机。&lt;/p>
 &lt;p>缺点：只支持 ubuntu，虚拟机与宿主机同架构。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;a href="https://lima-vm.io/">lima&lt;/a> 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
+&lt;p>&lt;a href="https://lima-vm.io/" target="_blank" rel="noopener">lima&lt;/a>
+ 启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
 &lt;p>优点：支持虚拟多种 Linux，支持异构虚拟机。&lt;/p>
 &lt;p>缺点：架构稍复杂，启动略慢，不如 multipass 稳定，不支持运行在 Windows。&lt;/p>
 &lt;/li>
@@ -236,4 +241,5 @@
 &lt;p>进入 Pod 内，尝试执行任何操作，又会出现 &lt;code>unable to start container process&lt;/code> 错误。&lt;/p>
 &lt;p>一开始怀疑是内存不足，调大了内存，同时也缩小了 Java 的 &lt;code>xss&lt;/code>，都不起作用。&lt;/p>
 &lt;p>真实原因： K8S 容器限制了 PID 数，无法创建新的线程，在 Pod 内 &lt;code>cat /sys/fs/cgroup/pids/pids.max&lt;/code> 发现是 1024。&lt;/p>
-&lt;p>关于 K8S pid limit， 可参考此资料：&lt;a href="https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/">https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/&lt;/a>.&lt;/p></description></item><item><title>K8S Pod 容器内 Java 进程内存分析</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>K8S Pod 容器内 Java 进程内存分析，容器 OOM 和 Jave OOM 问题定位。</description></item></channel></rss>
+&lt;p>关于 K8S pid limit， 可参考此资料：&lt;a href="https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/" target="_blank" rel="noopener">https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/&lt;/a>
+.&lt;/p></description></item><item><title>K8S Pod 容器内 Java 进程内存分析</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>K8S Pod 容器内 Java 进程内存分析，容器 OOM 和 Jave OOM 问题定位。</description></item></channel></rss>

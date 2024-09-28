@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Java on XLabs</title><link>https://www.xlabs.club/tags/java/</link><description>Recent content in Java on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 27 Sep 2024 18:45:10 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Java on XLabs</title><link>https://www.xlabs.club/tags/java/</link><description>Recent content in Java on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 28 Sep 2024 11:59:58 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
 &lt;p>顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：&lt;/p>
 &lt;ul>
 &lt;li>模块化开发、部署、资源共享的能力，减少 Cache、Class 等资源占用，有效降低内存占用。&lt;/li>
@@ -7,7 +7,8 @@
 &lt;/ul>
 &lt;p>基于以上背景，我们在 2022 年基于 SOFAArk 运行了一个版本，效果不太理想暂时搁置。今年 Koupleless 重新开源后做了一些增强和变更，开源社区活跃度有所提升，看宣传效果很好，我们决定重新评估是否可在公司内推广。&lt;/p>
 &lt;h2 id="什么是-koupleless">什么是 Koupleless&lt;/h2>
-&lt;p>&lt;a href="https://koupleless.io/home/">Koupleless&lt;/a> 是一种模块化 Serverless 技术解决方案，它能让普通应用低成本演进为 Serverless 研发模式，让代码与资源解耦，轻松独立维护， 与此同时支持秒级构建部署、合并部署、动态伸缩等能力为用户提供极致的研发运维体验，最终帮助企业实现降本增效。&lt;/p>
+&lt;p>&lt;a href="https://koupleless.io/home/" target="_blank" rel="noopener">Koupleless&lt;/a>
+ 是一种模块化 Serverless 技术解决方案，它能让普通应用低成本演进为 Serverless 研发模式，让代码与资源解耦，轻松独立维护， 与此同时支持秒级构建部署、合并部署、动态伸缩等能力为用户提供极致的研发运维体验，最终帮助企业实现降本增效。&lt;/p>
 &lt;p>Koupleless 是蚂蚁集团内部经过 5 年打磨成熟的研发框架和运维调度平台能力，相较于传统镜像化的应用模式研发、运维、运行阶段都有 10 倍左右的提升，总结起来 5 大特点：快、省、灵活部署、平滑演进、生产规模化验证。&lt;/p>
 &lt;p>以上都是官网的宣传，更多介绍请链接到官网查看。&lt;/p>
 &lt;p>在整个 Koupleless 平台里，需要四个组件：&lt;/p>
@@ -33,8 +34,10 @@
 &lt;h2 id="快速开始">快速开始&lt;/h2>
 &lt;p>基本步骤：&lt;/p>
 &lt;ol>
-&lt;li>对于 &lt;a href="https://github.com/spring-io/initializr">spring.initializr&lt;/a> 我们没有定制的需求，直接引用官方的。&lt;/li>
-&lt;li>拷贝一份 &lt;a href="https://github.com/spring-io/start.spring.io">start.spring.io&lt;/a>，直接基于这个项目开发、部署、运行。以下都是关于如何修改 &lt;code>start.spring.io&lt;/code>。&lt;/li>
+&lt;li>对于 &lt;a href="https://github.com/spring-io/initializr" target="_blank" rel="noopener">spring.initializr&lt;/a>
+ 我们没有定制的需求，直接引用官方的。&lt;/li>
+&lt;li>拷贝一份 &lt;a href="https://github.com/spring-io/start.spring.io" target="_blank" rel="noopener">start.spring.io&lt;/a>
+，直接基于这个项目开发、部署、运行。以下都是关于如何修改 &lt;code>start.spring.io&lt;/code>。&lt;/li>
 &lt;/ol>
 &lt;p>&lt;code>start.spring.io&lt;/code> 主要关注两个模块：&lt;/p>
 &lt;ul>
@@ -118,10 +121,14 @@
 &lt;p>根据网上经验排查了 Traefik SSL 证书问题、路径问题、消息体太大问题、请求 Header 不合规问题，都一一否定。最后无意间看了一眼 Response Header，发现 Spring Boot 应用返回了两个 &lt;code>Transfer-Encoding: chunked&lt;/code> Header。&lt;/p>
 &lt;p>再根据此 Header 搜索，发现果然有人遇到过类似问题，请参考这几个链接。&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://github.com/traefik/traefik/issues/7741">https://github.com/traefik/traefik/issues/7741&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/spring-projects/spring-framework/issues/21523">https://github.com/spring-projects/spring-framework/issues/21523&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/spring-projects/spring-boot/issues/37646">https://github.com/spring-projects/spring-boot/issues/37646&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://stackoverflow.com/questions/77042701/nginx-upstream-sent-duplicate-header-line-transfer-encoding-chunked-previo">https://stackoverflow.com/questions/77042701/nginx-upstream-sent-duplicate-header-line-transfer-encoding-chunked-previo&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/traefik/traefik/issues/7741" target="_blank" rel="noopener">https://github.com/traefik/traefik/issues/7741&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://github.com/spring-projects/spring-framework/issues/21523" target="_blank" rel="noopener">https://github.com/spring-projects/spring-framework/issues/21523&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://github.com/spring-projects/spring-boot/issues/37646" target="_blank" rel="noopener">https://github.com/spring-projects/spring-boot/issues/37646&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://stackoverflow.com/questions/77042701/nginx-upstream-sent-duplicate-header-line-transfer-encoding-chunked-previo" target="_blank" rel="noopener">https://stackoverflow.com/questions/77042701/nginx-upstream-sent-duplicate-header-line-transfer-encoding-chunked-previo&lt;/a>
+&lt;/li>
 &lt;/ul>
 &lt;p>从上面链接描述中可知，不仅 Traefik 会出现此问题，nginx 包含以 nginx 为基础的 ingress 也会出现同样问题，不过 nginx 返回错误信息类似 &lt;code>Nginx: upstream sent duplicate header line: &amp;quot;Transfer-Encoding: chunked&amp;quot;, previous value: &amp;quot;Transfer-Encoding: chunked”&lt;/code> ，返回错误码一般是 502 Bad Gateway。&lt;/p></description></item><item><title>K8S 容器 PID 限制引起的 Java OutOfMemoryError</title><link>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</link><pubDate>Thu, 07 Sep 2023 16:21:44 +0800</pubDate><guid>https://www.xlabs.club/blog/k8s-pid-limiting-oom/</guid><description>&lt;p>问题描述：&lt;/p>
 &lt;p>一个 Java 应用跑在 K8S 容器内，Pod 内只有 Java 这一个进程。应用跑了一段时间后，CPU、内存占用都不高，但是却出现以下 OutOfMemoryError 错误。&lt;/p>
@@ -146,7 +153,8 @@
 &lt;p>进入 Pod 内，尝试执行任何操作，又会出现 &lt;code>unable to start container process&lt;/code> 错误。&lt;/p>
 &lt;p>一开始怀疑是内存不足，调大了内存，同时也缩小了 Java 的 &lt;code>xss&lt;/code>，都不起作用。&lt;/p>
 &lt;p>真实原因： K8S 容器限制了 PID 数，无法创建新的线程，在 Pod 内 &lt;code>cat /sys/fs/cgroup/pids/pids.max&lt;/code> 发现是 1024。&lt;/p>
-&lt;p>关于 K8S pid limit， 可参考此资料：&lt;a href="https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/">https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/&lt;/a>.&lt;/p></description></item><item><title>K8S Pod 容器内 Java 进程内存分析</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>K8S Pod 容器内 Java 进程内存分析，容器 OOM 和 Jave OOM 问题定位。</description></item><item><title>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录</title><link>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</guid><description>&lt;p>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录。&lt;/p>
+&lt;p>关于 K8S pid limit， 可参考此资料：&lt;a href="https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/" target="_blank" rel="noopener">https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/&lt;/a>
+.&lt;/p></description></item><item><title>K8S Pod 容器内 Java 进程内存分析</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>K8S Pod 容器内 Java 进程内存分析，容器 OOM 和 Jave OOM 问题定位。</description></item><item><title>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录</title><link>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</guid><description>&lt;p>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录。&lt;/p>
 &lt;h2 id="概述">概述&lt;/h2>
 &lt;p>从 Spring 到 Spring Boot，整体开发、运行方式主要变化。&lt;/p>
 &lt;table>

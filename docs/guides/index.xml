@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Guides on XLabs</title><link>https://www.xlabs.club/docs/guides/</link><description>Recent content in Guides on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 27 Sep 2024 18:45:10 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/docs/guides/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>&lt;p>卫星实验室，一个专注于技术创新的开源组织。&lt;/p>
-&lt;p>此项目为卫星实验室主页 &lt;a href="https://www.xlabs.club">xlabs.club&lt;/a> 的源码，在这里将分享我们的平台工程实践经验，介绍如何以技术驱动业务长期发展和高速增长。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Guides on XLabs</title><link>https://www.xlabs.club/docs/guides/</link><description>Recent content in Guides on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 28 Sep 2024 11:59:58 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/docs/guides/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>&lt;p>卫星实验室，一个专注于技术创新的开源组织。&lt;/p>
+&lt;p>此项目为卫星实验室主页 &lt;a href="https://www.xlabs.club" target="_blank" rel="noopener">xlabs.club&lt;/a>
+ 的源码，在这里将分享我们的平台工程实践经验，介绍如何以技术驱动业务长期发展和高速增长。&lt;/p>
 &lt;p>欢迎提交 PR 进行开源共建。&lt;/p>
 &lt;h2 id="主页内容">主页内容&lt;/h2>
 &lt;ul>
@@ -12,4 +13,5 @@
 &lt;li>backstage-plugins：卫星实验室的开源 backstage plugins，欢迎提交 PR。&lt;/li>
 &lt;/ul>
 &lt;h2 id="license">License&lt;/h2>
-&lt;p>本文档采用 &lt;a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0&lt;/a> 许可协议。&lt;/p></description></item></channel></rss>
+&lt;p>本文档采用 &lt;a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0&lt;/a>
+ 许可协议。&lt;/p></description></item></channel></rss>

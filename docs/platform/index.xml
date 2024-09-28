@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>平台工程 on XLabs</title><link>https://www.xlabs.club/docs/platform/</link><description>Recent content in 平台工程 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 27 Sep 2024 18:45:10 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/docs/platform/index.xml" rel="self" type="application/rss+xml"/><item><title>总体架构</title><link>https://www.xlabs.club/docs/platform/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/platform/introduction/</guid><description>&lt;p>我们的平台工程建设之路，介绍前期方案设计、中间踩坑历程。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>平台工程 on XLabs</title><link>https://www.xlabs.club/docs/platform/</link><description>Recent content in 平台工程 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 28 Sep 2024 11:59:58 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/docs/platform/index.xml" rel="self" type="application/rss+xml"/><item><title>总体架构</title><link>https://www.xlabs.club/docs/platform/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/platform/introduction/</guid><description>&lt;p>我们的平台工程建设之路，介绍前期方案设计、中间踩坑历程。&lt;/p>
 &lt;h2 id="原则">原则&lt;/h2>
 &lt;p>分享我们平台工程建设的一些基本原则。&lt;/p>
 &lt;ol>
@@ -71,11 +71,16 @@ C4Context
 &lt;h2 id="技术选项">技术选项&lt;/h2>
 &lt;p>为满足以上需求，在初期技术选项时主要关注以下几个开源组件。&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://github.com/keycloak/">keycloak&lt;/a>: 全面的 IAM 解决方案 ，实现用户、权限管理，单点登录、MFA 等。&lt;/li>
-&lt;li>&lt;a href="https://github.com/dexidp">Dex&lt;/a>: 身份代理，连接多个身份源，仅作为 OpenID Connect。&lt;/li>
-&lt;li>&lt;a href="https://github.com/ory/">Ory&lt;/a>: 包含多个独立的组件，组成一个全家桶的解决方案。&lt;/li>
-&lt;li>&lt;a href="https://github.com/oauth2-proxy">oauth2-proxy&lt;/a>: 反向代理工具，专为提供 OAuth 2.0 身份验证和授权服务而设计，附带基于用户、分组、角色的权限管理。&lt;/li>
-&lt;li>&lt;a href="https://github.com/pomerium/">Pomerium&lt;/a>: Pomerium 不仅仅是一个 OAuth 2.0 代理，它还提供了细粒度的访问控制，能够根据用户、组、和其他上下文属性来决定访问权限。&lt;/li>
+&lt;li>&lt;a href="https://github.com/keycloak/" target="_blank" rel="noopener">keycloak&lt;/a>
+: 全面的 IAM 解决方案 ，实现用户、权限管理，单点登录、MFA 等。&lt;/li>
+&lt;li>&lt;a href="https://github.com/dexidp" target="_blank" rel="noopener">Dex&lt;/a>
+: 身份代理，连接多个身份源，仅作为 OpenID Connect。&lt;/li>
+&lt;li>&lt;a href="https://github.com/ory/" target="_blank" rel="noopener">Ory&lt;/a>
+: 包含多个独立的组件，组成一个全家桶的解决方案。&lt;/li>
+&lt;li>&lt;a href="https://github.com/oauth2-proxy" target="_blank" rel="noopener">oauth2-proxy&lt;/a>
+: 反向代理工具，专为提供 OAuth 2.0 身份验证和授权服务而设计，附带基于用户、分组、角色的权限管理。&lt;/li>
+&lt;li>&lt;a href="https://github.com/pomerium/" target="_blank" rel="noopener">Pomerium&lt;/a>
+: Pomerium 不仅仅是一个 OAuth 2.0 代理，它还提供了细粒度的访问控制，能够根据用户、组、和其他上下文属性来决定访问权限。&lt;/li>
 &lt;/ul>
 &lt;p>以下为 keycloak 和 Dex 的简单对比。为什么不把 Ory 加进来，因为没有实际用过，不便于发表意见，如果你是一个 Ory 用户欢迎补充。&lt;/p>
 &lt;table>
@@ -147,9 +152,14 @@ C4Context
 &lt;li>经验产品化：最佳实践就是产品，比如我并不（想）了解 Spring Boot 3.2 具体有哪些变更，但希望能一键从 3.0 自动升级到 3.2，直接告诉有哪些变更。&lt;/li>
 &lt;li>自定义重构：对于某些自研代码，希望能自定义重构逻辑，一键自动重构。&lt;/li>
 &lt;/ul>
-&lt;p>基于以上背景，我们探索了 &lt;a href="https://docs.openrewrite.org/">OpenRewrite&lt;/a>、&lt;a href="https://github.com/spring-projects-experimental/spring-boot-migrator">Spring Boot Migrator&lt;/a>、&lt;a href="https://github.com/windup">Redhat Windup&lt;/a>、&lt;a href="https://github.com/adoptium/emt4j">emt4j&lt;/a> 和一众不便具名的 AI 代码助手，本文将分享我们使用 OpenRewrite、Spring Boot Migrator 进行代码重构和升级的一些使用经验和体验。&lt;/p>
+&lt;p>基于以上背景，我们探索了 &lt;a href="https://docs.openrewrite.org/" target="_blank" rel="noopener">OpenRewrite&lt;/a>
+、&lt;a href="https://github.com/spring-projects-experimental/spring-boot-migrator" target="_blank" rel="noopener">Spring Boot Migrator&lt;/a>
+、&lt;a href="https://github.com/windup" target="_blank" rel="noopener">Redhat Windup&lt;/a>
+、&lt;a href="https://github.com/adoptium/emt4j" target="_blank" rel="noopener">emt4j&lt;/a>
+ 和一众不便具名的 AI 代码助手，本文将分享我们使用 OpenRewrite、Spring Boot Migrator 进行代码重构和升级的一些使用经验和体验。&lt;/p>
 &lt;h2 id="openrewrite">OpenRewrite&lt;/h2>
-&lt;p>&lt;a href="https://docs.openrewrite.org/">OpenRewrite&lt;/a> 是一个开源的代码重写工具，旨在帮助开发人员自动化大规模重构代码。&lt;/p>
+&lt;p>&lt;a href="https://docs.openrewrite.org/" target="_blank" rel="noopener">OpenRewrite&lt;/a>
+ 是一个开源的代码重写工具，旨在帮助开发人员自动化大规模重构代码。&lt;/p>
 &lt;p>它提供了一套强大的 API 和插件系统，可以通过静态分析和代码转换技术来解析、修改和生成代码。OpenRewrite 支持多种编程语言，包括 Java、C#、 TypeScript、Python、Kubernetes 等。通过使用 OpenRewrite，开发人员可以轻松地进行代码重构、性能优化、代码风格调整和代码迁移等操作，从而提高代码质量和可维护性。OpenRewrite 的开源性质使得开发人员可以自由地定制和扩展其功能，以满足特定项目的需求。&lt;/p>
 &lt;p>比如 Java 领域一些热门的应用场景：&lt;/p>
 &lt;ul>
