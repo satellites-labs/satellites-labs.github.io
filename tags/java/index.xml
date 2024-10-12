@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Java on XLabs</title><link>https://www.xlabs.club/tags/java/</link><description>Recent content in Java on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 12 Oct 2024 22:20:28 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Java on XLabs</title><link>https://www.xlabs.club/tags/java/</link><description>Recent content in Java on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 12 Oct 2024 22:29:40 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
 &lt;p>顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：&lt;/p>
 &lt;ul>
 &lt;li>模块化开发、部署、资源共享的能力，减少 Cache、Class 等资源占用，有效降低内存占用。&lt;/li>
@@ -154,7 +154,29 @@
 &lt;p>一开始怀疑是内存不足，调大了内存，同时也缩小了 Java 的 &lt;code>xss&lt;/code>，都不起作用。&lt;/p>
 &lt;p>真实原因： K8S 容器限制了 PID 数，无法创建新的线程，在 Pod 内 &lt;code>cat /sys/fs/cgroup/pids/pids.max&lt;/code> 发现是 1024。&lt;/p>
 &lt;p>关于 K8S pid limit， 可参考此资料：&lt;a href="https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/" target="_blank" rel="noopener">https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/&lt;/a>
-.&lt;/p></description></item><item><title>K8S Pod 容器内 Java 进程内存分析</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>K8S Pod 容器内 Java 进程内存分析，容器 OOM 和 Jave OOM 问题定位。</description></item><item><title>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录</title><link>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</guid><description>&lt;p>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录。&lt;/p>
+.&lt;/p></description></item><item><title>K8S Pod 容器内 Java 进程内存分析，内存虚高以及容器 OOM 或 Jave OOM 问题定位</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>&lt;p>故事背景：&lt;/p>
+&lt;p>一个 K8S Pod，里面只有一个 Java 进程，K8S request 和 limit memory 都是 2G，Java 进程核心参数包括：&lt;code>-XX:+UseZGC -Xmx1024m -Xms768m&lt;/code>。&lt;/p>
+&lt;p>服务启动一段时间后，查看 Grafana 监控数据，Pod 内存使用量约 1.5G，JVM 内存使用量约 500M，通过 jvm dump 分析没有任何大对象，运行三五天后出现 K8S Container OOM。&lt;/p>
+&lt;p>首先区分下 Container OOM 和 Jvm OOM，Container OOM 是 Pod 内进程申请内存大约 K8S Limit 所致。&lt;/p>
+&lt;p>问题来了：&lt;/p>
+&lt;ol>
+&lt;li>Pod 2G 内存，JVM 设置了 &lt;code>Xmx 1G&lt;/code>，已经预留了 1G 内存，为什么还会 Container OOM，这预留的 1G 内存被谁吃了。&lt;/li>
+&lt;li>正常情况下（无 Container OOM），Grafana 看到的监控数据，Pod 内存使用量 1.5G， JVM 内存使用量 500M，差别为什么这么大。&lt;/li>
+&lt;li>Pod 内存使用量为什么超过 Xmx 限制。&lt;/li>
+&lt;/ol>
+&lt;p>Grafana 监控图。&lt;/p>
+&lt;p>&lt;a href="./grafana-pod-jvm.png">
+
+&lt;img
+ src="https://www.xlabs.club/blog/java-memory/grafana-pod-jvm_hu1286922758549721458.webp"
+ width="1920"
+ height="3600"
+ decoding="async"
+ fetchpriority="auto"
+ loading="lazy"
+ alt="Grafana 监控图"id="h-rh-i-0"
+/>&lt;/a>
+&lt;/p></description></item><item><title>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录</title><link>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-spring-to-spring-boot/</guid><description>&lt;p>从 Spring 到 Spring Boot，迁移升级快速入门以及各种踩坑记录。&lt;/p>
 &lt;h2 id="概述">概述&lt;/h2>
 &lt;p>从 Spring 到 Spring Boot，整体开发、运行方式主要变化。&lt;/p>
 &lt;table>

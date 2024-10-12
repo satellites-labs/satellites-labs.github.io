@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>K8s on XLabs</title><link>https://www.xlabs.club/tags/k8s/</link><description>Recent content in K8s on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 12 Oct 2024 22:20:28 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/k8s/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 oauth2-proxy 为任意程序增加认证授权，结合 K8S、traefik、keycloak、backstage 部署代码示例解读</title><link>https://www.xlabs.club/blog/traefik-ingress-with-oauth2-proxy/</link><pubDate>Sun, 22 Sep 2024 16:30:40 +0800</pubDate><guid>https://www.xlabs.club/blog/traefik-ingress-with-oauth2-proxy/</guid><description>&lt;p>作为一个程序员，在日常开发中永远避免不了认证授权，而我们开发的某些应用，并不需要太复杂的授权，比如可能只要求必须是登录用户，或者只需要根据角色进行 RBAC 授权。有没有方法简化此流程，让应用开发者只关注业务开发，这就是本文档要解决的问题。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>K8s on XLabs</title><link>https://www.xlabs.club/tags/k8s/</link><description>Recent content in K8s on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 12 Oct 2024 22:29:40 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/tags/k8s/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 oauth2-proxy 为任意程序增加认证授权，结合 K8S、traefik、keycloak、backstage 部署代码示例解读</title><link>https://www.xlabs.club/blog/traefik-ingress-with-oauth2-proxy/</link><pubDate>Sun, 22 Sep 2024 16:30:40 +0800</pubDate><guid>https://www.xlabs.club/blog/traefik-ingress-with-oauth2-proxy/</guid><description>&lt;p>作为一个程序员，在日常开发中永远避免不了认证授权，而我们开发的某些应用，并不需要太复杂的授权，比如可能只要求必须是登录用户，或者只需要根据角色进行 RBAC 授权。有没有方法简化此流程，让应用开发者只关注业务开发，这就是本文档要解决的问题。&lt;/p>
 &lt;p>如果你有类似以下的需求，都可以参考此文档，原理是一样的，组件也可复用。&lt;/p>
 &lt;ol>
 &lt;li>实现基于 OAuth2 的单点登录、认证、授权。&lt;/li>
@@ -263,4 +263,26 @@ Keycloak 是一个开源的身份和访问管理解决方案，支持 OAuth 2.0�
 &lt;p>一开始怀疑是内存不足，调大了内存，同时也缩小了 Java 的 &lt;code>xss&lt;/code>，都不起作用。&lt;/p>
 &lt;p>真实原因： K8S 容器限制了 PID 数，无法创建新的线程，在 Pod 内 &lt;code>cat /sys/fs/cgroup/pids/pids.max&lt;/code> 发现是 1024。&lt;/p>
 &lt;p>关于 K8S pid limit， 可参考此资料：&lt;a href="https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/" target="_blank" rel="noopener">https://kubernetes.io/zh-cn/docs/concepts/policy/pid-limiting/&lt;/a>
-.&lt;/p></description></item><item><title>K8S Pod 容器内 Java 进程内存分析</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>K8S Pod 容器内 Java 进程内存分析，容器 OOM 和 Jave OOM 问题定位。</description></item></channel></rss>
+.&lt;/p></description></item><item><title>K8S Pod 容器内 Java 进程内存分析，内存虚高以及容器 OOM 或 Jave OOM 问题定位</title><link>https://www.xlabs.club/blog/java-memory/</link><pubDate>Sat, 07 Jan 2023 10:54:37 +0800</pubDate><guid>https://www.xlabs.club/blog/java-memory/</guid><description>&lt;p>故事背景：&lt;/p>
+&lt;p>一个 K8S Pod，里面只有一个 Java 进程，K8S request 和 limit memory 都是 2G，Java 进程核心参数包括：&lt;code>-XX:+UseZGC -Xmx1024m -Xms768m&lt;/code>。&lt;/p>
+&lt;p>服务启动一段时间后，查看 Grafana 监控数据，Pod 内存使用量约 1.5G，JVM 内存使用量约 500M，通过 jvm dump 分析没有任何大对象，运行三五天后出现 K8S Container OOM。&lt;/p>
+&lt;p>首先区分下 Container OOM 和 Jvm OOM，Container OOM 是 Pod 内进程申请内存大约 K8S Limit 所致。&lt;/p>
+&lt;p>问题来了：&lt;/p>
+&lt;ol>
+&lt;li>Pod 2G 内存，JVM 设置了 &lt;code>Xmx 1G&lt;/code>，已经预留了 1G 内存，为什么还会 Container OOM，这预留的 1G 内存被谁吃了。&lt;/li>
+&lt;li>正常情况下（无 Container OOM），Grafana 看到的监控数据，Pod 内存使用量 1.5G， JVM 内存使用量 500M，差别为什么这么大。&lt;/li>
+&lt;li>Pod 内存使用量为什么超过 Xmx 限制。&lt;/li>
+&lt;/ol>
+&lt;p>Grafana 监控图。&lt;/p>
+&lt;p>&lt;a href="./grafana-pod-jvm.png">
+
+&lt;img
+ src="https://www.xlabs.club/blog/java-memory/grafana-pod-jvm_hu1286922758549721458.webp"
+ width="1920"
+ height="3600"
+ decoding="async"
+ fetchpriority="auto"
+ loading="lazy"
+ alt="Grafana 监控图"id="h-rh-i-0"
+/>&lt;/a>
+&lt;/p></description></item></channel></rss>
