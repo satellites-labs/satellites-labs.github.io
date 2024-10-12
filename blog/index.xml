@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Wed, 09 Oct 2024 23:42:52 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>卫星实验室友情链接</title><link>https://www.xlabs.club/blog/xlabs-link-exchange/</link><pubDate>Thu, 26 Sep 2024 09:27:42 +0800</pubDate><guid>https://www.xlabs.club/blog/xlabs-link-exchange/</guid><description>&lt;p>在建设本博客的过程中，发现了一些有趣有用的原创独立博客，以及很多良心开源产品，我觉得有必要把他们展示出来。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 29 Sep 2024 18:09:49 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>卫星实验室友情链接</title><link>https://www.xlabs.club/blog/xlabs-link-exchange/</link><pubDate>Thu, 26 Sep 2024 09:27:42 +0800</pubDate><guid>https://www.xlabs.club/blog/xlabs-link-exchange/</guid><description>&lt;p>在建设本博客的过程中，发现了一些有趣有用的原创独立博客，以及很多良心开源产品，我觉得有必要把他们展示出来。&lt;/p>
 &lt;p>如有侵权，请提 issue，如有推荐，请到 &lt;a href="https://github.com/xlabs-club/xlabs-club.github.io" target="_blank" rel="noopener">GitHub&lt;/a>
  提交 PR。&lt;/p>
 &lt;h2 id="独立博客">独立博客&lt;/h2>
@@ -6,7 +6,36 @@
 &lt;li>地瓜哥，分享技术带来的喜悦：&lt;a href="https://www.diguage.com" target="_blank" rel="noopener">https://www.diguage.com&lt;/a>
 。&lt;/li>
 &lt;/ul>
-&lt;h2 id="独立产品">独立产品&lt;/h2></description></item><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
+&lt;h2 id="独立产品">独立产品&lt;/h2></description></item><item><title>使用 oauth2-proxy 为任意程序增加认证授权，结合 K8S、traefik、keycloak、backstage 部署代码示例解读</title><link>https://www.xlabs.club/blog/traefik-ingress-with-oauth2-proxy/</link><pubDate>Sun, 22 Sep 2024 16:30:40 +0800</pubDate><guid>https://www.xlabs.club/blog/traefik-ingress-with-oauth2-proxy/</guid><description>&lt;p>作为一个程序员，在日常开发中永远避免不了认证授权，而我们开发的某些应用，并不需要太复杂的授权，比如可能只要求必须是登录用户，或者只需要根据角色进行 RBAC 授权。有没有方法简化此流程，让应用开发者只关注业务开发，这就是本文档要解决的问题。&lt;/p>
+&lt;p>如果你有类似以下的需求，都可以参考此文档，原理是一样的，组件也可复用。&lt;/p>
+&lt;ol>
+&lt;li>实现基于 OAuth2 的单点登录、认证、授权。&lt;/li>
+&lt;li>为 Kubernetus Ingress 提供统一的认证入口，一键实现所有入口必须登录才可访问。&lt;/li>
+&lt;li>为 Kubernetus Pod 增加认证 Sidecar，实现 Zero Trust。&lt;/li>
+&lt;li>基于用户、角色等不同属性，路由到不同服务。比如另一篇博客中提到的这种场景：&lt;a href="https://www.xlabs.club/blog/code-server/" target="_blank" rel="noopener">使用 Visual Studio Code 搭建多用户远程 IDE&lt;/a>
+。&lt;/li>
+&lt;/ol>
+&lt;p>写在前面：&lt;/p>
+&lt;ol>
+&lt;li>本文档里的示例代码是以 k3s 为基础，融合了 traefik ingress controller、oauth2-proxy、keycloak、backstage 这几个组件，完善略显复杂，如果没有 K3S/K8S，以其他方式部署也是完全可以的，基本原理都是一样的，都是开源软件，开箱即用。&lt;/li>
+&lt;li>对于某些场景下可选的配置，会单独说明，请注意分别。&lt;/li>
+&lt;li>这里提到的每个组件都是可替换的，比如 nginx 代替 traefik，Pomerium 代替 oauth2-proxy，可根据爱好选择，后面也会适当补充几种不同方式的对比和部署差异，更详细内容请参考本站另外一篇文档 &lt;a href="https://www.xlabs.club/docs/platform/iam/" target="_blank" rel="noopener">统一身份认证&lt;/a>
+。&lt;/li>
+&lt;li>示例中的代码都是从真实环境拷贝经过检验的，完整的安装部署源码请参考我们的部署脚本 &lt;a href="https://github.com/xlabs-club/xlabs-ops" target="_blank" rel="noopener">xlabs-club/xlabs-ops&lt;/a>
+。&lt;/li>
+&lt;li>需要懂一些 K8S、OIDC 基础知识，此处只提供链接不展开说明。&lt;/li>
+&lt;/ol>
+&lt;h2 id="组件介绍">组件介绍&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>Keycloak
+Keycloak 是一个开源的身份和访问管理解决方案，支持 OAuth 2.0、OpenID Connect、SAML 等协议。它提供用户管理、角色管理、单点登录（SSO）、身份提供服务等功能。关于 Keycloak 的中文介绍，可参考本站单独的博客 &lt;a href="https://idaas.xlabs.club/" target="_blank" rel="noopener">IDaaS Book&lt;/a>
+。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://oauth2-proxy.github.io/oauth2-proxy/" target="_blank" rel="noopener">oauth2-proxy&lt;/a>
+
+顾名思义它是一个关于 oauth 反向代理，主要用来为后端服务增加身份验证层。它支持多种 OAuth 2.0 提供者（如 Google、OIDC、Keycloak 等），可以保护未提供身份验证的应用。oauth2-proxy 在请求进入后端服务之前，会先进行 OAuth 2.0 登录认证，确保请求者具有访问权限。它承担了登录的合法性校验、重定向、登录成功后的 cookie、response 处理。&lt;/p></description></item><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
 &lt;p>顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：&lt;/p>
 &lt;ul>
 &lt;li>模块化开发、部署、资源共享的能力，减少 Cache、Class 等资源占用，有效降低内存占用。&lt;/li>
@@ -92,7 +121,7 @@
 &lt;h2 id="dockerfile-编写小技巧">Dockerfile 编写小技巧&lt;/h2>
 &lt;ul>
 &lt;li>
-&lt;p>使用 Heredocs 语法代替又长又臭的字符串拼接，当然 Heredocs 支持更多功能比如 run python、多文件内容拷贝，具体请参考官方文档。&lt;/p></description></item><item><title>从 Java 8 升级到 Java 21，踩坑记录、变更评估和工具介绍</title><link>https://www.xlabs.club/blog/migrating-java8-to-java21/</link><pubDate>Thu, 23 May 2024 21:03:11 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-java8-to-java21/</guid><description>&lt;h2 id="破坏性变更评估">破坏性变更评估&lt;/h2>
+&lt;p>使用 Heredocs 语法代替又长又臭的字符串拼接，当然 Heredocs 支持更多功能比如 run python、多文件内容拷贝，具体请参考官方文档。&lt;/p></description></item><item><title>从 Java 8 升级到 Java 23，踩坑记录、变更评估和工具介绍</title><link>https://www.xlabs.club/blog/migrating-java8-to-java23/</link><pubDate>Thu, 23 May 2024 21:03:11 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-java8-to-java23/</guid><description>&lt;h2 id="破坏性变更评估">破坏性变更评估&lt;/h2>
 &lt;p>在升级之前，可通过 jdeps 和 jdeprscan 先评估下是否有使用内部类和废弃 API，有一个总的概览。&lt;/p>
 &lt;p>jdeps 是 Java 自带的命令行工具，可以用来分析依赖关系和生成模块信息文件，这里我们只借用他的其中一项功能。&lt;/p>
 &lt;p>通过 &lt;code>jdeps --jdk-internals&lt;/code> 检查是否有使用内部 API，以下例子显示使用了 &lt;code>sun.net.util.IPAddressUtil&lt;/code> 这个 Java 内部工具类，会显示详细的源码类和 jar 包位置。&lt;/p>
@@ -218,25 +247,25 @@
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">caCertificatePem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">caCert&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">certPem&lt;/span>&lt;span class="p">;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
  &lt;/figure>
 &lt;/div>
-&lt;p>以上执行 &lt;code>pulumi up&lt;/code> 后，我们就得到了一个自签名的 CA 证书、一个可用于为 ingress 自动签发 TLS 的 ClusterIssuer。&lt;/p></description></item><item><title>Mac 搭建本地 K8S 开发环境方案选型</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>&lt;p>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司集群，所以就有了本地搭建 K8S 的需求。&lt;/p>
-&lt;p>另外如果你有以下需求，此文档中提到的方案也许有所帮助：&lt;/p>
+&lt;p>以上执行 &lt;code>pulumi up&lt;/code> 后，我们就得到了一个自签名的 CA 证书、一个可用于为 ingress 自动签发 TLS 的 ClusterIssuer。&lt;/p></description></item><item><title>MacOS 搭建本地 K8S 开发环境方案选型，基于 K3D、multipass、lima 等不同方案优缺点介绍对比</title><link>https://www.xlabs.club/blog/easiest-k8s-on-macos/</link><pubDate>Sat, 13 Apr 2024 15:20:43 +0800</pubDate><guid>https://www.xlabs.club/blog/easiest-k8s-on-macos/</guid><description>&lt;p>因为工作经常需要用到 K8S，而且有时因网络原因不能完全依赖公司网络，或者因为测试新功能不能直接发布到公司 K8S 集群，所以就有了本地搭建 K8S 的需求。&lt;/p>
+&lt;p>另外如果你有以下需求，此文档中提到的方案也可能对你有所帮助：&lt;/p>
 &lt;ul>
-&lt;li>开发机器模拟 Arm、AMD64 等不同架构。&lt;/li>
-&lt;li>完全隔离的不同环境，比如为测试 docker、podman、buildkit、containd 等不同软件设置的独立环境。&lt;/li>
-&lt;li>CI/CD 流程中即用即消的轻量级虚拟机替代方案。&lt;/li>
-&lt;li>有限的资源模拟大批量的 K8S 节点。&lt;/li>
+&lt;li>开发机器模拟 Arm、AMD64 等不同 CPU 架构。&lt;/li>
+&lt;li>本地搭建完全隔离的开发环境，比如为测试 docker、podman、buildkit、containd 等不同软件设置的独立环境。&lt;/li>
+&lt;li>CI/CD 流程中即用即消的轻量级虚拟机替代方案，比如单元测试、集成测试中需要虚拟机或 K8S，快速启动，用完删除。&lt;/li>
+&lt;li>有限的资源模拟大批量的 K8S 节点，测试 K8S API 能力。&lt;/li>
 &lt;/ul>
-&lt;p>以下介绍一下我用过的几种不同方案，有些纯属个人观点仅供参考。&lt;/p>
+&lt;p>以下介绍一下我用过的几种不同方案，纯属个人观点仅供参考。&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>Docker Desktop 并启用 Kubernetes 功能。&lt;/p>
-&lt;p>优点：最简单，开箱即用。&lt;/p>
+&lt;p>使用 Docker Desktop 并启用 Kubernetes 功能。&lt;/p>
+&lt;p>优点：使用最简单，开箱即用。&lt;/p>
 &lt;p>缺点：只支持单节点 K8S，且 K8S 部分功能不支持，不易定制。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Docker run K3D, K3D run K3S。&lt;/p>
 &lt;p>优点：简单，任何支持 docker 的工具（Rancher Desktop、Podman） 启动一个容器即可。&lt;/p>
-&lt;p>缺点：只支持 K3S。&lt;/p>
+&lt;p>缺点：只支持 K3S，稳定性越来越不行了，以前多优秀啊。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>&lt;a href="https://multipass.run/" target="_blank" rel="noopener">multipass&lt;/a>
@@ -247,15 +276,7 @@
 &lt;li>
 &lt;p>&lt;a href="https://lima-vm.io/" target="_blank" rel="noopener">lima&lt;/a>
  启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
-&lt;p>优点：支持虚拟多种 Linux，支持异构虚拟机。&lt;/p>
-&lt;p>缺点：架构稍复杂，启动略慢，不如 multipass 稳定，不支持运行在 Windows。&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;p>以上方案，在网络畅通的情况下，均能在 10 分钟内启动一个单节点 K8S，所以整体方案都不复杂。&lt;/p>
-&lt;p>如何选择：&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>如果你需要在公司使用，并且不想买商业 License 的话，可直接排除 Docker Desktop。&lt;/p></description></item><item><title>K8S Tomcat 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>&lt;p>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上，很不均衡。&lt;/p>
+&lt;p>优点：支持虚拟多种 Linux 发行版，支持异构 CPU 虚拟机，同时能代替 Docker Desktop。&lt;/p></description></item><item><title>K8S Tomcat 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>&lt;p>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上，很不均衡。&lt;/p>
 &lt;p>已知的情况是：&lt;/p>
 &lt;ol>
 &lt;li>K8S Service 使用 round-robin 负载均衡策略。&lt;/li>
@@ -370,35 +391,4 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">&amp;lt;/plist&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
  &lt;/figure>
 &lt;/div>
-&lt;p>验证文件格式和内容，并应用生效。&lt;/p></description></item><item><title>文件压缩解压缩快速参考</title><link>https://www.xlabs.club/blog/tar-gz/</link><pubDate>Sun, 10 Mar 2024 15:22:20 +0800</pubDate><guid>https://www.xlabs.club/blog/tar-gz/</guid><description>&lt;p>文件压缩解压缩快速参考。&lt;/p>
-&lt;h2 id="常用文件格式">常用文件格式&lt;/h2>
-&lt;p>.tar：tar 其实打包（或翻译为归档）文件，本身并没有压缩。在 Linux 里 man tar 可以看到它的描述也是“manipulate tape archives”（tar 最初被用来在磁带上创建档案，现在，用户可以在任何设备上创建档案，只是它的描述还没有改）。&lt;/p>
-&lt;p>.gz：gzip 是 GNU 组织开发的一个压缩程序，.gz 结尾的文件就是 gzip 压缩的结果。&lt;/p>
-&lt;p>.bz2：bzip2 是一个压缩能力更强的压缩程序，.bz2 结尾的文件就是 bzip2 压缩的结果。&lt;/p>
-&lt;p>.Z：compress 也是一个压缩程序。.Z 结尾的文件就是 compress 压缩的结果。&lt;/p>
-&lt;p>.zip：使用 zip 软件压缩的文件。&lt;/p>
-&lt;p>.tar.gz、.tar.bz2、.tar.xz 等可以理解为打包+压缩的效果，用软件解压可以发现比。gz 多了一层包。gzip 和 bzip2，不能同时压缩多个文件，tar 相当于开个挂加上同时压缩的特效，tar 先归档为一个大文件，而归档为大文件的速度是很快的，测试了一下几乎可以忽略不计。&lt;/p>
-&lt;p>除了这些格式外，常见的 deb、exe、msi、rpm、dmg、iso 等安装软件，其实都是经过压缩的，一般情况下没有必要再压缩。而 rar 基本认为是 Windows 平台专属的压缩算法了，各个 Linux 发行版都不自带 rar 压缩解压缩软件，所以可以看到很多软件发行的格式都是 .tar.gz 或 .zip。&lt;/p>
-&lt;h2 id="解压缩">解压缩&lt;/h2>
-&lt;p>根据文件名后缀自行选择解压缩命令。&lt;/p>
-
-
-
-&lt;div class="expressive-code">
- &lt;figure class="frame is-terminal not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">tar -xf test.tar
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gzip -d test.gz
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gunzip test.gz
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># -C 直接解压到指定目录&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -xzf test.tar.gz -C /home
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bzip2 -d test.bz2
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bunzip2 test.bz2
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -xjf test.tar.bz2
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -xvJf test.tar.xz&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
- &lt;/figure>
-&lt;/div>
-&lt;h2 id="压缩">压缩&lt;/h2>
-&lt;p>请根据需要选择压缩算法。&lt;/p></description></item></channel></rss>
+&lt;p>验证文件格式和内容，并应用生效。&lt;/p></description></item></channel></rss>
