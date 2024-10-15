@@ -66,30 +66,30 @@
 &lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">-&lt;/th>
- &lt;th style="text-align: left">当前（老）模式&lt;/th>
- &lt;th style="text-align: left">新模式（本地开发）&lt;/th>
- &lt;th style="text-align: left">新模式（线上运行）&lt;/th>
+ &lt;th>-&lt;/th>
+ &lt;th>当前（老）模式&lt;/th>
+ &lt;th>新模式（本地开发）&lt;/th>
+ &lt;th>新模式（线上运行）&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td style="text-align: left">开发习惯&lt;/td>
- &lt;td style="text-align: left">Spring + 外置 Tomcat&lt;/td>
- &lt;td style="text-align: left">Spring Boot（embed tomcat）&lt;/td>
- &lt;td style="text-align: left">Spring Boot War or Jar&lt;/td>
+ &lt;td>开发习惯&lt;/td>
+ &lt;td>Spring + 外置 Tomcat&lt;/td>
+ &lt;td>Spring Boot（embed tomcat）&lt;/td>
+ &lt;td>Spring Boot War or Jar&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">Java 版本&lt;/td>
- &lt;td style="text-align: left">8、11、16、17&lt;/td>
- &lt;td style="text-align: left">11、17、21（推荐）&lt;/td>
- &lt;td style="text-align: left">11、17、21（推荐）&lt;/td>
+ &lt;td>Java 版本&lt;/td>
+ &lt;td>8、11、16、17&lt;/td>
+ &lt;td>11、17、21（推荐）&lt;/td>
+ &lt;td>11、17、21（推荐）&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">Tomcat 版本&lt;/td>
- &lt;td style="text-align: left">8.x、9.x&lt;/td>
- &lt;td style="text-align: left">9.x&lt;/td>
- &lt;td style="text-align: left">9.x（推荐）、10.x&lt;/td>
+ &lt;td>Tomcat 版本&lt;/td>
+ &lt;td>8.x、9.x&lt;/td>
+ &lt;td>9.x&lt;/td>
+ &lt;td>9.x（推荐）、10.x&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>

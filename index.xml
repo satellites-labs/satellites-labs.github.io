@@ -230,61 +230,61 @@ C4Context
 &lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">特性/工具&lt;/th>
- &lt;th style="text-align: left">Keycloak&lt;/th>
- &lt;th style="text-align: left">Dex&lt;/th>
+ &lt;th>特性/工具&lt;/th>
+ &lt;th>Keycloak&lt;/th>
+ &lt;th>Dex&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td style="text-align: left">&lt;strong>类型&lt;/strong>&lt;/td>
- &lt;td style="text-align: left">全面的 IAM 解决方案&lt;/td>
- &lt;td style="text-align: left">身份代理&lt;/td>
+ &lt;td>&lt;strong>类型&lt;/strong>&lt;/td>
+ &lt;td>全面的 IAM 解决方案&lt;/td>
+ &lt;td>身份代理&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">&lt;strong>用户管理&lt;/strong>&lt;/td>
- &lt;td style="text-align: left">支持内置用户管理&lt;/td>
- &lt;td style="text-align: left">不直接管理用户，依赖外部身份提供者&lt;/td>
+ &lt;td>&lt;strong>用户管理&lt;/strong>&lt;/td>
+ &lt;td>支持内置用户管理&lt;/td>
+ &lt;td>不直接管理用户，依赖外部身份提供者&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">&lt;strong>协议支持&lt;/strong>&lt;/td>
- &lt;td style="text-align: left">OpenID Connect、OAuth 2.0、SAML 2.0&lt;/td>
- &lt;td style="text-align: left">OpenID Connect&lt;/td>
+ &lt;td>&lt;strong>协议支持&lt;/strong>&lt;/td>
+ &lt;td>OpenID Connect、OAuth 2.0、SAML 2.0&lt;/td>
+ &lt;td>OpenID Connect&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">&lt;strong>SSO&lt;/strong>&lt;/td>
- &lt;td style="text-align: left">支持&lt;/td>
- &lt;td style="text-align: left">依赖外部身份提供者实现&lt;/td>
+ &lt;td>&lt;strong>SSO&lt;/strong>&lt;/td>
+ &lt;td>支持&lt;/td>
+ &lt;td>依赖外部身份提供者实现&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">&lt;strong>社交登录&lt;/strong>&lt;/td>
- &lt;td style="text-align: left">支持多种社交登录选项&lt;/td>
- &lt;td style="text-align: left">不直接支持，可通过连接外部身份提供者实现&lt;/td>
+ &lt;td>&lt;strong>社交登录&lt;/strong>&lt;/td>
+ &lt;td>支持多种社交登录选项&lt;/td>
+ &lt;td>不直接支持，可通过连接外部身份提供者实现&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">&lt;strong>角色管理&lt;/strong>&lt;/td>
- &lt;td style="text-align: left">支持复杂的角色和权限管理&lt;/td>
- &lt;td style="text-align: left">不直接支持&lt;/td>
+ &lt;td>&lt;strong>角色管理&lt;/strong>&lt;/td>
+ &lt;td>支持复杂的角色和权限管理&lt;/td>
+ &lt;td>不直接支持&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">&lt;strong>扩展性&lt;/strong>&lt;/td>
- &lt;td style="text-align: left">高，适合各种规模和复杂性的需求&lt;/td>
- &lt;td style="text-align: left">适合将多个身份源统一到一个认证流程的环境&lt;/td>
+ &lt;td>&lt;strong>扩展性&lt;/strong>&lt;/td>
+ &lt;td>高，适合各种规模和复杂性的需求&lt;/td>
+ &lt;td>适合将多个身份源统一到一个认证流程的环境&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">&lt;strong>使用场景&lt;/strong>&lt;/td>
- &lt;td style="text-align: left">需要全面、集中式身份管理的组织&lt;/td>
- &lt;td style="text-align: left">需要统一多个身份源认证，如在云原生环境中&lt;/td>
+ &lt;td>&lt;strong>使用场景&lt;/strong>&lt;/td>
+ &lt;td>需要全面、集中式身份管理的组织&lt;/td>
+ &lt;td>需要统一多个身份源认证，如在云原生环境中&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">&lt;strong>用户界面&lt;/strong>&lt;/td>
- &lt;td style="text-align: left">提供丰富的用户和管理员界面&lt;/td>
- &lt;td style="text-align: left">主要是 API，没有详细的用户界面&lt;/td>
+ &lt;td>&lt;strong>用户界面&lt;/strong>&lt;/td>
+ &lt;td>提供丰富的用户和管理员界面&lt;/td>
+ &lt;td>主要是 API，没有详细的用户界面&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">&lt;strong>适用性&lt;/strong>&lt;/td>
- &lt;td style="text-align: left">适用于需要完整 IAM 解决方案的组织&lt;/td>
- &lt;td style="text-align: left">适用于作为多个身份源代理，尤其在 Kubernetes 环境中&lt;/td>
+ &lt;td>&lt;strong>适用性&lt;/strong>&lt;/td>
+ &lt;td>适用于需要完整 IAM 解决方案的组织&lt;/td>
+ &lt;td>适用于作为多个身份源代理，尤其在 Kubernetes 环境中&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
