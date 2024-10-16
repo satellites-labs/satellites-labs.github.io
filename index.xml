@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>卫星实验室 on XLabs</title><link>https://www.xlabs.club/</link><description>Recent content in 卫星实验室 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Wed, 16 Oct 2024 19:49:37 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/cloud/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/cloud/introduction/</guid><description>&lt;p>云原生技术探索。&lt;/p></description></item><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>&lt;p>卫星实验室，一个专注于技术创新的开源组织。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>卫星实验室 on XLabs</title><link>https://www.xlabs.club/</link><description>Recent content in 卫星实验室 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Wed, 16 Oct 2024 22:47:53 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/cloud/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/cloud/introduction/</guid><description>&lt;p>云原生技术探索。&lt;/p></description></item><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>&lt;p>卫星实验室，一个专注于技术创新的开源组织。&lt;/p>
 &lt;p>此项目为卫星实验室主页 &lt;a href="https://www.xlabs.club" target="_blank" rel="noopener">xlabs.club&lt;/a>
  的源码，在这里将分享我们的平台工程实践经验，介绍如何以技术驱动业务长期发展和高速增长。&lt;/p>
 &lt;p>欢迎提交 PR 进行开源共建。&lt;/p>
@@ -296,14 +296,16 @@ C4Context
 &lt;li>为 Kubernetus Ingress 提供统一的认证入口，一键实现所有入口必须登录才可访问，类似第一条只是场景更简单。&lt;/li>
 &lt;li>为 Kubernetus Pod 增加认证 Sidecar，实现 Zero Trust，任意 API 均需要认证，不仅仅是对外入口。&lt;/li>
 &lt;li>基于用户、角色等不同属性，路由到不同服务。&lt;/li>
+&lt;li>如果你凑巧也在用 &lt;a href="https://backstage.io/" target="_blank" rel="noopener">Backstage&lt;/a>
+，这里顺便提供了 Backstage 接入 keycloak 的方法。&lt;/li>
 &lt;/ol>
 &lt;p>写在前面：&lt;/p>
 &lt;ol>
-&lt;li>本文档里的示例代码是以 k3s 为基础，使用 traefik 作为 ingress controller，整体完善但略显复杂，如果没有 K3S/K8S，以其他方式部署也是完全可以的，基本原理都是一样的，都是开源软件，开箱即用。&lt;/li>
+&lt;li>本文档里的示例代码是以 k3s 为基础，使用 traefik 作为 ingress controller，整体完善但略显复杂，如果没有 K3S/K8S，以其他方式部署也是完全可以的，基本原理都是一样的。&lt;/li>
 &lt;li>对于某些场景下可选的配置，会单独说明，请注意分别。&lt;/li>
 &lt;li>这里提到的每个组件都是可替换的，比如 nginx 代替 traefik，Pomerium 代替 oauth2-proxy，可根据爱好选择，后面也会适当补充几种不同方式的对比和部署差异，更详细内容请参考本站另外一篇文档 &lt;a href="https://www.xlabs.club/docs/platform/iam/" target="_blank" rel="noopener">统一身份认证&lt;/a>
 。&lt;/li>
-&lt;li>示例中的代码都是从真实环境拷贝经过检验的，完整的安装部署源码请参考我们的部署脚本 &lt;a href="https://github.com/xlabs-club/xlabs-ops" target="_blank" rel="noopener">xlabs-club/xlabs-ops&lt;/a>
+&lt;li>示例中的代码都是从真实环境拷贝经过检验的，但为了便于理解可能裁剪无关紧要的内容，完整的安装部署源码请参考我们的部署脚本 &lt;a href="https://github.com/xlabs-club/xlabs-ops" target="_blank" rel="noopener">xlabs-club/xlabs-ops&lt;/a>
 。&lt;/li>
 &lt;li>需要懂一些 K8S、OIDC 基础知识，此处只提供链接不展开说明。&lt;/li>
 &lt;/ol>
