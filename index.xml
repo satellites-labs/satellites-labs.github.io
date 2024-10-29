@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>卫星实验室 on XLabs</title><link>https://www.xlabs.club/</link><description>Recent content in 卫星实验室 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 26 Oct 2024 19:54:33 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/cloud/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/cloud/introduction/</guid><description>&lt;p>云原生技术探索。&lt;/p></description></item><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>&lt;p>卫星实验室，一个专注于技术创新的开源组织。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>卫星实验室 on XLabs</title><link>https://www.xlabs.club/</link><description>Recent content in 卫星实验室 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Tue, 29 Oct 2024 22:48:26 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/cloud/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/cloud/introduction/</guid><description>&lt;p>云原生技术探索。&lt;/p></description></item><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>&lt;p>卫星实验室，一个专注于技术创新的开源组织。&lt;/p>
 &lt;p>此项目为卫星实验室主页 &lt;a href="https://www.xlabs.club" target="_blank" rel="noopener">xlabs.club&lt;/a>
  的源码，在这里将分享我们的平台工程实践经验，介绍如何以技术驱动业务长期发展和高速增长。&lt;/p>
 &lt;p>欢迎提交 PR 进行开源共建。&lt;/p>
@@ -210,7 +210,7 @@ C4Context
 &lt;li>动态访问控制：基于角色和策略动态授予或撤销访问权限。&lt;/li>
 &lt;li>审计与合规：记录和监控访问活动，以支持合规性审计。&lt;/li>
 &lt;li>无缝快速集成：作为平台工程的一部分更强调“自助”，各个应用能够无缝快速接入，甚至有些应用只需要简单的权限能够不需要开发自动接入。&lt;/li>
-&lt;li>强化认证机制：采用多因素认证（MFA）等方法，确保只有授权用户才能访问系统和数据。&lt;/li>
+&lt;li>强化认证机制：采用多因素认证（MFA：OTP 口令、指纹、短信验证码等）方法，为重要操作增加额外防护。&lt;/li>
 &lt;/ul>
 &lt;h2 id="技术选项">技术选项&lt;/h2>
 &lt;p>为满足以上需求，在初期技术选项时主要关注以下几个开源组件。&lt;/p>
