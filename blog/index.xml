@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Thu, 21 Nov 2024 23:43:50 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Backstage 集成 oauth2-proxy 和 Keycloak，实现用户管理、认证以及 RBAC、ABAC 授权</title><link>https://www.xlabs.club/blog/backstage-oauth2-proxy-keycloak/</link><pubDate>Sat, 16 Nov 2024 16:55:26 +0800</pubDate><guid>https://www.xlabs.club/blog/backstage-oauth2-proxy-keycloak/</guid><description>&lt;p>基于 K8S 部署 Backstage， 集成 oauth2-proxy 和 Keycloak，实现用户管理、认证和授权，都是基于开源软件原始功能实现。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 22 Nov 2024 23:10:43 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Backstage 集成 oauth2-proxy 和 Keycloak，实现用户管理、认证以及 RBAC、ABAC 授权</title><link>https://www.xlabs.club/blog/backstage-oauth2-proxy-keycloak/</link><pubDate>Sat, 16 Nov 2024 16:55:26 +0800</pubDate><guid>https://www.xlabs.club/blog/backstage-oauth2-proxy-keycloak/</guid><description>&lt;p>基于 K8S 部署 Backstage， 集成 oauth2-proxy 和 Keycloak，实现用户管理、认证和授权，都是基于开源软件原始功能实现。&lt;/p>
 &lt;p>如果你有以下类似需求，可以参考此文档。&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://backstage.io/" target="_blank" rel="noopener">Backstage&lt;/a>
  接入 oauth2-proxy 认证。&lt;/li>
-&lt;li>Backstage 实现 RBAC、ABAC 授权管理。&lt;/li>
+&lt;li>Backstage 实现 RBAC、ABAC 授权管理，以及如何实现自定义权限。&lt;/li>
 &lt;li>&lt;a href="https://oauth2-proxy.github.io/oauth2-proxy/" target="_blank" rel="noopener">oauth2-proxy&lt;/a>
  对接 keycloak，功能和参数详解。&lt;/li>
 &lt;/ul>
@@ -28,7 +28,7 @@
 &lt;p>基本上每个插件都有自己的配置要求，需根据插件文档配置 app-config.yaml。&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;p>可以把 Backstage 类别于 Spring Boot，提供了 starter、framework、plugins，如果想真实使用，需要自己引入依赖，编译成自己的镜像发布部署，欢迎 star 我们基于 Backstage 定制的开源项目 &lt;a href="https://github.com/xlabs-club/xlabs-developer-platform" target="_blank" rel="noopener">xlabs-developer-platform&lt;/a>
+&lt;p>可以把 Backstage 类比于 Spring Boot，提供了 starter、framework、plugins，如果想真实使用，需要自己引入依赖，编译成自己的镜像发布部署，欢迎 star 我们基于 Backstage 定制的开源项目 &lt;a href="https://github.com/xlabs-club/xlabs-developer-platform" target="_blank" rel="noopener">xlabs-developer-platform&lt;/a>
 。&lt;/p>
 &lt;p>核心组件介绍：&lt;/p>
 &lt;ul>
@@ -36,11 +36,11 @@
 .&lt;/li>
 &lt;li>用户同步使用 Red Hat 贡献的社区开源插件 &lt;a href="https://github.com/backstage/community-plugins/tree/main/workspaces/keycloak/plugins/catalog-backend-module-keycloak" target="_blank" rel="noopener">@backstage-community/plugin-catalog-backend-module-keycloak&lt;/a>
 ，将 keycloak 用户同步到 Backstage 数据库，后面我们会提到为什么需要这一步。&lt;/li>
-&lt;li>权限管理 Permissions，支持 RBAC、ABAC， 使用 Red Hat 贡献的社区开源插件 &lt;a href="https://github.com/backstage/community-plugins/tree/main/workspaces/rbac/plugins" target="_blank" rel="noopener">@backstage-community/plugin-rbac&lt;/a>
-。注意 Spotify 的 &lt;a href="https://backstage.spotify.com/marketplace/spotify/plugin/rbac/" target="_blank" rel="noopener">RBAC 插件&lt;/a>
+&lt;li>授权，权限管理 Permissions，支持 RBAC、ABAC， 使用 Red Hat 贡献的社区开源插件 &lt;a href="https://github.com/backstage/community-plugins/tree/main/workspaces/rbac/plugins" target="_blank" rel="noopener">@backstage-community/plugin-rbac&lt;/a>
+，虽然插件名字叫 RBAC，但是实际上支持 ABAC。注意 Spotify 也有 &lt;a href="https://backstage.spotify.com/marketplace/spotify/plugin/rbac/" target="_blank" rel="noopener">RBAC 插件&lt;/a>
  需要购买 License 才能用，两个插件别弄混了。&lt;/li>
 &lt;/ul>
-&lt;p>整体架构流程图：&lt;/p></description></item><item><title>使用 oauth2-proxy 为任意程序增加认证鉴权，结合 K8S、traefik、keycloak、backstage 部署配置详解</title><link>https://www.xlabs.club/blog/traefik-oauth2-proxy-keycloak/</link><pubDate>Thu, 10 Oct 2024 23:30:40 +0800</pubDate><guid>https://www.xlabs.club/blog/traefik-oauth2-proxy-keycloak/</guid><description>&lt;p>作为一个程序员，在日常开发中永远避免不了认证鉴权，而我们开发的某些应用，并不需要太复杂的鉴权，比如可能只要求必须是登录用户，或者只需要根据角色进行 RBAC 鉴权。有没有方法简化此流程，让应用开发者只关注业务开发，这就是本文档要解决的问题。&lt;/p>
+&lt;p>如果你只需要认证，不需要授权，那可以不需要 RBAC 插件。&lt;/p></description></item><item><title>使用 oauth2-proxy 为任意程序增加认证鉴权，结合 K8S、traefik、keycloak、backstage 部署配置详解</title><link>https://www.xlabs.club/blog/traefik-oauth2-proxy-keycloak/</link><pubDate>Thu, 10 Oct 2024 23:30:40 +0800</pubDate><guid>https://www.xlabs.club/blog/traefik-oauth2-proxy-keycloak/</guid><description>&lt;p>作为一个程序员，在日常开发中永远避免不了认证鉴权，而我们开发的某些应用，并不需要太复杂的鉴权，比如可能只要求必须是登录用户，或者只需要根据角色进行 RBAC 鉴权。有没有方法简化此流程，让应用开发者只关注业务开发，这就是本文档要解决的问题。&lt;/p>
 &lt;p>如果你有类似以下的需求，都可以参考此文档，原理是一样的，组件也可复用。&lt;/p>
 &lt;ol>
 &lt;li>为原本没有登录验证的服务提供认证服务，比如某些开源组件不支持认证但是又因携带一些危险数据而不想公开访问。&lt;/li>
