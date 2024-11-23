@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>卫星实验室 on XLabs</title><link>https://www.xlabs.club/</link><description>Recent content in 卫星实验室 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Fri, 22 Nov 2024 23:10:43 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/cloud/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/cloud/introduction/</guid><description>&lt;p>云原生技术探索。&lt;/p></description></item><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>&lt;p>卫星实验室，一个专注于技术创新的开源组织。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>卫星实验室 on XLabs</title><link>https://www.xlabs.club/</link><description>Recent content in 卫星实验室 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 23 Nov 2024 11:59:52 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/cloud/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/cloud/introduction/</guid><description>&lt;p>云原生技术探索。&lt;/p></description></item><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>&lt;p>卫星实验室，一个专注于技术创新的开源组织。&lt;/p>
 &lt;p>此项目为卫星实验室主页 &lt;a href="https://www.xlabs.club" target="_blank" rel="noopener">xlabs.club&lt;/a>
  的源码，在这里将分享我们的平台工程实践经验，介绍如何以技术驱动业务长期发展和高速增长。&lt;/p>
 &lt;p>欢迎提交 PR 进行开源共建。&lt;/p>
@@ -322,15 +322,15 @@ C4Context
 。&lt;/p>
 &lt;p>核心组件介绍：&lt;/p>
 &lt;ul>
-&lt;li>认证使用官方内置的 &lt;a href="https://backstage.io/docs/auth/oauth2-proxy/provider" target="_blank" rel="noopener">OAuth 2 Proxy Provider&lt;/a>
-.&lt;/li>
 &lt;li>用户同步使用 Red Hat 贡献的社区开源插件 &lt;a href="https://github.com/backstage/community-plugins/tree/main/workspaces/keycloak/plugins/catalog-backend-module-keycloak" target="_blank" rel="noopener">@backstage-community/plugin-catalog-backend-module-keycloak&lt;/a>
 ，将 keycloak 用户同步到 Backstage 数据库，后面我们会提到为什么需要这一步。&lt;/li>
+&lt;li>认证使用官方内置的 &lt;a href="https://backstage.io/docs/auth/oauth2-proxy/provider" target="_blank" rel="noopener">OAuth 2 Proxy Provider&lt;/a>
+.&lt;/li>
 &lt;li>授权，权限管理 Permissions，支持 RBAC、ABAC， 使用 Red Hat 贡献的社区开源插件 &lt;a href="https://github.com/backstage/community-plugins/tree/main/workspaces/rbac/plugins" target="_blank" rel="noopener">@backstage-community/plugin-rbac&lt;/a>
 ，虽然插件名字叫 RBAC，但是实际上支持 ABAC。注意 Spotify 也有 &lt;a href="https://backstage.spotify.com/marketplace/spotify/plugin/rbac/" target="_blank" rel="noopener">RBAC 插件&lt;/a>
  需要购买 License 才能用，两个插件别弄混了。&lt;/li>
 &lt;/ul>
-&lt;p>如果你只需要认证，不需要授权，那可以不需要 RBAC 插件。&lt;/p></description></item><item><title>使用 oauth2-proxy 为任意程序增加认证鉴权，结合 K8S、traefik、keycloak、backstage 部署配置详解</title><link>https://www.xlabs.club/blog/traefik-oauth2-proxy-keycloak/</link><pubDate>Thu, 10 Oct 2024 23:30:40 +0800</pubDate><guid>https://www.xlabs.club/blog/traefik-oauth2-proxy-keycloak/</guid><description>&lt;p>作为一个程序员，在日常开发中永远避免不了认证鉴权，而我们开发的某些应用，并不需要太复杂的鉴权，比如可能只要求必须是登录用户，或者只需要根据角色进行 RBAC 鉴权。有没有方法简化此流程，让应用开发者只关注业务开发，这就是本文档要解决的问题。&lt;/p>
+&lt;p>以上认证和授权是独立的，如果你只需要认证，不需要授权，那可以不需要 RBAC 插件。&lt;/p></description></item><item><title>使用 oauth2-proxy 为任意程序增加认证鉴权，结合 K8S、traefik、keycloak、backstage 部署配置详解</title><link>https://www.xlabs.club/blog/traefik-oauth2-proxy-keycloak/</link><pubDate>Thu, 10 Oct 2024 23:30:40 +0800</pubDate><guid>https://www.xlabs.club/blog/traefik-oauth2-proxy-keycloak/</guid><description>&lt;p>作为一个程序员，在日常开发中永远避免不了认证鉴权，而我们开发的某些应用，并不需要太复杂的鉴权，比如可能只要求必须是登录用户，或者只需要根据角色进行 RBAC 鉴权。有没有方法简化此流程，让应用开发者只关注业务开发，这就是本文档要解决的问题。&lt;/p>
 &lt;p>如果你有类似以下的需求，都可以参考此文档，原理是一样的，组件也可复用。&lt;/p>
 &lt;ol>
 &lt;li>为原本没有登录验证的服务提供认证服务，比如某些开源组件不支持认证但是又因携带一些危险数据而不想公开访问。&lt;/li>
