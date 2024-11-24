@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ai on XLabs</title><link>https://www.xlabs.club/categories/ai/</link><description>Recent content in Ai on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 24 Nov 2024 18:06:30 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/categories/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>AI网站导航</title><link>https://www.xlabs.club/docs/ai/introduction/</link><pubDate>Sun, 24 Nov 2024 16:44:35 +0800</pubDate><guid>https://www.xlabs.club/docs/ai/introduction/</guid><description>&lt;p>主流 AI 编码工具和网站导航指南，包括代码补全、对话式助手、代码转换、代码审查、图像生成、音视频生成等多种工具。&lt;/p>
+&lt;h2 id="ai-编程工具">AI 编程工具&lt;/h2>
+&lt;h3 id="代码补全类">代码补全类&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>工具&lt;/th>
+ &lt;th>描述&lt;/th>
+ &lt;th>链接&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-github-copilot" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M12,1 C5.925,1 1,5.925 1,12 C1,18.075 5.925,23 12,23 C18.075,23 23,18.075 23,12 C23,5.925 18.075,1 12,1 Z M12,3 C16.971,3 21,7.029 21,12 C21,16.971 16.971,21 12,21 C7.029,21 3,16.971 3,12 C3,7.029 7.029,3 12,3 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M8,10 C8,8.895 8.895,8 10,8 C11.105,8 12,8.895 12,10 C12,11.105 11.105,12 10,12 C8.895,12 8,11.105 8,10 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M14,10 C14,8.895 14.895,8 16,8 C17.105,8 18,8.895 18,10 C18,11.105 17.105,12 16,12 C14.895,12 14,11.105 14,10 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M12,14 C9.791,14 8,15.791 8,18 L16,18 C16,15.791 14.209,14 12,14 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;/g>
+&lt;/svg>
+ GitHub Copilot&lt;/td>
+ &lt;td>GitHub 官方 AI 编程助手，支持多种 IDE&lt;/td>
+ &lt;td>&lt;a href="https://github.com/features/copilot" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-codeium" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z M12,20 C7.59,20 4,16.41 4,12 C4,7.59 7.59,4 12,4 C16.41,4 20,7.59 20,12 C20,16.41 16.41,20 12,20 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M12,7 L7,12 L12,17 L17,12 L12,7 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;/g>
+&lt;/svg>
+ Codeium&lt;/td>
+ &lt;td>免费的 AI 代码补全工具，支持多种语言和 IDE&lt;/td>
+ &lt;td>&lt;a href="https://codeium.com/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="30px" height="24px" viewBox="0 0 30 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-aws" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M8.11,16.33 L4.43,15.16 C4.16,15.07 3.87,15.21 3.78,15.48 L2.61,19.16 C2.52,19.43 2.66,19.72 2.93,19.81 L6.61,20.98 C6.88,21.07 7.17,20.93 7.26,20.66 L8.43,16.98 C8.52,16.71 8.38,16.42 8.11,16.33 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M27.39,15.48 C27.3,15.21 27.01,15.07 26.74,15.16 L23.06,16.33 C22.79,16.42 22.65,16.71 22.74,16.98 L23.91,20.66 C24,20.93 24.29,21.07 24.56,20.98 L28.24,19.81 C28.51,19.72 28.65,19.43 28.56,19.16 L27.39,15.48 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M15.5,3 C11.91,3 9,5.91 9,9.5 C9,13.09 11.91,16 15.5,16 C19.09,16 22,13.09 22,9.5 C22,5.91 19.09,3 15.5,3 Z M15.5,14 C13.01,14 11,11.99 11,9.5 C11,7.01 13.01,5 15.5,5 C17.99,5 20,7.01 20,9.5 C20,11.99 17.99,14 15.5,14 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;/g>
+&lt;/svg>
+ Amazon CodeWhisperer&lt;/td>
+ &lt;td>亚马逊推出的 AI 编程助手&lt;/td>
+ &lt;td>&lt;a href="https://aws.amazon.com/codewhisperer/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="svg-inline" id="svg-tabnine" role="img">
+ &lt;path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.236L19.09 8 12 11.764 4.91 8 12 4.236zM4 9.618v6.764L11 20v-6.764L4 9.618zm16 0L13 13.236V20l7-3.618V9.618z" fill="currentColor"/>
+&lt;/svg>
+ Tabnine&lt;/td>
+ &lt;td>基于 AI 的代码补全工具，支持离线使用&lt;/td>
+ &lt;td>&lt;a href="https://www.tabnine.com/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="对话式编程助手">对话式编程助手&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>工具&lt;/th>
+ &lt;th>描述&lt;/th>
+ &lt;th>链接&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-chatgpt" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;/g>
+&lt;/svg>
+ ChatGPT&lt;/td>
+ &lt;td>OpenAI 的 AI 对话模型，支持代码生成和解释&lt;/td>
+ &lt;td>&lt;a href="https://chat.openai.com/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-claude" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z M12,20 C7.59,20 4,16.41 4,12 C4,7.59 7.59,4 12,4 C16.41,4 20,7.59 20,12 C20,16.41 16.41,20 12,20 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M12,6 C8.69,6 6,8.69 6,12 C6,15.31 8.69,18 12,18 C15.31,18 18,15.31 18,12 C18,8.69 15.31,6 12,6 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;/g>
+&lt;/svg>
+ Claude&lt;/td>
+ &lt;td>Anthropic 的 AI 助手，擅长代码分析和生成&lt;/td>
+ &lt;td>&lt;a href="https://claude.ai/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-bard" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M12,2 L4,7 L4,17 L12,22 L20,17 L20,7 L12,2 Z M12,4.236 L18,8.118 L18,15.882 L12,19.764 L6,15.882 L6,8.118 L12,4.236 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M12,7 L8,9.5 L8,14.5 L12,17 L16,14.5 L16,9.5 L12,7 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;/g>
+&lt;/svg>
+ Bard&lt;/td>
+ &lt;td>Google 的 AI 助手，支持代码生成和调试&lt;/td>
+ &lt;td>&lt;a href="https://bard.google.com/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-phind" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z M12,20 C7.59,20 4,16.41 4,12 C4,7.59 7.59,4 12,4 C16.41,4 20,7.59 20,12 C20,16.41 16.41,20 12,20 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M12,6 C8.69,6 6,8.69 6,12 C6,15.31 8.69,18 12,18 C15.31,18 18,15.31 18,12 C18,8.69 15.31,6 12,6 Z M12,16 C9.79,16 8,14.21 8,12 C8,9.79 9.79,8 12,8 C14.21,8 16,9.79 16,12 C16,14.21 14.21,16 12,16 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M12,10 C10.9,10 10,10.9 10,12 C10,13.1 10.9,14 12,14 C13.1,14 14,13.1 14,12 C14,10.9 13.1,10 12,10 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;/g>
+&lt;/svg>
+ Phind&lt;/td>
+ &lt;td>专注于编程的 AI 搜索引擎&lt;/td>
+ &lt;td>&lt;a href="https://phind.com/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="ai-代码转换工具">AI 代码转换工具&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>工具&lt;/th>
+ &lt;th>描述&lt;/th>
+ &lt;th>链接&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="svg-inline" id="svg-ai-code-translator" role="img">
+ &lt;path d="M11 7H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2h-5l2-2h-6l2 2zm-.5 2l-1 1h7l-1-1h-5z" fill="currentColor"/>
+ &lt;path d="M8 13l-3 3 3 3M16 13l3 3-3 3" fill="currentColor"/>
+&lt;/svg>
+ AI Code Translator&lt;/td>
+ &lt;td>支持多种编程语言之间的转换&lt;/td>
+ &lt;td>&lt;a href="https://ai-code-translator.vercel.app/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="ide-集成工具">IDE 集成工具&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>工具&lt;/th>
+ &lt;th>描述&lt;/th>
+ &lt;th>链接&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-jetbrains" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M2.5839844,2 L21.416016,2 C21.739014,2 22,2.2609863 22,2.5839844 L22,21.416016 C22,21.739014 21.739014,22 21.416016,22 L2.5839844,22 C2.2609863,22 2,21.739014 2,21.416016 L2,2.5839844 C2,2.2609863 2.2609863,2 2.5839844,2 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M7,7 L17,7 L17,9 L7,9 L7,7 Z M7,11 L17,11 L17,13 L7,13 L7,11 Z M7,15 L13,15 L13,17 L7,17 L7,15 Z" fill="#FFFFFF" fill-rule="nonzero">&lt;/path>
+ &lt;/g>
+&lt;/svg>
+ JetBrains AI&lt;/td>
+ &lt;td>JetBrains IDE 的 AI 助手&lt;/td>
+ &lt;td>&lt;a href="https://www.jetbrains.com/ai/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-vscode" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M23.15,2.587 L18.21,0.210 C17.36,-0.233 16.37,0.216 15.93,1.064 L1.93,22.064 C1.49,22.912 1.94,23.902 2.79,24.345 L7.73,26.722 C8.58,27.165 9.57,26.716 10.01,25.868 L24.01,4.868 C24.45,4.020 24,3.030 23.15,2.587 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;/g>
+&lt;/svg>
+ Visual Studio IntelliCode&lt;/td>
+ &lt;td>微软 Visual Studio 的 AI 功能&lt;/td>
+ &lt;td>&lt;a href="https://visualstudio.microsoft.com/services/intellicode/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="svg-inline" id="svg-cursor" role="img">
+ &lt;path d="M13 1L0 14l4 2 7 7 2-4 11-13L13 1zm5.2 9.3l-5.3 6.5-.7 3.5-3.5-.7-4.8-4.8 6.5-5.3 7.8.8z" fill="currentColor"/>
+&lt;/svg>
+ Cursor&lt;/td>
+ &lt;td>基于 AI 的代码编辑器&lt;/td>
+ &lt;td>&lt;a href="https://cursor.sh/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="ai-辅助开发平台">AI 辅助开发平台&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>工具&lt;/th>
+ &lt;th>描述&lt;/th>
+ &lt;th>链接&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-replit" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z M12,20 C7.59,20 4,16.41 4,12 C4,7.59 7.59,4 12,4 C16.41,4 20,7.59 20,12 C20,16.41 16.41,20 12,20 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M12,7 C9.24,7 7,9.24 7,12 C7,14.76 9.24,17 12,17 C14.76,17 17,14.76 17,12 C17,9.24 14.76,7 12,7 Z M12,15 C10.34,15 9,13.66 9,12 C9,10.34 10.34,9 12,9 C13.66,9 15,10.34 15,12 C15,13.66 13.66,15 12,15 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;circle fill="#000000" cx="12" cy="12" r="2">&lt;/circle>
+ &lt;/g>
+&lt;/svg>
+ Replit&lt;/td>
+ &lt;td>在线 IDE 平台，集成 AI 功能&lt;/td>
+ &lt;td>&lt;a href="https://replit.com/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-codesandbox" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M12,2 L3,7 L3,17 L12,22 L21,17 L21,7 L12,2 Z M12,4.236 L18,8.118 L18,15.882 L12,19.764 L6,15.882 L6,8.118 L12,4.236 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M12,8 L9,10 L9,14 L12,16 L15,14 L15,10 L12,8 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;/g>
+&lt;/svg>
+ CodeSandbox&lt;/td>
+ &lt;td>在线代码编辑平台，支持 AI 功能&lt;/td>
+ &lt;td>&lt;a href="https://codesandbox.io/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-e2b" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z M12,20 C7.59,20 4,16.41 4,12 C4,7.59 7.59,4 12,4 C16.41,4 20,7.59 20,12 C20,16.41 16.41,20 12,20 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M7,14 L17,14 L17,16 L7,16 L7,14 Z M7,11 L17,11 L17,13 L7,13 L7,11 Z M7,8 L17,8 L17,10 L7,10 L7,8 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;/g>
+&lt;/svg>
+ E2B&lt;/td>
+ &lt;td>AI 原生开发环境，提供代码生成和调试功能&lt;/td>
+ &lt;td>&lt;a href="https://e2b.dev/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="agent-平台或工具">Agent 平台或工具&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>工具&lt;/th>
+ &lt;th>描述&lt;/th>
+ &lt;th>链接&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-autogpt" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z M12,20 C7.59,20 4,16.41 4,12 C4,7.59 7.59,4 12,4 C16.41,4 20,7.59 20,12 C20,16.41 16.41,20 12,20 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M12,6 C8.69,6 6,8.69 6,12 C6,15.31 8.69,18 12,18 C15.31,18 18,15.31 18,12 C18,8.69 15.31,6 12,6 Z M12,16 C9.79,16 8,14.21 8,12 C8,9.79 9.79,8 12,8 C14.21,8 16,9.79 16,12 C16,14.21 14.21,16 12,16 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;circle fill="#000000" cx="12" cy="12" r="2">&lt;/circle>
+ &lt;/g>
+&lt;/svg>
+ AutoGPT&lt;/td>
+ &lt;td>自主运行的 AI Agent 框架&lt;/td>
+ &lt;td>&lt;a href="https://github.com/Significant-Gravitas/Auto-GPT" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-langchain" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M12,2 L3,7 L3,17 L12,22 L21,17 L21,7 L12,2 Z M12,4.236 L18,8.118 L18,15.882 L12,19.764 L6,15.882 L6,8.118 L12,4.236 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M12,8 L8,10.5 L8,15.5 L12,18 L16,15.5 L16,10.5 L12,8 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;/g>
+&lt;/svg>
+ LangChain&lt;/td>
+ &lt;td>AI 应用开发框架，支持 Agent 开发&lt;/td>
+ &lt;td>&lt;a href="https://www.langchain.com/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-superagi" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z M12,20 C7.59,20 4,16.41 4,12 C4,7.59 7.59,4 12,4 C16.41,4 20,7.59 20,12 C20,16.41 16.41,20 12,20 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M12,6 C8.69,6 6,8.69 6,12 C6,15.31 8.69,18 12,18 C15.31,18 18,15.31 18,12 C18,8.69 15.31,6 12,6 Z M12,16 C9.79,16 8,14.21 8,12 C8,9.79 9.79,8 12,8 C14.21,8 16,9.79 16,12 C16,14.21 14.21,16 12,16 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;path d="M12,10 C10.9,10 10,10.9 10,12 C10,13.1 10.9,14 12,14 C13.1,14 14,13.1 14,12 C14,10.9 13.1,10 12,10 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;/g>
+&lt;/svg>
+ SuperAGI&lt;/td>
+ &lt;td>自主 AI Agent 开发框架&lt;/td>
+ &lt;td>&lt;a href="https://superagi.com/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-inline" id="svg-babyagi" role="img">
+ &lt;g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+ &lt;path d="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z M12,20 C7.59,20 4,16.41 4,12 C4,7.59 7.59,4 12,4 C16.41,4 20,7.59 20,12 C20,16.41 16.41,20 12,20 Z" fill="#000000" fill-rule="nonzero">&lt;/path>
+ &lt;circle fill="#000000" cx="12" cy="12" r="4">&lt;/circle>
+ &lt;/g>
+&lt;/svg>
+ BabyAGI&lt;/td>
+ &lt;td>轻量级 AI Agent 框架&lt;/td>
+ &lt;td>&lt;a href="https://github.com/yoheinakajima/babyagi" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="ai-图像生成">AI 图像生成&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>工具&lt;/th>
+ &lt;th>描述&lt;/th>
+ &lt;th>链接&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="svg-inline" id="svg-midjourney" role="img">
+ &lt;path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.236L19.09 8 12 11.764 4.91 8 12 4.236zM4 9.618v6.764L11 20v-6.764L4 9.618zm16 0L13 13.236V20l7-3.618V9.618z" fill="currentColor"/>
+&lt;/svg>
+ Midjourney&lt;/td>
+ &lt;td>专业的 AI 图像生成工具&lt;/td>
+ &lt;td>&lt;a href="https://www.midjourney.com/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="svg-inline" id="svg-stable-diffusion" role="img">
+ &lt;path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5l7.51-3.49L17.5 6.5 9.99 9.99 6.5 17.5zm5.5-6.6c.61 0 1.1.49 1.1 1.1s-.49 1.1-1.1 1.1-1.1-.49-1.1-1.1.49-1.1 1.1-1.1z" fill="currentColor"/>
+&lt;/svg>
+ Stable Diffusion&lt;/td>
+ &lt;td>开源的 AI 图像生成模型&lt;/td>
+ &lt;td>&lt;a href="https://stability.ai/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="svg-inline" id="svg-dall-e" role="img">
+ &lt;path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z" fill="currentColor"/>
+&lt;/svg>
+ DALL-E&lt;/td>
+ &lt;td>OpenAI 的 AI 图像生成工具&lt;/td>
+ &lt;td>&lt;a href="https://openai.com/dall-e-3" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="ai-音视频工具">AI 音视频工具&lt;/h2>
+&lt;h3 id="ai-视频生成">AI 视频生成&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>工具&lt;/th>
+ &lt;th>描述&lt;/th>
+ &lt;th>链接&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="svg-inline" id="svg-d-id" role="img">
+ &lt;path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" fill="currentColor"/>
+&lt;/svg>
+ D-ID&lt;/td>
+ &lt;td>AI 数字人视频生成平台&lt;/td>
+ &lt;td>&lt;a href="https://www.d-id.com/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="svg-inline" id="svg-heygen" role="img">
+ &lt;path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2z" fill="currentColor"/>
+&lt;/svg>
+ HeyGen&lt;/td>
+ &lt;td>AI 数字人视频制作平台&lt;/td>
+ &lt;td>&lt;a href="https://www.heygen.com/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="svg-inline" id="svg-synthesia" role="img">
+ &lt;path d="M21 3H3c-1.11 0-2 .89-2 2v12c0 1.1.89 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.11-.9-2-2-2zm0 14H3V5h18v12zm-5-6l-7 4V7z" fill="currentColor"/>
+&lt;/svg>
+ Synthesia&lt;/td>
+ &lt;td>AI 商业视频生成平台&lt;/td>
+ &lt;td>&lt;a href="https://www.synthesia.io/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="svg-inline" id="svg-runway" role="img">
+ &lt;path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zm-2-1.83V16H5V8h10v.67z" fill="currentColor"/>
+&lt;/svg>
+ Runway&lt;/td>
+ &lt;td>AI 视频编辑和生成工具&lt;/td>
+ &lt;td>&lt;a href="https://runwayml.com/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="svg-inline" id="svg-capcut" role="img">
+ &lt;path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z" fill="currentColor"/>
+&lt;/svg>
+ CapCut&lt;/td>
+ &lt;td>字节跳动旗下智能视频编辑平台&lt;/td>
+ &lt;td>&lt;a href="https://www.capcut.com/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="ai-语音处理">AI 语音处理&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>工具&lt;/th>
+ &lt;th>描述&lt;/th>
+ &lt;th>链接&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="svg-inline" id="svg-whisper" role="img">
+ &lt;path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z" fill="currentColor"/>
+&lt;/svg>
+ Whisper&lt;/td>
+ &lt;td>OpenAI 的语音识别模型&lt;/td>
+ &lt;td>&lt;a href="https://openai.com/research/whisper" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="svg-inline" id="svg-murf" role="img">
+ &lt;path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z" fill="currentColor"/>
+&lt;/svg>
+ Murf&lt;/td>
+ &lt;td>AI 语音生成和克隆平台&lt;/td>
+ &lt;td>&lt;a href="https://murf.ai/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="svg-inline" id="svg-elevenlabs" role="img">
+ &lt;path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" fill="currentColor"/>
+&lt;/svg>
+ ElevenLabs&lt;/td>
+ &lt;td>高质量 AI 语音合成平台&lt;/td>
+ &lt;td>&lt;a href="https://elevenlabs.io/" target="_blank" rel="noopener">访问&lt;/a>
+&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="学习资源">学习资源&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/topics/ai-tools" target="_blank" rel="noopener">GitHub AI Tools&lt;/a>
+ - 面向开发者的 AI 工具集合&lt;/li>
+&lt;li>&lt;a href="https://github.com/collections/ai-powered-coding" target="_blank" rel="noopener">AI 编程工具集合&lt;/a>
+ - GitHub 上精选的 AI 编程工具集合&lt;/li>
+&lt;/ul></description></item></channel></rss>
