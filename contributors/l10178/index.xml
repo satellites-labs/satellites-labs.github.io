@@ -1,4 +1,46 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 24 Nov 2024 16:13:28 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 oauth2-proxy 为任意程序增加认证鉴权，结合 K8S、traefik、keycloak 部署配置详解</title><link>https://www.xlabs.club/blog/traefik-oauth2-proxy-keycloak/</link><pubDate>Thu, 10 Oct 2024 23:30:40 +0800</pubDate><guid>https://www.xlabs.club/blog/traefik-oauth2-proxy-keycloak/</guid><description>&lt;p>作为一个程序员，在日常开发中永远避免不了认证鉴权，而我们开发的某些应用，并不需要太复杂的鉴权，比如可能只要求必须是登录用户，或者只需要根据角色进行 RBAC 鉴权。有没有方法简化此流程，让应用开发者只关注业务开发，这就是本文档要解决的问题。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 24 Nov 2024 16:46:06 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>Backstage 集成 oauth2-proxy 和 Keycloak，实现用户管理、登录认证以及 RBAC、ABAC 授权</title><link>https://www.xlabs.club/blog/backstage-oauth2-proxy-keycloak/</link><pubDate>Sat, 16 Nov 2024 16:55:26 +0800</pubDate><guid>https://www.xlabs.club/blog/backstage-oauth2-proxy-keycloak/</guid><description>&lt;p>基于 K8S 部署 Backstage， 集成 oauth2-proxy 和 Keycloak，实现用户管理、认证和授权，都是基于开源软件原始功能实现。&lt;/p>
+&lt;p>如果你有以下类似需求，可以参考此文档。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://backstage.io/" target="_blank" rel="noopener">Backstage&lt;/a>
+ 接入 oauth2-proxy 认证。&lt;/li>
+&lt;li>Backstage 实现 RBAC、ABAC 授权管理，以及如何实现自定义权限。&lt;/li>
+&lt;li>&lt;a href="https://oauth2-proxy.github.io/oauth2-proxy/" target="_blank" rel="noopener">oauth2-proxy&lt;/a>
+ 对接 keycloak，功能和参数详解。&lt;/li>
+&lt;/ul>
+&lt;p>在开始之前，我们先了解一个点，Backstage 官方开源有开箱即用的容器镜像，也有丰富的插件生态，然而区别于其他插件类应用，Backstage 有自己的特点：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Backstage 插件分为 frontend 和 backend，一个完整的插件可能包含两种，也可能只包含其中一种。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>开源发布的开箱即用的容器镜像，只包含基础插件，一般只用来作为初次学习使用。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>如果想使用其他插件，需要做一些编码工作，一般步骤如下。&lt;/p>
+&lt;ul>
+&lt;li>使用 &lt;code>npx @backstage/create-app@latest&lt;/code> 创建一个基础项目。&lt;/li>
+&lt;li>按插件要求安装插件，配置插件菜单、UI 效果、权限、认证信息等，每个插件要求不同。&lt;/li>
+&lt;li>按需开发自己的插件。&lt;/li>
+&lt;li>编译成新容器镜像，某些插件可能还需要在容器中额外安装一些依赖包，部署时使用此容器镜像。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>基本上每个插件都有自己的配置要求，需根据插件文档配置 app-config.yaml。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>可以把 Backstage 类比于 Spring Boot，提供了 starter、framework、plugins，如果想真实使用，需要自己引入依赖，编译成自己的镜像发布部署，欢迎 star 我们基于 Backstage 定制的开源项目 &lt;a href="https://github.com/xlabs-club/xlabs-developer-platform" target="_blank" rel="noopener">xlabs-developer-platform&lt;/a>
+。&lt;/p>
+&lt;p>核心组件介绍：&lt;/p>
+&lt;ul>
+&lt;li>用户同步使用 Red Hat 贡献的社区开源插件 &lt;a href="https://github.com/backstage/community-plugins/tree/main/workspaces/keycloak/plugins/catalog-backend-module-keycloak" target="_blank" rel="noopener">@backstage-community/plugin-catalog-backend-module-keycloak&lt;/a>
+，将 keycloak 用户同步到 Backstage 数据库，后面我们会提到为什么需要这一步。&lt;/li>
+&lt;li>认证使用官方内置的 &lt;a href="https://backstage.io/docs/auth/oauth2-proxy/provider" target="_blank" rel="noopener">OAuth 2 Proxy Provider&lt;/a>
+.&lt;/li>
+&lt;li>授权，权限管理 Permissions，支持 RBAC、ABAC， 使用 Red Hat 贡献的社区开源插件 &lt;a href="https://github.com/backstage/community-plugins/tree/main/workspaces/rbac/plugins" target="_blank" rel="noopener">@backstage-community/plugin-rbac&lt;/a>
+，虽然插件名字叫 RBAC，但是实际上支持 ABAC。注意 Spotify 也有 &lt;a href="https://backstage.spotify.com/marketplace/spotify/plugin/rbac/" target="_blank" rel="noopener">RBAC 插件&lt;/a>
+ 需要购买 License 才能用，两个插件别弄混了。&lt;/li>
+&lt;/ul>
+&lt;p>以上认证和授权是独立的，如果你只需要认证，不需要授权，那可以不需要 RBAC 插件。&lt;/p></description></item><item><title>使用 oauth2-proxy 为任意程序增加认证鉴权，结合 K8S、traefik、keycloak 部署配置详解</title><link>https://www.xlabs.club/blog/traefik-oauth2-proxy-keycloak/</link><pubDate>Thu, 10 Oct 2024 23:30:40 +0800</pubDate><guid>https://www.xlabs.club/blog/traefik-oauth2-proxy-keycloak/</guid><description>&lt;p>作为一个程序员，在日常开发中永远避免不了认证鉴权，而我们开发的某些应用，并不需要太复杂的鉴权，比如可能只要求必须是登录用户，或者只需要根据角色进行 RBAC 鉴权。有没有方法简化此流程，让应用开发者只关注业务开发，这就是本文档要解决的问题。&lt;/p>
 &lt;p>如果你有类似以下的需求，都可以参考此文档，原理是一样的，组件也可复用。&lt;/p>
 &lt;ol>
 &lt;li>为原本没有登录验证的服务提供认证服务，比如某些开源组件不支持认证但是又因携带一些危险数据而不想公开访问。&lt;/li>
@@ -417,55 +459,4 @@ Keycloak 是一个开源的身份和访问管理解决方案，支持 OAuth 2.0�
 &lt;li>sentinel-web-servlet 和 sentinel-spring-webmvc-adapter 会将每个到来的不同的 URL 都作为不同的资源处理，因此对于 REST 风格的 API，需要自行实现 UrlCleaner 接口清洗一下资源（比如将满足 /foo/:id 的 URL 都归到 /foo/* 资源下）。否则会导致资源数量过多，超出资源数量阈值（目前是 6000）时多出的资源的规则将不会生效。&lt;/li>
 &lt;li>Java 中 &lt;code>sentinel-time-tick-thread&lt;/code> 线程会额外多占用约 1-2% CPU，详细代码参考 &lt;code>com.alibaba.csp.sentinel.util.TimeUtil&lt;/code>。&lt;/li>
 &lt;/ol>
-&lt;p>一些文档中尚未更新但是大家可能关心的内容：&lt;/p></description></item><item><title>Windows 使用脚本提高权限以及设置环境变量</title><link>https://www.xlabs.club/blog/windows-takeown/</link><pubDate>Mon, 26 Feb 2024 23:25:29 +0800</pubDate><guid>https://www.xlabs.club/blog/windows-takeown/</guid><description>&lt;p>背景：公司 Windows 办公机受域控安全策略限制，部分文件无权直接修改，另外开发常用的设置系统环境变量也变灰无法设置。
-此问题解决方式如下。&lt;/p>
-&lt;h2 id="提升文件权限">提升文件权限&lt;/h2>
-&lt;ol>
-&lt;li>
-&lt;p>点击 Windows + X 快捷键 – 选择「命令提示符（管理员）。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>在 CDM 窗口中执行如下命令。&lt;/p>
-
-
-
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl">takeown /f C:\要修复的文件路径&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
- &lt;/figure>
-&lt;/div>
-&lt;/li>
-&lt;li>
-&lt;p>在拿到文件所有权后，还需要使用如下命令获取文件的完全控制权限。&lt;/p>
-
-
-
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl">icacls C:\要修复的文件路径 /Grant Administrators:F&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
- &lt;/figure>
-&lt;/div>
-&lt;/li>
-&lt;/ol>
-&lt;h2 id="命令行设置环境变量">命令行设置环境变量&lt;/h2>
-&lt;p>Windows 下命令行设置环境变量，方式为 &lt;code>setx 变量名 变量值&lt;/code>，变量值带空格等特殊符号的，用引号引起来。&lt;/p>
-
-
-
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl"># 通过命令行设置 Java Home
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">setx JAVA_HOME &lt;span class="s2">&amp;#34;C:\Program Files\Java\jdk-11.0.2&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 设置 GO Path
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">setx GOPATH &lt;span class="s2">&amp;#34;D:\workspace\go&amp;#34;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
- &lt;/figure>
-&lt;/div></description></item></channel></rss>
+&lt;p>一些文档中尚未更新但是大家可能关心的内容：&lt;/p></description></item></channel></rss>
