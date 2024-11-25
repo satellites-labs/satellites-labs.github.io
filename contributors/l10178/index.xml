@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Mon, 25 Nov 2024 22:57:58 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>AI 网站导航</title><link>https://www.xlabs.club/docs/ai/introduction/</link><pubDate>Sun, 24 Nov 2024 16:44:35 +0800</pubDate><guid>https://www.xlabs.club/docs/ai/introduction/</guid><description>&lt;p>主流 AI 编码工具和网站导航指南，包括代码补全、对话式助手、代码转换、代码审查、图像生成、音视频生成等多种工具。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Mon, 25 Nov 2024 23:04:05 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>AI 网站导航</title><link>https://www.xlabs.club/docs/ai/introduction/</link><pubDate>Sun, 24 Nov 2024 16:44:35 +0800</pubDate><guid>https://www.xlabs.club/docs/ai/introduction/</guid><description>&lt;p>主流 AI 编码工具和网站导航指南，包括代码补全、对话式助手、代码转换、代码审查、图像生成、音视频生成等多种工具。&lt;/p>
 &lt;p>此网页内容由 AI 自动生成并更新，请注意甄别。&lt;/p>
 &lt;h2 id="ai-编程工具">AI 编程工具&lt;/h2>
 &lt;h3 id="代码补全类">代码补全类&lt;/h3>
@@ -1277,14 +1277,14 @@
  - 面向开发者的 AI 工具集合。&lt;/li>
 &lt;li>&lt;a href="https://github.com/collections/ai-powered-coding" target="_blank" rel="noopener">AI 编程工具集合&lt;/a>
  - GitHub 上精选的 AI 编程工具集合。&lt;/li>
-&lt;/ul></description></item><item><title>Backstage 集成 oauth2-proxy 和 Keycloak，实现用户管理、登录认证以及 RBAC、ABAC 授权</title><link>https://www.xlabs.club/blog/backstage-oauth2-proxy-keycloak/</link><pubDate>Sat, 16 Nov 2024 16:55:26 +0800</pubDate><guid>https://www.xlabs.club/blog/backstage-oauth2-proxy-keycloak/</guid><description>&lt;p>基于 K8S 部署 Backstage， 集成 oauth2-proxy 和 Keycloak，实现用户管理、认证和授权，都是基于开源软件原始功能实现。&lt;/p>
-&lt;p>如果你有以下类似需求，可以参考此文档。&lt;/p>
+&lt;/ul></description></item><item><title>Backstage 集成 oauth2-proxy 和 Keycloak，实现用户管理、登录认证以及 RBAC、ABAC 授权</title><link>https://www.xlabs.club/blog/backstage-keycloak-oauth2-proxy/</link><pubDate>Sat, 16 Nov 2024 16:55:26 +0800</pubDate><guid>https://www.xlabs.club/blog/backstage-keycloak-oauth2-proxy/</guid><description>&lt;p>基于 K8S 部署 Backstage，集成 oauth2-proxy 和 Keycloak，实现用户管理、认证和授权，配置详解和原理介绍。&lt;/p>
+&lt;p>如果你遇到以下问题或诉求，可以参考此文档。&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://backstage.io/" target="_blank" rel="noopener">Backstage&lt;/a>
- 接入 oauth2-proxy 认证。&lt;/li>
+ 接入 oauth2-proxy，登录或认证失败。&lt;/li>
 &lt;li>Backstage 实现 RBAC、ABAC 授权管理，以及如何实现自定义权限。&lt;/li>
 &lt;li>&lt;a href="https://oauth2-proxy.github.io/oauth2-proxy/" target="_blank" rel="noopener">oauth2-proxy&lt;/a>
- 对接 keycloak，功能和参数详解。&lt;/li>
+ 对接 keycloak，参数不理解或者配置一直错误。&lt;/li>
 &lt;/ul>
 &lt;p>在开始之前，我们先了解一个点，Backstage 官方开源有开箱即用的容器镜像，也有丰富的插件生态，然而区别于其他插件类应用，Backstage 有自己的特点：&lt;/p>
 &lt;ol>
