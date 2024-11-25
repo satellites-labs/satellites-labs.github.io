@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>卫星实验室 on XLabs</title><link>https://www.xlabs.club/</link><description>Recent content in 卫星实验室 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 24 Nov 2024 18:52:01 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/cloud/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/cloud/introduction/</guid><description>&lt;p>云原生技术探索。&lt;/p></description></item><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>&lt;p>卫星实验室，一个专注于技术创新的开源组织。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>卫星实验室 on XLabs</title><link>https://www.xlabs.club/</link><description>Recent content in 卫星实验室 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Mon, 25 Nov 2024 22:57:58 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://www.xlabs.club/docs/cloud/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/cloud/introduction/</guid><description>&lt;p>云原生技术探索。&lt;/p></description></item><item><title>Introduction</title><link>https://www.xlabs.club/docs/guides/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/guides/introduction/</guid><description>&lt;p>卫星实验室，一个专注于技术创新的开源组织。&lt;/p>
 &lt;p>此项目为卫星实验室主页 &lt;a href="https://www.xlabs.club" target="_blank" rel="noopener">xlabs.club&lt;/a>
  的源码，在这里将分享我们的平台工程实践经验，介绍如何以技术驱动业务长期发展和高速增长。&lt;/p>
 &lt;p>欢迎提交 PR 进行开源共建。&lt;/p>
@@ -288,7 +288,8 @@ C4Context
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
-&lt;p>以下为 OAuth2 Proxy 和 Pomerium 的简单对比。&lt;/p></description></item><item><title>AI 网站导航</title><link>https://www.xlabs.club/docs/ai/introduction/</link><pubDate>Sun, 24 Nov 2024 16:44:35 +0800</pubDate><guid>https://www.xlabs.club/docs/ai/introduction/</guid><description>&lt;p>主流 AI 编码工具和网站导航指南，包括代码补全、对话式助手、代码转换、代码审查、图像生成、音视频生成等多种工具，此网页由 AI 自动生成和更新，请注意甄别。&lt;/p>
+&lt;p>以下为 OAuth2 Proxy 和 Pomerium 的简单对比。&lt;/p></description></item><item><title>AI 网站导航</title><link>https://www.xlabs.club/docs/ai/introduction/</link><pubDate>Sun, 24 Nov 2024 16:44:35 +0800</pubDate><guid>https://www.xlabs.club/docs/ai/introduction/</guid><description>&lt;p>主流 AI 编码工具和网站导航指南，包括代码补全、对话式助手、代码转换、代码审查、图像生成、音视频生成等多种工具。&lt;/p>
+&lt;p>此网页内容由 AI 自动生成并更新，请注意甄别。&lt;/p>
 &lt;h2 id="ai-编程工具">AI 编程工具&lt;/h2>
 &lt;h3 id="代码补全类">代码补全类&lt;/h3>
 &lt;ul>
