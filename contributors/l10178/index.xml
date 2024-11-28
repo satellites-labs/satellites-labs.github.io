@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Mon, 25 Nov 2024 23:04:05 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>AI 网站导航</title><link>https://www.xlabs.club/docs/ai/introduction/</link><pubDate>Sun, 24 Nov 2024 16:44:35 +0800</pubDate><guid>https://www.xlabs.club/docs/ai/introduction/</guid><description>&lt;p>主流 AI 编码工具和网站导航指南，包括代码补全、对话式助手、代码转换、代码审查、图像生成、音视频生成等多种工具。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Thu, 28 Nov 2024 23:01:02 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>AI 网站导航</title><link>https://www.xlabs.club/docs/ai/introduction/</link><pubDate>Sun, 24 Nov 2024 16:44:35 +0800</pubDate><guid>https://www.xlabs.club/docs/ai/introduction/</guid><description>&lt;p>主流 AI 编码工具和网站导航指南，包括代码补全、对话式助手、代码转换、代码审查、图像生成、音视频生成等多种工具。&lt;/p>
 &lt;p>此网页内容由 AI 自动生成并更新，请注意甄别。&lt;/p>
 &lt;h2 id="ai-编程工具">AI 编程工具&lt;/h2>
 &lt;h3 id="代码补全类">代码补全类&lt;/h3>
@@ -1323,10 +1323,10 @@
 &lt;p>如果你有类似以下的需求，都可以参考此文档，原理是一样的，组件也可复用。&lt;/p>
 &lt;ol>
 &lt;li>为原本没有登录验证的服务提供认证服务，比如某些开源组件不支持认证但是又因携带一些危险数据而不想公开访问。&lt;/li>
-&lt;li>实现统一的单点登录认证、并支持简单的 RBAC、UBAC 鉴权。&lt;/li>
+&lt;li>实现统一的单点登录 SSO、并支持简单的 RBAC、UBAC 鉴权。&lt;/li>
 &lt;li>为 Kubernetus Traefik Nginx Ingress 提供统一的认证入口，一键实现所有入口必须登录才可访问。&lt;/li>
 &lt;li>配置 Traefik 使用 Forward Auth，Nginx 使用 auth_request 实现认证，也可以一并参考。&lt;/li>
-&lt;li>基于用户、角色等不同属性，路由到不同服务。&lt;/li>
+&lt;li>在 K8S 或应用网关，基于用户、角色等不同属性，路由到不同服务。&lt;/li>
 &lt;li>如果你凑巧也在用 &lt;a href="https://backstage.io/" target="_blank" rel="noopener">Backstage&lt;/a>
 ，请参考 &lt;a href="https://www.xlabs.club/blog/backstage-oauth2-proxy-keycloak/" target="_blank" rel="noopener">另一篇博客&lt;/a>
 。&lt;/li>
@@ -1344,14 +1344,14 @@
 &lt;h2 id="组件介绍">组件介绍&lt;/h2>
 &lt;ol>
 &lt;li>
-&lt;p>Keycloak
-Keycloak 是一个开源的身份和访问管理解决方案，支持 OAuth 2.0、OpenID Connect、SAML 等协议。它提供用户管理、角色管理、单点登录（SSO）、身份提供服务等功能，在本示例中担任 Auth Provider 角色。关于 Keycloak 的中文介绍，可参考本站单独的博客 &lt;a href="https://idaas.xlabs.club/" target="_blank" rel="noopener">IDaaS Book&lt;/a>
+&lt;p>Keycloak&lt;/p>
+&lt;p>Keycloak 是一个开源的身份和访问管理解决方案，支持 OAuth 2.0、OpenID Connect、SAML 等协议。它提供用户管理、角色管理、单点登录（SSO）、身份提供服务等功能，在本示例中担任 Auth Provider 角色。关于 Keycloak 的中文介绍，可参考本站单独的博客 &lt;a href="https://idaas.xlabs.club/" target="_blank" rel="noopener">IDaaS Book&lt;/a>
 。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>&lt;a href="https://oauth2-proxy.github.io/oauth2-proxy/" target="_blank" rel="noopener">oauth2-proxy&lt;/a>
-
-顾名思义它是一个关于 oauth 反向代理，主要用来为后端服务增加身份验证层。它支持多种 OAuth 2.0 提供者（如 Google、OIDC、Keycloak 等），可以保护未提供身份验证的应用。oauth2-proxy 在请求进入后端服务之前，会先进行 OAuth 2.0 登录认证，确保请求者具有访问权限。它承担了登录的合法性校验、重定向、登录成功后的 cookie、response 设置等功能。&lt;/p></description></item><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
+&lt;/p>
+&lt;p>顾名思义它是一个关于 oauth 反向代理，主要用来为后端服务增加身份验证层。它支持多种 OAuth 2.0 提供者（如 Google、OIDC、Keycloak 等），可以保护未提供身份验证的应用。oauth2-proxy 在请求进入后端服务之前，会先进行 OAuth 2.0 登录认证，确保请求者具有访问权限。它承担了登录的合法性校验、重定向、登录成功后的 cookie、response 设置等功能。&lt;/p></description></item><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
 &lt;p>顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：&lt;/p>
 &lt;ul>
 &lt;li>模块化开发、部署、资源共享的能力，减少 Cache、Class 等资源占用，有效降低内存占用。&lt;/li>

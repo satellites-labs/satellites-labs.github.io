@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Idaas on XLabs</title><link>https://www.xlabs.club/categories/idaas/</link><description>Recent content in Idaas on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Mon, 25 Nov 2024 23:04:05 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/categories/idaas/index.xml" rel="self" type="application/rss+xml"/><item><title>Backstage 集成 oauth2-proxy 和 Keycloak，实现用户管理、登录认证以及 RBAC、ABAC 授权</title><link>https://www.xlabs.club/blog/backstage-keycloak-oauth2-proxy/</link><pubDate>Sat, 16 Nov 2024 16:55:26 +0800</pubDate><guid>https://www.xlabs.club/blog/backstage-keycloak-oauth2-proxy/</guid><description>&lt;p>基于 K8S 部署 Backstage，集成 oauth2-proxy 和 Keycloak，实现用户管理、认证和授权，配置详解和原理介绍。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Idaas on XLabs</title><link>https://www.xlabs.club/categories/idaas/</link><description>Recent content in Idaas on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Thu, 28 Nov 2024 23:01:02 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/categories/idaas/index.xml" rel="self" type="application/rss+xml"/><item><title>Backstage 集成 oauth2-proxy 和 Keycloak，实现用户管理、登录认证以及 RBAC、ABAC 授权</title><link>https://www.xlabs.club/blog/backstage-keycloak-oauth2-proxy/</link><pubDate>Sat, 16 Nov 2024 16:55:26 +0800</pubDate><guid>https://www.xlabs.club/blog/backstage-keycloak-oauth2-proxy/</guid><description>&lt;p>基于 K8S 部署 Backstage，集成 oauth2-proxy 和 Keycloak，实现用户管理、认证和授权，配置详解和原理介绍。&lt;/p>
 &lt;p>如果你遇到以下问题或诉求，可以参考此文档。&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://backstage.io/" target="_blank" rel="noopener">Backstage&lt;/a>
@@ -44,10 +44,10 @@
 &lt;p>如果你有类似以下的需求，都可以参考此文档，原理是一样的，组件也可复用。&lt;/p>
 &lt;ol>
 &lt;li>为原本没有登录验证的服务提供认证服务，比如某些开源组件不支持认证但是又因携带一些危险数据而不想公开访问。&lt;/li>
-&lt;li>实现统一的单点登录认证、并支持简单的 RBAC、UBAC 鉴权。&lt;/li>
+&lt;li>实现统一的单点登录 SSO、并支持简单的 RBAC、UBAC 鉴权。&lt;/li>
 &lt;li>为 Kubernetus Traefik Nginx Ingress 提供统一的认证入口，一键实现所有入口必须登录才可访问。&lt;/li>
 &lt;li>配置 Traefik 使用 Forward Auth，Nginx 使用 auth_request 实现认证，也可以一并参考。&lt;/li>
-&lt;li>基于用户、角色等不同属性，路由到不同服务。&lt;/li>
+&lt;li>在 K8S 或应用网关，基于用户、角色等不同属性，路由到不同服务。&lt;/li>
 &lt;li>如果你凑巧也在用 &lt;a href="https://backstage.io/" target="_blank" rel="noopener">Backstage&lt;/a>
 ，请参考 &lt;a href="https://www.xlabs.club/blog/backstage-oauth2-proxy-keycloak/" target="_blank" rel="noopener">另一篇博客&lt;/a>
 。&lt;/li>
@@ -65,11 +65,11 @@
 &lt;h2 id="组件介绍">组件介绍&lt;/h2>
 &lt;ol>
 &lt;li>
-&lt;p>Keycloak
-Keycloak 是一个开源的身份和访问管理解决方案，支持 OAuth 2.0、OpenID Connect、SAML 等协议。它提供用户管理、角色管理、单点登录（SSO）、身份提供服务等功能，在本示例中担任 Auth Provider 角色。关于 Keycloak 的中文介绍，可参考本站单独的博客 &lt;a href="https://idaas.xlabs.club/" target="_blank" rel="noopener">IDaaS Book&lt;/a>
+&lt;p>Keycloak&lt;/p>
+&lt;p>Keycloak 是一个开源的身份和访问管理解决方案，支持 OAuth 2.0、OpenID Connect、SAML 等协议。它提供用户管理、角色管理、单点登录（SSO）、身份提供服务等功能，在本示例中担任 Auth Provider 角色。关于 Keycloak 的中文介绍，可参考本站单独的博客 &lt;a href="https://idaas.xlabs.club/" target="_blank" rel="noopener">IDaaS Book&lt;/a>
 。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>&lt;a href="https://oauth2-proxy.github.io/oauth2-proxy/" target="_blank" rel="noopener">oauth2-proxy&lt;/a>
-
-顾名思义它是一个关于 oauth 反向代理，主要用来为后端服务增加身份验证层。它支持多种 OAuth 2.0 提供者（如 Google、OIDC、Keycloak 等），可以保护未提供身份验证的应用。oauth2-proxy 在请求进入后端服务之前，会先进行 OAuth 2.0 登录认证，确保请求者具有访问权限。它承担了登录的合法性校验、重定向、登录成功后的 cookie、response 设置等功能。&lt;/p></description></item></channel></rss>
+&lt;/p>
+&lt;p>顾名思义它是一个关于 oauth 反向代理，主要用来为后端服务增加身份验证层。它支持多种 OAuth 2.0 提供者（如 Google、OIDC、Keycloak 等），可以保护未提供身份验证的应用。oauth2-proxy 在请求进入后端服务之前，会先进行 OAuth 2.0 登录认证，确保请求者具有访问权限。它承担了登录的合法性校验、重定向、登录成功后的 cookie、response 设置等功能。&lt;/p></description></item></channel></rss>
