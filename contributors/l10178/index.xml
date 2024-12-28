@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 28 Dec 2024 16:22:25 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>AI 网站导航</title><link>https://www.xlabs.club/docs/ai/introduction/</link><pubDate>Sun, 24 Nov 2024 16:44:35 +0800</pubDate><guid>https://www.xlabs.club/docs/ai/introduction/</guid><description>&lt;p>主流 AI 编码工具和网站导航指南，包括代码补全、对话式助手、代码转换、代码审查、图像生成、音视频生成等多种工具。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L10178 on XLabs</title><link>https://www.xlabs.club/contributors/l10178/</link><description>Recent content in L10178 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sat, 28 Dec 2024 17:17:03 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/contributors/l10178/index.xml" rel="self" type="application/rss+xml"/><item><title>AI 网站导航</title><link>https://www.xlabs.club/docs/ai/introduction/</link><pubDate>Sun, 24 Nov 2024 16:44:35 +0800</pubDate><guid>https://www.xlabs.club/docs/ai/introduction/</guid><description>&lt;p>主流 AI 编码工具和网站导航指南，包括代码补全、对话式助手、代码转换、代码审查、图像生成、音视频生成等多种工具。&lt;/p>
 &lt;p>此网页内容由 AI 自动生成并更新，请注意甄别。&lt;/p>
 &lt;h2 id="ai-编程工具">AI 编程工具&lt;/h2>
 &lt;h3 id="代码补全类">代码补全类&lt;/h3>
@@ -1578,10 +1578,10 @@
 &lt;li>
 &lt;p>&lt;a href="https://lima-vm.io/" target="_blank" rel="noopener">lima&lt;/a>
  启动虚拟机，然后安装 K8S、K3S 或 minikube。&lt;/p>
-&lt;p>优点：支持虚拟多种 Linux 发行版，支持异构 CPU 虚拟机，同时能代替 Docker Desktop。&lt;/p></description></item><item><title>K8S Tomcat 服务长连接负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>&lt;p>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上，很不均衡。&lt;/p>
+&lt;p>优点：支持虚拟多种 Linux 发行版，支持异构 CPU 虚拟机，同时能代替 Docker Desktop。&lt;/p></description></item><item><title>K8S Service 长连接导致负载不均衡问题分析和解决办法</title><link>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</link><pubDate>Thu, 11 Apr 2024 21:05:46 +0800</pubDate><guid>https://www.xlabs.club/blog/tomcat-keepalive-load-balancer/</guid><description>&lt;p>问题背景，我们有一个 Http 服务在 K8S 内部署了 3 个 Pod，客户端使用 Service NodePort 进行连接，发现流量几乎都集中到了一个 Pod 上，各 Pod 承载流量很不均衡。&lt;/p>
 &lt;p>已知的情况是：&lt;/p>
 &lt;ol>
-&lt;li>K8S Service 使用 round-robin 负载均衡策略。&lt;/li>
+&lt;li>K8S Service 底层是 ipvs round-robin 负载均衡策略，按道理讲应该是均衡的。&lt;/li>
 &lt;li>客户端和服务端都启用了 Keep-Alive 长连接。&lt;/li>
 &lt;/ol>
 &lt;p>经过抓包分析，负载较高的 Pod 保持着较多 KeepAlive 长连接。将 kube-proxy 的 ipvs 转发模式设置为 Least-Connection，即倾向转发给连接数少的 Pod，可能会有所缓解，但也不一定，因为 ipvs 的负载均衡状态是分散在各个节点的，并没有收敛到一个地方，也就无法在全局层面感知哪个 Pod 上的连接数少，并不能真正做到 Least-Connection。&lt;/p>
@@ -1604,7 +1604,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">server.netty.max-keep-alive-requests&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">100&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
  &lt;/figure>
 &lt;/div>
-&lt;p>对于独立部署 Tomcat，可在 server.xml 文件 Connector 中配置 maxKeepAliveRequests，Tomcat xml 可解析启动参数，启动时增加 &lt;code>-D=server.tomcat.max-keep-alive-requests=200&lt;/code> 来调整默认值大小，另外注意，Tomcat xml 不支持解析 ENV 变量。&lt;/p></description></item><item><title>MacOS 持久化配置，彻底解决 too many open files in system 的问题</title><link>https://www.xlabs.club/blog/macos-too-many-open-files/</link><pubDate>Tue, 19 Mar 2024 23:05:07 +0800</pubDate><guid>https://www.xlabs.club/blog/macos-too-many-open-files/</guid><description>&lt;p>作为一个开发者，经常在 MacOS 遇到 Too many open files in system 的报错，尤其是碰到黑洞 node_modules 时，如何持久化配置彻底解决，直接上代码。&lt;/p>
+&lt;p>对于独立部署 Tomcat，可在 server.xml 文件 Connector 中配置 maxKeepAliveRequests，Tomcat xml 可解析启动参数，启动时增加 &lt;code>-D=server.tomcat.max-keep-alive-requests=200&lt;/code> 来调整默认值大小，另外注意，Tomcat xml 不支持解析 ENV 环境变量，只支持解析 &lt;code>-D&lt;/code> 启动参数。&lt;/p></description></item><item><title>MacOS 持久化配置，彻底解决 too many open files in system 的问题</title><link>https://www.xlabs.club/blog/macos-too-many-open-files/</link><pubDate>Tue, 19 Mar 2024 23:05:07 +0800</pubDate><guid>https://www.xlabs.club/blog/macos-too-many-open-files/</guid><description>&lt;p>作为一个开发者，经常在 MacOS 遇到 Too many open files in system 的报错，尤其是碰到黑洞 node_modules 时，如何持久化配置彻底解决，直接上代码。&lt;/p>
 &lt;p>输入 launchctl limit 即可看到当前的限制，我这里 maxfiles 是改过以后的。&lt;/p>
 
 
