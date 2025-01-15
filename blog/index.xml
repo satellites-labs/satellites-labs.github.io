@@ -189,12 +189,13 @@
 &lt;h2 id="dockerfile-编写小技巧">Dockerfile 编写小技巧&lt;/h2>
 &lt;ul>
 &lt;li>
-&lt;p>使用 Heredocs 语法代替又长又臭的字符串拼接，当然 Heredocs 支持更多功能比如 run python、多文件内容拷贝，具体请参考官方文档。&lt;/p></description></item><item><title>从 Java 8 升级到 Java 23，踩坑记录、变更评估方法、辅助工具介绍</title><link>https://www.xlabs.club/blog/migrating-java8-to-java23/</link><pubDate>Thu, 23 May 2024 21:03:11 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-java8-to-java23/</guid><description>&lt;h2 id="破坏性变更评估">破坏性变更评估&lt;/h2>
+&lt;p>使用 Heredocs 语法代替又长又臭的字符串拼接，当然 Heredocs 支持更多功能比如 run python、多文件内容拷贝，具体请参考官方文档。&lt;/p></description></item><item><title>从 Java 8 升级到 Java 23，踩坑记录、变更评估方法、辅助工具介绍</title><link>https://www.xlabs.club/blog/migrating-java8-to-java23/</link><pubDate>Thu, 23 May 2024 21:03:11 +0800</pubDate><guid>https://www.xlabs.club/blog/migrating-java8-to-java23/</guid><description>&lt;h2 id="破坏性变更评估工具">破坏性变更评估工具&lt;/h2>
 &lt;p>在升级之前，可通过 jdeps 和 jdeprscan 先评估下是否有使用内部类和废弃 API，有一个总的概览。&lt;/p>
+&lt;h3 id="jdeps">jdeps&lt;/h3>
 &lt;p>jdeps 是 Java 自带的命令行工具，可以用来分析依赖关系和生成模块信息文件，这里我们只借用他的其中一项功能。&lt;/p>
 &lt;p>通过 &lt;code>jdeps --jdk-internals&lt;/code> 检查是否有使用内部 API，以下例子显示使用了 &lt;code>sun.net.util.IPAddressUtil&lt;/code> 这个 Java 内部工具类，会显示详细的源码类和 jar 包位置。&lt;/p>
-&lt;p>可以继续使用 Java 中的内部 API，OpenJDK Wiki 页面 &lt;a href="https://wiki.openjdk.org/display/JDK8/Java&amp;#43;Dependency&amp;#43;Analysis&amp;#43;Tool" target="_blank" rel="noopener">Java Dependency Analysis Tool&lt;/a>
- 推荐了某些常用 JDK 内部 API 的替换项。&lt;/p>
+&lt;p>可以继续使用 Java 中的内部 API，另外 OpenJDK Wiki 页面 &lt;a href="https://wiki.openjdk.org/display/JDK8/Java&amp;#43;Dependency&amp;#43;Analysis&amp;#43;Tool" target="_blank" rel="noopener">Java Dependency Analysis Tool&lt;/a>
+ 推荐了某些常用 JDK 内部 API 的替换项，可参考这些建议替换掉。&lt;/p>
 
 
 
@@ -206,9 +207,9 @@
  &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-console" data-lang="console">&lt;span class="line">&lt;span class="cl">&lt;span class="err">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="gp">$&lt;/span> jdeps -dotoutput &amp;lt;dot-file-dir&amp;gt; -jdkinternals &amp;lt;one-or-more-jar-files....&amp;gt;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="gp">$&lt;/span> jdeps --jdk-internals --multi-release &lt;span class="m">21&lt;/span> --class-path . target/*.jar
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="gp">$&lt;/span> jdeps --jdk-internals --multi-release &lt;span class="m">21&lt;/span> --class-path . target/xxx.jar
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">. -&amp;gt; java.base
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go"> com.my.package.function.SecurityChecker -&amp;gt; sun.net.util.IPAddressUtil JDK internal API (java.base)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go"> com.my.SecurityChecker -&amp;gt; sun.net.util.IPAddressUtil JDK internal API (java.base)
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">&lt;/span>&lt;span class="err">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="go">Warning: JDK internal APIs are unsupported and private to JDK implementation that are
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="go">subject to be removed or changed incompatibly and could break your application.
@@ -218,6 +219,7 @@
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
  &lt;/figure>
 &lt;/div>
+&lt;h3 id="jdeprscan">jdeprscan&lt;/h3>
 &lt;p>jdeprscan 也是 Java 自带分析工具，可查看是否使用了已弃用或已删除的 API。使用已弃用的 API 不是阻塞性问题，还能接着跑，但是建议替换掉。使用已删除的 API，那就彻底跑不起来了。&lt;/p></description></item><item><title>使用 Pulumi 部署 cert-manager 创建 K8S 自签名证书并信任证书</title><link>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</link><pubDate>Mon, 29 Apr 2024 21:49:22 +0800</pubDate><guid>https://www.xlabs.club/blog/trust-cert-manager-selfsigned-tls/</guid><description>&lt;p>在搭建本地 Kubernetus 集群后，由于环境在内网，做不了域名验证，无法使用 Let&amp;rsquo;s Encrypt 颁发和自动更新证书，然而很多应用要求必须启用 HTTPS，只能用自签名 CA 证书，并由此 CA 继续颁发其他证书。&lt;/p>
 &lt;p>所以我们准备了以下工具，开始搭建。&lt;/p>
 &lt;ul>
