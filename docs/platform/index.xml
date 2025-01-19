@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>平台工程 on XLabs</title><link>https://www.xlabs.club/docs/platform/</link><description>Recent content in 平台工程 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Wed, 15 Jan 2025 20:57:11 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/docs/platform/index.xml" rel="self" type="application/rss+xml"/><item><title>总体架构</title><link>https://www.xlabs.club/docs/platform/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/platform/introduction/</guid><description>&lt;p>我们的平台工程建设之路，介绍前期方案设计、中间踩坑历程。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>平台工程 on XLabs</title><link>https://www.xlabs.club/docs/platform/</link><description>Recent content in 平台工程 on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 19 Jan 2025 17:58:58 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/docs/platform/index.xml" rel="self" type="application/rss+xml"/><item><title>总体架构</title><link>https://www.xlabs.club/docs/platform/introduction/</link><pubDate>Thu, 07 Sep 2023 16:04:48 +0200</pubDate><guid>https://www.xlabs.club/docs/platform/introduction/</guid><description>&lt;p>我们的平台工程建设之路，介绍前期方案设计、中间踩坑历程。&lt;/p>
 &lt;h2 id="原则">原则&lt;/h2>
 &lt;p>分享我们平台工程建设的一些基本原则。&lt;/p>
 &lt;ol>
@@ -152,6 +152,9 @@ C4Context
 &lt;li>Backstage 社区插件：&lt;a href="https://github.com/backstage/community-plugins" target="_blank" rel="noopener">https://github.com/backstage/community-plugins&lt;/a>
 &lt;/li>
 &lt;li>Red Hat 贡献的社区插件：&lt;a href="https://github.com/janus-idp/backstage-plugins" target="_blank" rel="noopener">https://github.com/janus-idp/backstage-plugins&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://roadie.io/" target="_blank" rel="noopener">Roadie&lt;/a>
+ 贡献的插件：&lt;a href="https://github.com/RoadieHQ/roadie-backstage-plugins" target="_blank" rel="noopener">https://github.com/RoadieHQ/roadie-backstage-plugins&lt;/a>
 &lt;/li>
 &lt;/ul></description></item><item><title>智能代码重构</title><link>https://www.xlabs.club/docs/platform/smart-code/</link><pubDate>Tue, 09 Jan 2024 22:08:54 +0800</pubDate><guid>https://www.xlabs.club/docs/platform/smart-code/</guid><description>&lt;p>作为一个以 Java 和 Spring 为主要技术栈的团队，在日常的软件开发中，我们经常会遇到一系列的组件升级和代码重构需求，在此过程我们期望能做到几个效果：&lt;/p>
 &lt;ul>
