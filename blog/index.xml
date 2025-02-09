@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 19 Jan 2025 17:58:58 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Spring Security 集成 Keycloak 实现用户 RBAC、ABAC 授权</title><link>https://www.xlabs.club/blog/spring-security-with-keycloak-oauth2/</link><pubDate>Sun, 24 Nov 2024 16:44:35 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-security-with-keycloak-oauth2/</guid><description>&lt;p>使用 Spring Security Resource Server 和 Keycloak，实现用户 RBAC、ABAC 授权，主要介绍：&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on XLabs</title><link>https://www.xlabs.club/blog/</link><description>Recent content in Blog on XLabs</description><generator>Hugo</generator><language>zh</language><copyright>Copyright (c) 2020-2024 XLabs Club</copyright><lastBuildDate>Sun, 09 Feb 2025 11:25:54 +0800</lastBuildDate><atom:link href="https://www.xlabs.club/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Spring Security 集成 Keycloak 实现用户 RBAC、ABAC 授权</title><link>https://www.xlabs.club/blog/spring-security-with-keycloak-oauth2/</link><pubDate>Sun, 24 Nov 2024 16:44:35 +0800</pubDate><guid>https://www.xlabs.club/blog/spring-security-with-keycloak-oauth2/</guid><description>&lt;p>使用 Spring Security Resource Server 和 Keycloak，实现用户 RBAC、ABAC 授权，主要介绍：&lt;/p>
 &lt;ol>
 &lt;li>Spring Security Resource Server 如何与标准 OAuth2 协议集成。&lt;/li>
 &lt;li>Spring Security Resource Server 如何与 Keycloak Authorization Server 集成。&lt;/li>
@@ -87,8 +87,8 @@
 &lt;p>&lt;a href="https://oauth2-proxy.github.io/oauth2-proxy/" target="_blank" rel="noopener">oauth2-proxy&lt;/a>
 &lt;/p>
 &lt;p>顾名思义它是一个关于 oauth 反向代理，主要用来为后端服务增加身份验证层。它支持多种 OAuth 2.0 提供者（如 Google、OIDC、Keycloak 等），可以保护未提供身份验证的应用。oauth2-proxy 在请求进入后端服务之前，会先进行 OAuth 2.0 登录认证，确保请求者具有访问权限。它承担了登录的合法性校验、重定向、登录成功后的 cookie、response 设置等功能。&lt;/p></description></item><item><title>卫星实验室友情链接</title><link>https://www.xlabs.club/blog/xlabs-link-exchange/</link><pubDate>Thu, 26 Sep 2024 09:27:42 +0800</pubDate><guid>https://www.xlabs.club/blog/xlabs-link-exchange/</guid><description>&lt;p>在建设本博客的过程中，发现了一些优秀的开发工具、有趣原创的独立博客，以及独立发布的良心开源产品，我觉得有必要把他们展示出来。&lt;/p>
-&lt;p>如有侵权，请提 issue，如有推荐，请到 &lt;a href="https://github.com/xlabs-club/xlabs-club.github.io" target="_blank" rel="noopener">GitHub&lt;/a>
- 提交 PR。&lt;/p>
+&lt;p>如有侵权，请提 issue，如有推荐，请到我们的 &lt;a href="https://github.com/xlabs-club/xlabs-club.github.io" target="_blank" rel="noopener">GitHub&lt;/a>
+ 仓库提交 pull requests。&lt;/p>
 &lt;h2 id="在线工具">在线工具&lt;/h2>
 &lt;ul>
 &lt;li>IT Tools，研发人员常用 JSON/时间戳/数学/加密 等等各种在线生成和转换工具：&lt;a href="https://it-tools.tech" target="_blank" rel="noopener">https://it-tools.tech&lt;/a>
@@ -102,7 +102,7 @@
 。&lt;/li>
 &lt;/ul>
 &lt;h2 id="独立产品">独立产品&lt;/h2>
-&lt;p>To DO.&lt;/p></description></item><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
+&lt;p>Coming Soon&amp;hellip;&lt;/p></description></item><item><title>Koupleless 试用报告总结，踩坑记录分享</title><link>https://www.xlabs.club/blog/koupleless-first-boot/</link><pubDate>Mon, 27 May 2024 14:20:24 +0800</pubDate><guid>https://www.xlabs.club/blog/koupleless-first-boot/</guid><description>&lt;p>我们公司的主要应用都是以 Java 作为开发语言，这几年随着业务的高速增长，应用数目越来越多，CPU 内存资源占用越来越多，项目组之间开发合作效率也越来越低。&lt;/p>
 &lt;p>顺应这个时代降本增效的目的，我们希望寻找一个能解决当前几个核心问题的框架：&lt;/p>
 &lt;ul>
 &lt;li>模块化开发、部署、资源共享的能力，减少 Cache、Class 等资源占用，有效降低内存占用。&lt;/li>
